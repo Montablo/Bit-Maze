@@ -4,7 +4,7 @@
 //
 //  Created by Jack on 3/25/14.
 //  Copyright (c) 2014 Montablo Games. All rights reserved.
-//adfdf
+//
 
 #import <UIKit/UIKit.h>
 
