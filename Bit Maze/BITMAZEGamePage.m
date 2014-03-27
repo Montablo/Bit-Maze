@@ -30,6 +30,8 @@
         NSLog(@"%@", patterns);
         
         [self generateGrid];
+        
+        [self updateScreen];
     }
     return self;
 }
@@ -66,9 +68,7 @@
         } else if(patternHasStarted) {
             [patterns[patternNumber] addObject: [NSMutableArray array]];
             for(int j=0; j<[allLinedStrings[i] length]; j++) {
-                NSString * currentChar = [allLinedStrings[i] substringWithRange:NSMakeRange(j, 1)];
-                
-                //NSNumber* value = [NSNumber numberWithInt: (int) allLinedStrings[i][j]];
+                NSString* currentChar = [allLinedStrings[i] substringWithRange:NSMakeRange(j, 1)];
                 
                 [patterns[patternNumber][rowNumber] addObject: currentChar];
             }
@@ -79,8 +79,26 @@
     }
 }
 
--(void) generateGrid {
-    while(gameGrid.count < 52) {
+-(void) updateScreen { //adds the board to the screen
+    
+    float x = 0;
+    float y = 0;
+    
+    for(int i=0; i<gameGrid.count; i++) {
+        for(int j=0; j<gameGrid[i]; j++) {
+            NSString* type = gameGrid[i][j];
+            
+            
+            
+            if([type isEqual : @"1"]) { //wall
+                
+            }
+        }
+    }
+}
+
+-(void) generateGrid { //a method that can be used for initial board generation and in game generation
+    while(gameGrid.count < NUM_ROWS) {
         
         if(!inPattern) {
             
