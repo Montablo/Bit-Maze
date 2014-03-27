@@ -35,7 +35,7 @@ static int NUM_COLUMNS = 40;
         
         [self generateGrid];
         
-        [self updateScreen];
+        //[self updateScreen];
     }
     return self;
 }
