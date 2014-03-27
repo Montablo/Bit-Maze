@@ -31,13 +31,18 @@ static int NUM_COLUMNS = 40;
         
         [self initializePatterns];
         
-        NSLog(@"%@", patterns);
-        
         [self generateGrid];
         
-        //[self updateScreen];
+        [self startGame];
+        
+        [self updateScreen];
     }
     return self;
+}
+
+-(void) startGame {
+    NSLog(@"Game is starting.");
+    //gameGrid[0][19] = @"2";
 }
 
 -(void) initializePatterns {
@@ -89,14 +94,44 @@ static int NUM_COLUMNS = 40;
     float y = 0;
     
     for(int i=0; i<gameGrid.count; i++) {
-        for(int j=0; j<gameGrid[i]; j++) {
+        
+        NSMutableArray* currentRow = gameGrid[i];
+        
+        for(int j=0; j<currentRow.count; j++) {
             NSString* type = gameGrid[i][j];
             
+            SKSpriteNode* image;
+            NSLog(@"%f", [UIScreen mainScreen].bounds.size.width);
+            float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
+            float height = [UIScreen mainScreen].bounds.size.height / NUM_ROWS;
             
+            x += width;
+            y += height;
             
             if([type isEqual : @"1"]) { //wall
                 
+                NSLog(@"It's a wall!");
+                
+                image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
+                
+            } else if([type isEqual : @"2"]) { //player
+                
+                image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
+                
+            } else {
+                continue;
             }
+            
+            CGPoint location = CGPointMake(x, y);
+            
+            CGSize size = CGSizeMake(width, height);
+            
+            image.size = size;
+            
+            image.position = location;
+            
+            [self addChild:image];
+            
         }
     }
 }
@@ -111,22 +146,32 @@ static int NUM_COLUMNS = 40;
             currentPatternRow = 0;
             numberOfPatternsUsed ++;
             
-        }
-        
-        NSMutableArray* currentPattern = patterns[currentPatternNumber];
-        
-        NSMutableArray* nextRow = currentPattern[currentPatternRow];
-        
-        [gameGrid addObject : nextRow];
-        
-        
-        
-        if(currentPatternRow == currentPattern.count - 1) { //it was the last row
-            inPattern = NO;
+            NSArray* spaceRow = @[@"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0",];
+            
+            [gameGrid addObject : spaceRow];
+            
+            
         } else {
-            currentPatternRow ++;
-        }
         
+            NSMutableArray* currentPattern = patterns[currentPatternNumber];
+            
+            NSMutableArray* nextRow = currentPattern[currentPatternRow];
+            
+            if(gameGrid.count == 0) {
+                nextRow[NUM_COLUMNS / 2 + 1] = @"2";
+            }
+            
+            [gameGrid addObject : nextRow];
+            
+            
+            
+            if(currentPatternRow == currentPattern.count - 1) { //it was the last row
+                inPattern = NO;
+            } else {
+                currentPatternRow ++;
+            }
+        
+        }
         
     }
 }
