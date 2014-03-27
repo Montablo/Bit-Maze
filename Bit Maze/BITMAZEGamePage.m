@@ -24,10 +24,10 @@ static int NUM_COLUMNS = 40;
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
-        SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
-        bit.position = CGPointMake(CGRectGetMidX(self.frame), 100);
+        //SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
+        //bit.position = CGPointMake(CGRectGetMidX(self.frame), 100);
         
-        [self addChild:bit];
+        //[self addChild:bit];
         
         [self initializePatterns];
         
@@ -90,23 +90,26 @@ static int NUM_COLUMNS = 40;
 
 -(void) updateScreen { //adds the board to the screen
     
-    float x = 0;
+    float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
+    float height = [UIScreen mainScreen].bounds.size.height / NUM_ROWS;
+    
     float y = 0;
     
     for(int i=0; i<gameGrid.count; i++) {
         
+        float x = 0;
+        y += height;
+
         NSMutableArray* currentRow = gameGrid[i];
         
         for(int j=0; j<currentRow.count; j++) {
             NSString* type = gameGrid[i][j];
             
             SKSpriteNode* image;
-            NSLog(@"%f", [UIScreen mainScreen].bounds.size.width);
-            float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
-            float height = [UIScreen mainScreen].bounds.size.height / NUM_ROWS;
             
             x += width;
-            y += height;
+            
+            NSLog(@"X: %f Y: %f", x, y);
             
             if([type isEqual : @"1"]) { //wall
                 
@@ -132,8 +135,11 @@ static int NUM_COLUMNS = 40;
             
             [self addChild:image];
             
+            
         }
     }
+    
+    NSLog(@"Done");
 }
 
 -(void) generateGrid { //a method that can be used for initial board generation and in game generation
