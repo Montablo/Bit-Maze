@@ -149,7 +149,12 @@ static int BOTTOM_INDENT = 40;
             currentPatternRow = 0;
             numberOfPatternsUsed ++;
             
-            NSArray* spaceRow = @[@"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0",];
+            NSMutableArray* spaceRow = [NSMutableArray arrayWithObjects: @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", nil];
+            
+            
+            if(gameGrid.count == 0) {
+                spaceRow[NUM_COLUMNS / 2 - 1] = @"2";
+            }
             
             [gameGrid addObject : spaceRow];
             
@@ -160,7 +165,7 @@ static int BOTTOM_INDENT = 40;
             
             NSMutableArray* nextRow = currentPattern[currentPatternRow];
             
-            if(gameGrid.count == 1) {
+            if(gameGrid.count == 0) {
                 nextRow[NUM_COLUMNS / 2 - 1] = @"2";
             }
             
