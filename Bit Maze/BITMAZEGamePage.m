@@ -113,6 +113,8 @@
         
         [gameGrid addObject : nextRow];
         
+        currentPatternRow ++;
+        
     }
 }
 
