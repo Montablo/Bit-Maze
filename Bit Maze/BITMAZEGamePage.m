@@ -59,7 +59,7 @@
             
             patternHasStarted = NO;
             
-            patternNumber++;
+            patternNumber ++;
             
             rowNumber = 0;
 
@@ -73,14 +73,38 @@
                 [patterns[patternNumber][rowNumber] addObject: currentChar];
             }
             
-            rowNumber++;
+            rowNumber ++;
 
         }
     }
 }
 
 -(void) generateGrid {
+    while(gameGrid.count < 52) {
+        
+        NSMutableArray* nextRow = [NSMutableArray array];
+        if(!inPattern) {
+            
+            inPattern = YES;
+            currentPatternNumber = [self selectNewPatternNumber];
+            currentPatternRow = 0;
+            numberOfPatternsUsed ++;
+            
+        }
+        
+        [gameGrid addObjecyy]
+        
+    }
+}
+
+-(int) selectNewPatternNumber { //Generates a random pattern number, in the future may take frequency and starting number into considerasion
+    newPatternNumber = arc4random() % (patterns.count - 1);
     
+    if(patterns[newPatternNumber].count == 0) {
+        return [self selectNewPatternNumber];
+    }
+    
+    return newPatternNumber;
 }
 
 @end
