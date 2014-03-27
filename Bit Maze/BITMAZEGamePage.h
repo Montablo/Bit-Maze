@@ -18,6 +18,10 @@
     int currentPatternRow; //The next row to be generated
     
     int numberOfPatternsUsed; //The total number of patterns used
+
+    const int NUM_ROWS = 52;
+    const int NUM_COLUMNS = 40;
+
 }
 
 @end
