@@ -27,7 +27,9 @@
         
         [self initializePatterns];
         
-        [self initializeBoard];
+        NSLog(@"%@", patterns);
+        
+        [self generateGrid];
     }
     return self;
 }
@@ -72,7 +74,7 @@
     }
 }
 
--(void) initializeBoard {
+-(void) generateGrid {
     
 }
 
