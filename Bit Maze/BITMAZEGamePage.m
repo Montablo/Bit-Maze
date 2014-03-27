@@ -46,30 +46,35 @@
 
     BOOL patternHasStarted = NO;
     int patternNumber = 0;
+    int rowNumber = 0;
     
     for(int i=0; i<allLinedStrings.count; i++) {
         
-        if([allLinedStrings[i]  isEqual: @"START"]) {
+        if([allLinedStrings[i]  isEqual: @"START"]) { //if starting line, set up the array
             patternHasStarted = YES;
             
             [patterns addObject: [NSMutableArray array]];
             
-        } else if([allLinedStrings[i]  isEqual: @"END"]) {
+        } else if([allLinedStrings[i]  isEqual: @"END"]) { //if end, continue to next pattern
             
             patternHasStarted = NO;
             
             patternNumber++;
             
+            rowNumber = 0;
+
         } else if(patternHasStarted) {
-            
+            [patterns[patternNumber] addObject: [NSMutableArray array]];
             for(int j=0; j<[allLinedStrings[i] length]; j++) {
                 NSString * currentChar = [allLinedStrings[i] substringWithRange:NSMakeRange(j, 1)];
                 
                 //NSNumber* value = [NSNumber numberWithInt: (int) allLinedStrings[i][j]];
                 
-                [patterns[patternNumber] addObject: currentChar];
+                [patterns[patternNumber][rowNumber] addObject: currentChar];
             }
             
+            rowNumber++;
+
         }
     }
 }
