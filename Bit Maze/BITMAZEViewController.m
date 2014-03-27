@@ -7,7 +7,7 @@
 //
 
 #import "BITMAZEViewController.h"
-#import "BITMAZEMyScene.h"
+#import "BITMAZEHomePage.h"
 
 @implementation BITMAZEViewController
 
@@ -21,7 +21,7 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [BITMAZEMyScene sceneWithSize:skView.bounds.size];
+    SKScene * scene = [BITMAZEHomePage sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
