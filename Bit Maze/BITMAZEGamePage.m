@@ -82,7 +82,6 @@
 -(void) generateGrid {
     while(gameGrid.count < 52) {
         
-        NSMutableArray* nextRow = [NSMutableArray array];
         if(!inPattern) {
             
             inPattern = YES;
@@ -92,7 +91,9 @@
             
         }
         
-        [gameGrid addObjecyy]
+        NSMutableArray* nextRow = patterns[currentPatternNumber][currentPatternRow];
+        
+        [gameGrid addObject : nextRow];
         
     }
 }
