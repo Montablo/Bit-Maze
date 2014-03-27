@@ -12,6 +12,8 @@
 
 static int NUM_ROWS = 52;
 static int NUM_COLUMNS = 40;
+static int TOP_INDENT = 40;
+static int BOTTOM_INDENT = 40;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -41,7 +43,6 @@ static int NUM_COLUMNS = 40;
 }
 
 -(void) startGame {
-    NSLog(@"Game is starting.");
     //gameGrid[0][19] = @"2";
 }
 
@@ -91,9 +92,9 @@ static int NUM_COLUMNS = 40;
 -(void) updateScreen { //adds the board to the screen
     
     float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
-    float height = [UIScreen mainScreen].bounds.size.height / NUM_ROWS;
+    float height = ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS ;
     
-    float y = 0;
+    float y = BOTTOM_INDENT;
     
     for(int i=0; i<gameGrid.count; i++) {
         
@@ -109,16 +110,14 @@ static int NUM_COLUMNS = 40;
             
             x += width;
             
-            NSLog(@"X: %f Y: %f", x, y);
-            
             if([type isEqual : @"1"]) { //wall
-                
-                NSLog(@"It's a wall!");
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
                 
             } else if([type isEqual : @"2"]) { //player
                 
+                
+                NSLog(@"I: %i J: %i", i, j);
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
                 
             } else {
@@ -138,8 +137,6 @@ static int NUM_COLUMNS = 40;
             
         }
     }
-    
-    NSLog(@"Done");
 }
 
 -(void) generateGrid { //a method that can be used for initial board generation and in game generation
@@ -163,8 +160,8 @@ static int NUM_COLUMNS = 40;
             
             NSMutableArray* nextRow = currentPattern[currentPatternRow];
             
-            if(gameGrid.count == 0) {
-                nextRow[NUM_COLUMNS / 2 + 1] = @"2";
+            if(gameGrid.count == 1) {
+                nextRow[NUM_COLUMNS / 2 - 1] = @"2";
             }
             
             [gameGrid addObject : nextRow];
@@ -183,7 +180,7 @@ static int NUM_COLUMNS = 40;
 }
 
 -(int) selectNewPatternNumber { //Generates a random pattern number, in the future may take frequency and starting number into considerasion
-    int newPatternNumber = arc4random() % (patterns.count - 1);
+    int newPatternNumber = arc4random() % (patterns.count);
     
     NSMutableArray* pattern = patterns[newPatternNumber];
     if(pattern.count == 0) {
