@@ -1,6 +1,7 @@
 0 - Empty
 1 - Wall
-2 - Powerup
+2 - Player (Do not put player in)
+3 - Powerup
 
 Dimensions:
 Row Length: 40

@@ -24,20 +24,25 @@ static int NUM_COLUMNS = 40;
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
-        SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
-        bit.position = CGPointMake(CGRectGetMidX(self.frame), 100);
+        //SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
+        //bit.position = CGPointMake(CGRectGetMidX(self.frame), 100);
         
-        [self addChild:bit];
+        //[self addChild:bit];
         
         [self initializePatterns];
         
-        NSLog(@"%@", patterns);
-        
         [self generateGrid];
         
-        //[self updateScreen];
+        [self startGame];
+        
+        [self updateScreen];
     }
     return self;
+}
+
+-(void) startGame {
+    NSLog(@"Game is starting.");
+    //gameGrid[0][19] = @"2";
 }
 
 -(void) initializePatterns {
@@ -85,20 +90,56 @@ static int NUM_COLUMNS = 40;
 
 -(void) updateScreen { //adds the board to the screen
     
-    float x = 0;
+    float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
+    float height = [UIScreen mainScreen].bounds.size.height / NUM_ROWS;
+    
     float y = 0;
     
     for(int i=0; i<gameGrid.count; i++) {
-        for(int j=0; j<gameGrid[i]; j++) {
+        
+        float x = 0;
+        y += height;
+
+        NSMutableArray* currentRow = gameGrid[i];
+        
+        for(int j=0; j<currentRow.count; j++) {
             NSString* type = gameGrid[i][j];
             
+            SKSpriteNode* image;
             
+            x += width;
+            
+            NSLog(@"X: %f Y: %f", x, y);
             
             if([type isEqual : @"1"]) { //wall
                 
+                NSLog(@"It's a wall!");
+                
+                image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
+                
+            } else if([type isEqual : @"2"]) { //player
+                
+                image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
+                
+            } else {
+                continue;
             }
+            
+            CGPoint location = CGPointMake(x, y);
+            
+            CGSize size = CGSizeMake(width, height);
+            
+            image.size = size;
+            
+            image.position = location;
+            
+            [self addChild:image];
+            
+            
         }
     }
+    
+    NSLog(@"Done");
 }
 
 -(void) generateGrid { //a method that can be used for initial board generation and in game generation
@@ -111,22 +152,32 @@ static int NUM_COLUMNS = 40;
             currentPatternRow = 0;
             numberOfPatternsUsed ++;
             
-        }
-        
-        NSMutableArray* currentPattern = patterns[currentPatternNumber];
-        
-        NSMutableArray* nextRow = currentPattern[currentPatternRow];
-        
-        [gameGrid addObject : nextRow];
-        
-        
-        
-        if(currentPatternRow == currentPattern.count - 1) { //it was the last row
-            inPattern = NO;
+            NSArray* spaceRow = @[@"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0",];
+            
+            [gameGrid addObject : spaceRow];
+            
+            
         } else {
-            currentPatternRow ++;
-        }
         
+            NSMutableArray* currentPattern = patterns[currentPatternNumber];
+            
+            NSMutableArray* nextRow = currentPattern[currentPatternRow];
+            
+            if(gameGrid.count == 0) {
+                nextRow[NUM_COLUMNS / 2 + 1] = @"2";
+            }
+            
+            [gameGrid addObject : nextRow];
+            
+            
+            
+            if(currentPatternRow == currentPattern.count - 1) { //it was the last row
+                inPattern = NO;
+            } else {
+                currentPatternRow ++;
+            }
+        
+        }
         
     }
 }
