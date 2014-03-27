@@ -16,6 +16,8 @@
     BOOL inPattern; //If pattern is currently being generated
     int currentPatternNumber; //The number of the current pattern
     int currentPatternRow; //The next row to be generated
+    
+    int numberOfPatternsUsed; //The total number of patterns used
 }
 
 @end
