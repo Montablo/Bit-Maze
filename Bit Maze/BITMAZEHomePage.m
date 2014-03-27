@@ -21,9 +21,16 @@
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         
+        SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+        playLabel.text = @"Play";
+        playLabel.fontSize = 20;
+        playLabel.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
+        
         [self addChild:playButton];
+        [self addChild:playLabel];
         
     }
+    
     return self;
 }
 
