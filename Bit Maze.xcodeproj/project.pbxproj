@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0468343F18E3B705000672AE /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0468343E18E3B705000672AE /* patterns.txt */; };
 		04D79C5918E3AFEB0086CF75 /* BITMAZEGamePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */; };
 		04E4A2F618E25F3700BD87E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A2F518E25F3700BD87E3 /* Foundation.framework */; };
 		04E4A2F818E25F3700BD87E3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A2F718E25F3700BD87E3 /* CoreGraphics.framework */; };
@@ -39,6 +40,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0468343E18E3B705000672AE /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
 		04D79C5718E3AFEB0086CF75 /* BITMAZEGamePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEGamePage.h; sourceTree = "<group>"; };
 		04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEGamePage.m; sourceTree = "<group>"; };
 		04E4A2F218E25F3700BD87E3 /* Bit Maze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bit Maze.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -141,6 +143,7 @@
 				04F8A98D18E3AB5000A34F4D /* BITMAZEHomePage.m */,
 				04D79C5718E3AFEB0086CF75 /* BITMAZEGamePage.h */,
 				04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */,
+				0468343E18E3B705000672AE /* patterns.txt */,
 			);
 			path = "Bit Maze";
 			sourceTree = "<group>";
@@ -255,6 +258,7 @@
 				04E4A31518E25F3700BD87E3 /* Images.xcassets in Resources */,
 				04E4A31318E25F3700BD87E3 /* Spaceship.png in Resources */,
 				04E4A30B18E25F3700BD87E3 /* Main.storyboard in Resources */,
+				0468343F18E3B705000672AE /* patterns.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

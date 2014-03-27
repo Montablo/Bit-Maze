@@ -8,6 +8,10 @@
 
 #import <SpriteKit/SpriteKit.h>
 
-@interface BITMAZEGamePage : SKScene
+@interface BITMAZEGamePage : SKScene {
+    NSMutableArray* patterns; //Stores patterns, read from patterns.txt
+    
+    NSMutableArray* gameGrid; //Stores curent game grid
+}
 
 @end
