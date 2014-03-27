@@ -10,6 +10,9 @@
 
 @implementation BITMAZEGamePage
 
+static int NUM_ROWS = 52;
+static int NUM_COLUMNS = 40;
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -17,6 +20,7 @@
         NSLog(@"Started");
         
         patterns = [NSMutableArray array];
+        gameGrid = [NSMutableArray array];
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
@@ -109,19 +113,29 @@
             
         }
         
-        NSMutableArray* nextRow = patterns[currentPatternNumber][currentPatternRow];
+        NSMutableArray* currentPattern = patterns[currentPatternNumber];
+        
+        NSMutableArray* nextRow = currentPattern[currentPatternRow];
         
         [gameGrid addObject : nextRow];
         
-        currentPatternRow ++;
+        
+        
+        if(currentPatternRow == currentPattern.count - 1) { //it was the last row
+            inPattern = NO;
+        } else {
+            currentPatternRow ++;
+        }
+        
         
     }
 }
 
 -(int) selectNewPatternNumber { //Generates a random pattern number, in the future may take frequency and starting number into considerasion
-    newPatternNumber = arc4random() % (patterns.count - 1);
+    int newPatternNumber = arc4random() % (patterns.count - 1);
     
-    if(patterns[newPatternNumber].count == 0) {
+    NSMutableArray* pattern = patterns[newPatternNumber];
+    if(pattern.count == 0) {
         return [self selectNewPatternNumber];
     }
     
