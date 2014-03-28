@@ -2,8 +2,8 @@
 //  BITMAZEGamePage.m
 //  Bit Maze
 //
-//  Created by Jack on 3/26/14.
-//  Copyright (c) 2014 Montablo Games. All rights reserved.
+//  Created by Galen and Jack on 3/26/14.
+//  Copyright (c) 2014 Montablo. All rights reserved.
 //
 
 #import "BITMAZEGamePage.h"

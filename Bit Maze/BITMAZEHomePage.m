@@ -2,8 +2,8 @@
 //  BITMAZEHomePage.m
 //  Bit Maze
 //
-//  Created by Jack on 3/26/14.
-//  Copyright (c) 2014 Montablo Games. All rights reserved.
+//  Created by Galen and Jack on 3/26/14.
+//  Copyright (c) 2014 Montablo. All rights reserved.
 //
 
 #import "BITMAZEHomePage.h"
@@ -25,10 +25,17 @@
         playLabel.text = @"Play";
         playLabel.name = @"playButton";
         playLabel.fontSize = 20;
-        playLabel.position = CGPointMake(CGRectGetMidX(self.frame),CGRectGetMidY(self.frame));
+        playLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        
+        SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+        titleLabel.text = @"Bit Maze";
+        titleLabel.fontSize = 30;
+        int screen = CGRectGetHeight(self.frame)/4*3;
+        titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), screen);
         
         [self addChild:playButton];
         [self addChild:playLabel];
+        [self addChild:titleLabel];
         
     }
     
