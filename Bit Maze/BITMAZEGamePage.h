@@ -19,7 +19,15 @@
     
     int numberOfPatternsUsed; //The total number of patterns used
     
+    CGSize inGameFrame;
 }
+
+typedef enum : uint8_t {
+    colliderTypeWall = 1,
+    colliderTypeBit = 2,
+    colliderTypePowerup = 3,
+    colliderTypeCoin = 4
+} colliderType;
 
 @property (nonatomic, weak) SKNode *bit;
 

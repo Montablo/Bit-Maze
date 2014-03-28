@@ -21,6 +21,10 @@ static int BOTTOM_INDENT = 40;
         
         NSLog(@"Started");
         
+        inGameFrame = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - (TOP_INDENT + BOTTOM_INDENT));
+        
+        NSLog(@"Width: %f, Height: %f", inGameFrame.width, inGameFrame.height);
+        
         patterns = [NSMutableArray array];
         gameGrid = [NSMutableArray array];
         
@@ -35,11 +39,18 @@ static int BOTTOM_INDENT = 40;
         
         [self generateGrid];
         
+        [self initializePhysics];
+        
         [self startGame];
         
         [self updateScreen];
     }
     return self;
+}
+
+-(void) initializePhysics {
+    self.scaleMode = SKSceneScaleModeAspectFit;
+    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:inGameFrame];
 }
 
 -(void) startGame {
@@ -114,6 +125,8 @@ static int BOTTOM_INDENT = 40;
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
                 
+                image.physicsBody.categoryBitMask = colliderTypeWall;
+                
                 image.name = @"wall";
                 
             } else if([type isEqual : @"2"]) { //player
@@ -123,6 +136,10 @@ static int BOTTOM_INDENT = 40;
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
                 image.name = @"bit";
                 
+                image.physicsBody.categoryBitMask = colliderTypeBit;
+                
+                image.physicsBody.usesPreciseCollisionDetection = YES;
+                
                 self.bit = image;
                 
                 image.zPosition = 100;
@@ -130,6 +147,10 @@ static int BOTTOM_INDENT = 40;
             } else {
                 continue;
             }
+            
+            image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
+            image.physicsBody.dynamic = NO;
+            
             
             CGPoint location = CGPointMake(x, y);
             
@@ -205,6 +226,18 @@ static int BOTTOM_INDENT = 40;
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
 {
     self.bit.position = [[touches anyObject] locationInNode:self];
+}
+
+-(void) update:(NSTimeInterval)currentTime {
+    [self enumerateChildNodesWithName:@"wall" usingBlock:^(SKNode *node, BOOL *stop) {
+        if(node.position.y < BOTTOM_INDENT) {
+            [node removeFromParent];
+        }
+        
+        if([self.bit intersectsNode:node]) {
+            
+        }
+    }];
 }
 
 @end
