@@ -68,7 +68,6 @@
 }
 
 -(void) startGame {
-    NSLog(@"Game is starting");
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     //skView.showsFPS = YES;
