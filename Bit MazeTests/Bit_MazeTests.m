@@ -2,8 +2,8 @@
 //  Bit_MazeTests.m
 //  Bit MazeTests
 //
-//  Created by Jack on 3/25/14.
-//  Copyright (c) 2014 Montablo Games. All rights reserved.
+//  Created by Galen and Jack on 3/26/14.
+//  Copyright (c) 2014 Montablo. All rights reserved.
 //
 
 #import <XCTest/XCTest.h>
