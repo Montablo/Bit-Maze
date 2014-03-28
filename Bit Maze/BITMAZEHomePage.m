@@ -45,8 +45,8 @@
         SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         titleLabel.text = @"Bit Maze";
         titleLabel.fontSize = 30;
-        int titleScreen = 2*(CGRectGetHeight(self.frame))/3;
-        titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleScreen);
+        float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
+        titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
         [self addChild:playButton];
         [self addChild:playLabel];
