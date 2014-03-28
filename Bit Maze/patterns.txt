@@ -1,7 +1,7 @@
 0 - Empty
 1 - Wall
-2 - Player (Do not put player in)
-3 - Powerup
+2 - Powerup
+3 - Coin
 
 Dimensions:
 Row Length: 40
