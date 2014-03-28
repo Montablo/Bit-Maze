@@ -223,7 +223,7 @@
 			attributes = {
 				CLASSPREFIX = BITMAZE;
 				LastUpgradeCheck = 0510;
-				ORGANIZATIONNAME = "Montablo Games";
+				ORGANIZATIONNAME = Montablo;
 				TargetAttributes = {
 					04E4A31918E25F3700BD87E3 = {
 						TestTargetID = 04E4A2F118E25F3700BD87E3;

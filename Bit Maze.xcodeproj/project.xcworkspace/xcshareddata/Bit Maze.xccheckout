@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A6DE46AB-3630-4512-B4BF-7FEC5F099962</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Bit Maze</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>DCF9D87A-09D8-4551-8140-5AC71623D46A</key>
+		<string>ssh://github.com/Montablo/Bit-Maze.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>Bit Maze.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>DCF9D87A-09D8-4551-8140-5AC71623D46A</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/Montablo/Bit-Maze.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>DCF9D87A-09D8-4551-8140-5AC71623D46A</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>DCF9D87A-09D8-4551-8140-5AC71623D46A</string>
+			<key>IDESourceControlWCCName</key>
+			<string>Bit-Maze</string>
+		</dict>
+	</array>
+</dict>
+</plist>

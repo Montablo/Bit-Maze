@@ -21,4 +21,7 @@
     
 }
 
+@property (nonatomic, weak) SKNode *bit;
+
+
 @end
