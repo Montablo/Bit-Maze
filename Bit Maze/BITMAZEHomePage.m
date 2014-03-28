@@ -24,18 +24,17 @@
         
         SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         playButton.name = @"playButton";
-        playButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        playButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
     
         SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         playButton.name = @"settingButton";
-        int rightScreen = CGRectGetWidth(self.frame)/4*3; //This might work I need to check my syntax when I get home.
-        playButton.position = CGPointMake(rightScreen, CGRectGetMidY(self.frame));
+        playButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
         SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         playLabel.text = @"Play";
         playLabel.name = @"playButton";
         playLabel.fontSize = 20;
-        playLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        playLabel.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
         SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         titleLabel.text = @"Bit Maze";
@@ -65,6 +64,9 @@
     if ([node.name isEqualToString:@"playButton"]) {
         //Play button is touched
         [self startGame];
+    } else if ([node.name isEqualToString:@"settingButton"]) {
+        //Settings button is touched
+        [self launchSettings];
     }
 }
 
