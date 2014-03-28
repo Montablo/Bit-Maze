@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		040226E018E61F710009245C /* BITMAZESettingsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 040226DF18E61F710009245C /* BITMAZESettingsPage.m */; };
 		0468343F18E3B705000672AE /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0468343E18E3B705000672AE /* patterns.txt */; };
 		04D79C5918E3AFEB0086CF75 /* BITMAZEGamePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */; };
 		04E4A2F618E25F3700BD87E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A2F518E25F3700BD87E3 /* Foundation.framework */; };
@@ -40,6 +41,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		040226DE18E61F710009245C /* BITMAZESettingsPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZESettingsPage.h; sourceTree = "<group>"; };
+		040226DF18E61F710009245C /* BITMAZESettingsPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZESettingsPage.m; sourceTree = "<group>"; };
 		0468343E18E3B705000672AE /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
 		04D79C5718E3AFEB0086CF75 /* BITMAZEGamePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEGamePage.h; sourceTree = "<group>"; };
 		04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEGamePage.m; sourceTree = "<group>"; };
@@ -144,6 +147,8 @@
 				04D79C5718E3AFEB0086CF75 /* BITMAZEGamePage.h */,
 				04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */,
 				0468343E18E3B705000672AE /* patterns.txt */,
+				040226DE18E61F710009245C /* BITMAZESettingsPage.h */,
+				040226DF18E61F710009245C /* BITMAZESettingsPage.m */,
 			);
 			path = "Bit Maze";
 			sourceTree = "<group>";
@@ -282,6 +287,7 @@
 				04E4A30E18E25F3700BD87E3 /* BITMAZEViewController.m in Sources */,
 				04D79C5918E3AFEB0086CF75 /* BITMAZEGamePage.m in Sources */,
 				04E4A31118E25F3700BD87E3 /* BITMAZEMyScene.m in Sources */,
+				040226E018E61F710009245C /* BITMAZESettingsPage.m in Sources */,
 				04F8A98E18E3AB5000A34F4D /* BITMAZEHomePage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
