@@ -5,8 +5,8 @@ A game about running through mazes at warp-speed. Try to dodge your enemies and 
 
 <a href='http://www.google.com'> Screenshots :</a>
 
-Current version game : http://bit.ly/1hgmwha
+<a href='http://bit.ly/1hgmwha' target='_blank'>Game Current Version</a>
 
-Current version home : http://bit.ly/1lqfv0M
+<a href='http://bit.ly/1lqfv0M' target='_blank'>Home Current Version</a>
 
-Concept version game : http://bit.ly/1jbVHeX
+<a href='http://bit.ly/1jbVHeX' target='_blank'>Game Concept Version</a>
