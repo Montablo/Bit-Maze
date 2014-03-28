@@ -8,6 +8,7 @@
 
 #import "BITMAZEHomePage.h"
 #import "BITMAZEGamePage.h"
+#import "BITMAZESettingsPage.h"
 
 @implementation BITMAZEHomePage
 
@@ -65,6 +66,20 @@
         //Play button is touched
         [self startGame];
     }
+}
+
+-(void) launchSettings {
+    // Configure the view.
+    SKView * skView = (SKView *)self.view;
+    //skView.showsFPS = YES;
+    //skView.showsNodeCount = YES;
+    
+    // Create and configure the scene.
+    SKScene * scene = [BITMAZESettingsPage sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Present the scene.
+    [skView presentScene:scene];
 }
 
 -(void) startGame {
