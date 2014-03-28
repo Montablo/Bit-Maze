@@ -114,11 +114,18 @@ static int BOTTOM_INDENT = 40;
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
                 
+                image.name = @"wall";
+                
             } else if([type isEqual : @"2"]) { //player
                 
                 
                 NSLog(@"I: %i J: %i", i, j);
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
+                image.name = @"bit";
+                
+                self.bit = image;
+                
+                image.zPosition = 100;
                 
             } else {
                 continue;
@@ -193,6 +200,11 @@ static int BOTTOM_INDENT = 40;
     }
     
     return newPatternNumber;
+}
+
+-(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
+{
+    self.bit.position = [[touches anyObject] locationInNode:self];
 }
 
 @end
