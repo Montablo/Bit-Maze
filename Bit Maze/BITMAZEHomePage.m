@@ -24,6 +24,11 @@
         SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    
+        SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
+        playButton.name = @"settingButton";
+        int rightScreen = CGRectGetWidth(self.frame)/4*3; //This might work I need to check my syntax when I get home.
+        playButton.position = CGPointMake(rightScreen, CGRectGetMidY(self.frame));
         
         SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         playLabel.text = @"Play";
@@ -34,13 +39,14 @@
         SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         titleLabel.text = @"Bit Maze";
         titleLabel.fontSize = 30;
-        int screen = CGRectGetHeight(self.frame)/4*3;
-        titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), screen);
+        int titleScreen = CGRectGetHeight(self.frame)/4*3;
+        titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleScreen);
         
         [self addChild:playButton];
         [self addChild:playLabel];
         [self addChild:titleLabel];
         [self addChild:backgroundImage];
+        [self addChild:settingButton];
         
     }
     
