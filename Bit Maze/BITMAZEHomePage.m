@@ -15,7 +15,11 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
+        //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
+        SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
+        backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+        backgroundImage.zPosition = -1;
+        backgroundImage.alpha = 0.7;
         
         SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         playButton.name = @"playButton";
@@ -36,6 +40,7 @@
         [self addChild:playButton];
         [self addChild:playLabel];
         [self addChild:titleLabel];
+        [self addChild:backgroundImage];
         
     }
     
