@@ -21,13 +21,13 @@
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         
-        SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+        SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         playLabel.text = @"Play";
         playLabel.name = @"playButton";
         playLabel.fontSize = 20;
         playLabel.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         
-        SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+        SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         titleLabel.text = @"Bit Maze";
         titleLabel.fontSize = 30;
         int screen = CGRectGetHeight(self.frame)/4*3;
