@@ -25,10 +25,6 @@
         SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
-    
-        SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
-        playButton.name = @"settingButton";
-        playButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
         SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         playLabel.text = @"Play";
@@ -36,10 +32,20 @@
         playLabel.fontSize = 20;
         playLabel.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
+        SKLabelNode *settingLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+        settingLabel.text = @"Settings";
+        settingLabel.name = @"settingButton";
+        settingLabel.fontSize = 15;
+        settingLabel.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
+        
+        SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
+        settingButton.name = @"settingButton";
+        settingButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
+        
         SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         titleLabel.text = @"Bit Maze";
         titleLabel.fontSize = 30;
-        int titleScreen = CGRectGetHeight(self.frame)/4*3;
+        int titleScreen = 2*(CGRectGetHeight(self.frame))/3;
         titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleScreen);
         
         [self addChild:playButton];
@@ -47,6 +53,7 @@
         [self addChild:titleLabel];
         [self addChild:backgroundImage];
         [self addChild:settingButton];
+        [self addChild:settingLabel];
         
     }
     
