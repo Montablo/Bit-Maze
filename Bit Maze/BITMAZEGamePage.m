@@ -18,17 +18,16 @@ static int BOTTOM_INDENT = 40;
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
-        
         NSLog(@"Started");
         
-        inGameFrame = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - (TOP_INDENT + BOTTOM_INDENT));
+        inGameFrame = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - ((float) TOP_INDENT + BOTTOM_INDENT));
         
         NSLog(@"Width: %f, Height: %f", inGameFrame.width, inGameFrame.height);
         
         patterns = [NSMutableArray array];
         gameGrid = [NSMutableArray array];
         
-        gameSpeed = .1;
+        gameSpeed = .3;
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
@@ -41,7 +40,7 @@ static int BOTTOM_INDENT = 40;
         
         [self generateGrid];
         
-        [self initializePhysics];
+        //[self initializePhysics];
         
         [self startGame];
         
@@ -51,8 +50,15 @@ static int BOTTOM_INDENT = 40;
 }
 
 -(void) initializePhysics {
+    //SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame), inGameFrame.width, inGameFrame.height)];
+    SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    // 2 Set physicsBody of scene to borderBody
+    //self.physicsBody = borderBody;
+    
+    self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     self.scaleMode = SKSceneScaleModeAspectFit;
-    self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:inGameFrame];
+    //self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:inGameFrame];
+    self.physicsBody.friction = 0.0f;
 }
 
 -(void) startGame {
@@ -130,22 +136,25 @@ static int BOTTOM_INDENT = 40;
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
                 
-                image.physicsBody.categoryBitMask = colliderTypeWall;
+                //image.physicsBody.categoryBitMask = colliderTypeWall;
                 
                 image.name = @"wall";
                 
             } else if([type isEqual : @"2"]) { //player
                 
                 
-                NSLog(@"I: %i J: %i", i, j);
+                //NSLog(@"I: %i J: %i", i, j);
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
                 image.name = @"bit";
                 
-                image.physicsBody.categoryBitMask = colliderTypeBit;
+                //image.physicsBody.categoryBitMask = colliderTypeBit;
                 
-                image.physicsBody.usesPreciseCollisionDetection = YES;
+                //image.physicsBody.usesPreciseCollisionDetection = YES;
                 
                 self.bit = image;
+                
+                image.physicsBody.restitution = 1.0f;
+                image.physicsBody.friction = 0.0f;
                 
                 image.zPosition = 100;
                 
@@ -153,9 +162,9 @@ static int BOTTOM_INDENT = 40;
                 continue;
             }
             
-            image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
-            image.physicsBody.dynamic = NO;
+            //image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
             
+            //image.physicsBody.dynamic = YES;
             
             CGPoint location = CGPointMake(x, y);
             
@@ -258,9 +267,10 @@ static int BOTTOM_INDENT = 40;
     
     [self generateGrid];
     
+    
     [self updateScreen];
     
-    gameSpeed *= .99;
+    gameSpeed *= .999;
     
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
@@ -275,7 +285,7 @@ static int BOTTOM_INDENT = 40;
 }
 
 -(void) update:(NSTimeInterval)currentTime {
-    
+    //self.bit.position = CGPointMake(self.bit.position.x+1, self.bit.position.y+1);
 }
 
 @end
