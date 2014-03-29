@@ -10,6 +10,7 @@
 
 @interface BITMAZEGamePage : SKScene {
     NSMutableArray* patterns; //Stores patterns, read from patterns.txt
+    NSMutableArray* patternOccurences; //Stores [0] starting number and [1] frequency
     
     NSMutableArray* gameGrid; //Stores curent game grid, 52 rows, 40 columns, first index is where player is
 
@@ -22,6 +23,7 @@
     CGSize inGameFrame;
     
     float gameSpeed;
+    
 }
 
 typedef enum : uint8_t {
