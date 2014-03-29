@@ -9,6 +9,7 @@
 #import "BITMAZEViewController.h"
 #import "BITMAZEHomePage.h"
 
+@import AVFoundation;
 @implementation BITMAZEViewController
 
 - (void)viewDidLoad

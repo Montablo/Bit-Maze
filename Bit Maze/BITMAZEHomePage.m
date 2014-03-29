@@ -42,15 +42,15 @@
         settingButton.name = @"settingButton";
         settingButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
-        SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        titleLabel.text = @"Bit Maze";
-        titleLabel.fontSize = 30;
+        SKSpriteNode *titleImage = [SKSpriteNode spriteNodeWithImageNamed:@"BitMazeTitle"];
+        titleImage.xScale = 0.5;
+        titleImage.yScale = 0.5;
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
-        titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
+        titleImage.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
         [self addChild:playButton];
         [self addChild:playLabel];
-        [self addChild:titleLabel];
+        [self addChild:titleImage];
         [self addChild:backgroundImage];
         [self addChild:settingButton];
         [self addChild:settingLabel];
