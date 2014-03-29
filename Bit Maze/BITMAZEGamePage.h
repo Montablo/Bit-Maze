@@ -20,6 +20,8 @@
     int numberOfPatternsUsed; //The total number of patterns used
     
     CGSize inGameFrame;
+    
+    float gameSpeed;
 }
 
 typedef enum : uint8_t {

@@ -28,6 +28,8 @@ static int BOTTOM_INDENT = 40;
         patterns = [NSMutableArray array];
         gameGrid = [NSMutableArray array];
         
+        gameSpeed = .1;
+        
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
         //SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
@@ -54,6 +56,7 @@ static int BOTTOM_INDENT = 40;
 }
 
 -(void) startGame {
+    [self scrollScreen];
     //gameGrid[0][19] = @"2";
 }
 
@@ -101,6 +104,8 @@ static int BOTTOM_INDENT = 40;
 }
 
 -(void) updateScreen { //adds the board to the screen
+    
+    [self removeAllWalls];
     
     float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
     float height = ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS ;
@@ -223,21 +228,54 @@ static int BOTTOM_INDENT = 40;
     return newPatternNumber;
 }
 
+-(void) removeAllWalls {
+    
+    [self enumerateChildNodesWithName:@"wall" usingBlock:^(SKNode *node, BOOL *stop) {
+        /*if(node.position.y <= BOTTOM_INDENT + ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS) {
+            [node removeFromParent];
+        }
+        
+        if([self.bit intersectsNode:node]) {
+            
+        }*/
+        [node removeFromParent];
+    }];
+    
+}
+
+-(void) scrollScreen{
+    
+    NSMutableArray* bottomRow = gameGrid[0];
+    
+    for(int i=0; i<bottomRow.count; i++) {
+        if([bottomRow[i] isEqualToString:@"2"]) {
+            [self endGame];
+            //return;
+        }
+    }
+    
+    [gameGrid removeObjectAtIndex:0];
+    
+    [self generateGrid];
+    
+    [self updateScreen];
+    
+    gameSpeed *= .99;
+    
+    [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
+}
+
+-(void) endGame {
+    NSLog(@"You lose!");
+}
+
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
 {
     self.bit.position = [[touches anyObject] locationInNode:self];
 }
 
 -(void) update:(NSTimeInterval)currentTime {
-    [self enumerateChildNodesWithName:@"wall" usingBlock:^(SKNode *node, BOOL *stop) {
-        if(node.position.y < BOTTOM_INDENT) {
-            [node removeFromParent];
-        }
-        
-        if([self.bit intersectsNode:node]) {
-            
-        }
-    }];
+    
 }
 
 @end
