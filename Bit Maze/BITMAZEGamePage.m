@@ -15,10 +15,16 @@ static int NUM_COLUMNS = 40;
 static int TOP_INDENT = 40;
 static int BOTTOM_INDENT = 40;
 
+static float maxSpeed = .1;
+static float speedChange = .99;
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         NSLog(@"Started");
+        
+        
+        
         
         inGameFrame = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - ((float) TOP_INDENT + BOTTOM_INDENT));
         
@@ -27,33 +33,31 @@ static int BOTTOM_INDENT = 40;
         patterns = [NSMutableArray array];
         gameGrid = [NSMutableArray array];
         
-        gameSpeed = .3;
-        
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
-        //SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
-        //bit.position = CGPointMake(CGRectGetMidX(self.frame), 100);
+        [self initializeVariables];
         
-        //[self addChild:bit];
+        [self initializePhysics];
         
-        [self initializePatterns];
-        
-        [self generateGrid];
-        
-        //[self initializePhysics];
+        [self initializeGame];
         
         [self startGame];
-        
-        [self updateScreen];
     }
     return self;
+}
+
+-(void) initializeVariables {
+    
+    gameSpeed = .3;
+    
+    patternOccurences = [NSMutableArray array];
 }
 
 -(void) initializePhysics {
     //SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame), inGameFrame.width, inGameFrame.height)];
     SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     // 2 Set physicsBody of scene to borderBody
-    //self.physicsBody = borderBody;
+    self.physicsBody = borderBody;
     
     self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
     self.scaleMode = SKSceneScaleModeAspectFit;
@@ -61,9 +65,20 @@ static int BOTTOM_INDENT = 40;
     self.physicsBody.friction = 0.0f;
 }
 
+-(void) initializeGame {
+    
+    [self initializePatterns];
+    
+    NSLog(@"%@", patternOccurences);
+    
+    [self generateGrid];
+    
+}
+
 -(void) startGame {
     [self scrollScreen];
-    //gameGrid[0][19] = @"2";
+    
+    [self updateScreen];
 }
 
 -(void) initializePatterns {
@@ -87,6 +102,14 @@ static int BOTTOM_INDENT = 40;
             
             [patterns addObject: [NSMutableArray array]];
             
+            [patternOccurences addObject:[NSMutableArray array]];
+            
+            NSNumber* numberOfPatternsBefore = [NSNumber numberWithInt: [allLinedStrings[i+1] integerValue]];
+            [patternOccurences[patternNumber] addObject: numberOfPatternsBefore];
+            
+            NSNumber* frequency = [NSNumber numberWithInt: [allLinedStrings[i+2] integerValue]];
+            [patternOccurences[patternNumber] addObject: frequency];
+            
         } else if([allLinedStrings[i]  isEqual: @"END"]) { //if end, continue to next pattern
             
             patternHasStarted = NO;
@@ -96,6 +119,7 @@ static int BOTTOM_INDENT = 40;
             rowNumber = 0;
 
         } else if(patternHasStarted) {
+            
             [patterns[patternNumber] addObject: [NSMutableArray array]];
             for(int j=0; j<[allLinedStrings[i] length]; j++) {
                 NSString* currentChar = [allLinedStrings[i] substringWithRange:NSMakeRange(j, 1)];
@@ -132,26 +156,24 @@ static int BOTTOM_INDENT = 40;
             
             x += width;
             
+            CGRect imageRect = CGRectMake(x, y, width, height);
+            
             if([type isEqual : @"1"]) { //wall
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
                 
-                //image.physicsBody.categoryBitMask = colliderTypeWall;
+                image.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:imageRect];
                 
                 image.name = @"wall";
                 
             } else if([type isEqual : @"2"]) { //player
                 
-                
-                //NSLog(@"I: %i J: %i", i, j);
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
                 image.name = @"bit";
                 
-                //image.physicsBody.categoryBitMask = colliderTypeBit;
-                
-                //image.physicsBody.usesPreciseCollisionDetection = YES;
-                
                 self.bit = image;
+                
+                image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
                 
                 image.physicsBody.restitution = 1.0f;
                 image.physicsBody.friction = 0.0f;
@@ -161,10 +183,6 @@ static int BOTTOM_INDENT = 40;
             } else {
                 continue;
             }
-            
-            //image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
-            
-            //image.physicsBody.dynamic = YES;
             
             CGPoint location = CGPointMake(x, y);
             
@@ -227,14 +245,35 @@ static int BOTTOM_INDENT = 40;
 }
 
 -(int) selectNewPatternNumber { //Generates a random pattern number, in the future may take frequency and starting number into considerasion
-    int newPatternNumber = arc4random() % (patterns.count);
+    NSMutableArray* useablePatterns = [NSMutableArray array];
+    int total = 0;
+    NSMutableArray* numberRanges = [NSMutableArray array];
     
-    NSMutableArray* pattern = patterns[newPatternNumber];
-    if(pattern.count == 0) {
-        return [self selectNewPatternNumber];
+    for (int i = 0; i < patterns.count; i++) {
+        
+        NSMutableArray* patternRow = patterns[i];
+        
+        NSNumber* starting = patternOccurences[i][0];
+        NSNumber* frequency = patternOccurences[i][1];
+        
+        int startingNumber = [starting intValue];
+        int frequencyInt = [frequency intValue];
+        
+        if(patternRow.count != 0 && startingNumber <= numberOfPatternsUsed) {
+            [useablePatterns addObject:patterns[i]];
+            
+            total += frequencyInt;
+            
+            [numberRanges addObject:[NSNumber numberWithInt:total]];
+        }
+        
     }
+    NSLog(@"%@", numberRanges);
     
-    return newPatternNumber;
+    int newPatternNumber = arc4random() % (useablePatterns.count - 1) + 1;
+    
+    //return newPatternNumber;
+    return false;
 }
 
 -(void) removeAllWalls {
@@ -259,7 +298,7 @@ static int BOTTOM_INDENT = 40;
     for(int i=0; i<bottomRow.count; i++) {
         if([bottomRow[i] isEqualToString:@"2"]) {
             [self endGame];
-            //return;
+            return;
         }
     }
     
@@ -270,7 +309,11 @@ static int BOTTOM_INDENT = 40;
     
     [self updateScreen];
     
-    gameSpeed *= .999;
+    gameSpeed *= speedChange;
+    
+    if(gameSpeed < maxSpeed) gameSpeed = maxSpeed;
+    
+    NSLog(@"%f", gameSpeed);
     
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
