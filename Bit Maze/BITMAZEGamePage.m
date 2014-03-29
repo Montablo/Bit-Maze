@@ -32,20 +32,11 @@ static int BOTTOM_INDENT = 40;
         
         self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
         
-        //SKSpriteNode* bit = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
-        //bit.position = CGPointMake(CGRectGetMidX(self.frame), 100);
-        
-        //[self addChild:bit];
-        
-        [self initializePatterns];
-        
-        [self generateGrid];
-        
         [self initializePhysics];
         
-        [self startGame];
+        [self initializeGame];
         
-        [self updateScreen];
+        [self startGame];
     }
     return self;
 }
@@ -55,9 +46,18 @@ static int BOTTOM_INDENT = 40;
     self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:inGameFrame];
 }
 
+-(void) initializeGame {
+    
+    [self initializePatterns];
+    
+    [self generateGrid];
+    
+}
+
 -(void) startGame {
     [self scrollScreen];
-    //gameGrid[0][19] = @"2";
+    
+    [self updateScreen];
 }
 
 -(void) initializePatterns {
