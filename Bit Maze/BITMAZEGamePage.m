@@ -63,18 +63,7 @@ static float speedChange = .99;
     
     [self addChild:self.inGridX];
     [self addChild:self.inGridY];
-}
-
--(void) initializePhysics {
-    //SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame), inGameFrame.width, inGameFrame.height)];
-    //SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    // 2 Set physicsBody of scene to borderBody
-    //self.physicsBody = borderBody;
     
-    //self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
-    //self.scaleMode = SKSceneScaleModeAspectFit;
-    //self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:inGameFrame];
-    //self.physicsBody.friction = 0.0f;
 }
 
 -(void) initializeGame {
@@ -179,24 +168,9 @@ static float speedChange = .99;
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"metal"];
                 
-                //image.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:imageRect];
-                
                 image.name = @"wall";
                 
-            } /*else if(i == currentBitY && j == currentBitX) { //player
-                
-                image = [SKSpriteNode spriteNodeWithImageNamed:@"circle"];
-                image.name = @"bit";
-                
-                self.bit = image;
-                
-                //image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
-                
-                //image.physicsBody.restitution = 1.0f;
-                //image.physicsBody.friction = 0.0f;
-                
-                image.zPosition = 100;
-            }*/ else {
+            } else {
                 continue;
             }
             
@@ -355,13 +329,6 @@ static float speedChange = .99;
 -(void) removeAllBits {
     
     [self enumerateChildNodesWithName:@"bit" usingBlock:^(SKNode *node, BOOL *stop) {
-        /*if(node.position.y <= BOTTOM_INDENT + ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS) {
-         [node removeFromParent];
-         }
-         
-         if([self.bit intersectsNode:node]) {
-         
-         }*/
         [node removeFromParent];
     }];
     
@@ -399,8 +366,6 @@ static float speedChange = .99;
     
     CGPoint tappedPt = [[touches anyObject] locationInNode: self];
     
-    //self.bit.position = [[touches anyObject] locationInNode:self];
-    
     //Snaps bit to grid
     
     int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
@@ -413,21 +378,9 @@ static float speedChange = .99;
         return;
     }
     
-    //if(newY >= self.frame.size.height - TOP_INDENT || newY < BOTTOM_INDENT) {
-    //    return;
-    //}
-    
     if([self isWallWithX: xInGrid andY: yInGrid]) {
         return;
     }
-    
-    //if([gameGrid[yInGrid][xInGrid] isEqualToString: @"1"]) {
-    //    return;
-    //}
-    
-    //if(![self touchIsWithinOneWithX:xInGrid andY:yInGrid]) {
-    //    return;
-    //}
     
     currentBitX = xInGrid;
     currentBitY = yInGrid;
@@ -455,16 +408,7 @@ static float speedChange = .99;
     return false;
 }
 
-/*-(BOOL) touchIsWithinOneWithX: (int) xInGrid andY: (int) yInGrid {
-    if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 5) {
-        return true;
-    }
-    return false;
-}*/
-
 -(void) update:(NSTimeInterval)currentTime {
-    //self.bit.position = CGPointMake(self.bit.position.x+1, self.bit.position.y+1);
-    
     self.inGridX.text = [NSString stringWithFormat:@"X: %i",currentBitX];
     self.inGridY.text = [NSString stringWithFormat:@"Y: %i",currentBitY];
 }
