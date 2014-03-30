@@ -32,6 +32,9 @@
     int currentBitX;
     int currentBitY;
     
+    float currentBitXFloat;
+    float currentBitYFloat;
+    
     CGPoint startingPt;
 }
 

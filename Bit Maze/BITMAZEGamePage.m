@@ -183,7 +183,7 @@ static float speedChange = .99;
                 
                 image.name = @"wall";
                 
-            } else if(i == currentBitY && j == currentBitX) { //player
+            } /*else if(i == currentBitY && j == currentBitX) { //player
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"circle"];
                 image.name = @"bit";
@@ -196,7 +196,7 @@ static float speedChange = .99;
                 //image.physicsBody.friction = 0.0f;
                 
                 image.zPosition = 100;
-            } else {
+            }*/ else {
                 continue;
             }
             
@@ -213,6 +213,23 @@ static float speedChange = .99;
             
         }
     }
+    
+    SKSpriteNode* bit;
+    
+    bit = [SKSpriteNode spriteNodeWithImageNamed:@"circle"];
+    bit.name = @"bit";
+    
+    CGPoint location = CGPointMake(currentBitXFloat, currentBitYFloat);
+    
+    CGSize size = CGSizeMake(tileWidth, tileHeight);
+    
+    bit.size = size;
+    
+    bit.position = location;
+    
+    [self addChild:bit];
+    
+    self.bit = bit;
 }
 
 -(void) generateGrid { //a method that can be used for initial board generation and in game generation
@@ -236,6 +253,9 @@ static float speedChange = .99;
                 
                 currentBitY = 3;
                 currentBitX = NUM_COLUMNS / 2 - 1;
+                
+                currentBitYFloat = currentBitY*tileHeight;
+                currentBitXFloat = currentBitX*tileWidth;
             }
             
             
@@ -355,6 +375,8 @@ static float speedChange = .99;
     
     currentBitY--;
     
+    currentBitYFloat -= tileHeight;
+    
     [gameGrid removeObjectAtIndex:0];
     
     [self generateGrid];
@@ -384,17 +406,24 @@ static float speedChange = .99;
     int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
     int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
     
+    float newX = tappedPt.x;
+    float newY = tappedPt.y;
+    
     if(xInGrid >= NUM_COLUMNS || yInGrid >= NUM_ROWS || xInGrid < 0 || yInGrid < 0) {
         return;
     }
+    
+    //if(newY >= self.frame.size.height - TOP_INDENT || newY < BOTTOM_INDENT) {
+    //    return;
+    //}
     
     if([self isWallWithX: xInGrid andY: yInGrid]) {
         return;
     }
     
-    if([gameGrid[yInGrid][xInGrid] isEqualToString: @"1"]) {
-        return;
-    }
+    //if([gameGrid[yInGrid][xInGrid] isEqualToString: @"1"]) {
+    //    return;
+    //}
     
     //if(![self touchIsWithinOneWithX:xInGrid andY:yInGrid]) {
     //    return;
@@ -402,6 +431,9 @@ static float speedChange = .99;
     
     currentBitX = xInGrid;
     currentBitY = yInGrid;
+    
+    currentBitXFloat = newX;
+    currentBitYFloat = newY;
     
     [self updateScreen];
 }
@@ -413,9 +445,9 @@ static float speedChange = .99;
     int largerY = MAX(yInGrid, currentBitY);
     int largerX = MAX(xInGrid, currentBitX);
     
-    for(int i=smallerY; i<largerY; i++) {
+    for(int i=smallerY; i<=largerY; i++) {
         NSMutableArray* row = gameGrid[i];
-        for(int j = smallerX; j<largerX; j++) {
+        for(int j = smallerX; j<=largerX; j++) {
             if([row[j] isEqualToString:@"1"]) return true;
         }
     }
@@ -423,12 +455,12 @@ static float speedChange = .99;
     return false;
 }
 
--(BOOL) touchIsWithinOneWithX: (int) xInGrid andY: (int) yInGrid {
+/*-(BOOL) touchIsWithinOneWithX: (int) xInGrid andY: (int) yInGrid {
     if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 5) {
         return true;
     }
     return false;
-}
+}*/
 
 -(void) update:(NSTimeInterval)currentTime {
     //self.bit.position = CGPointMake(self.bit.position.x+1, self.bit.position.y+1);
