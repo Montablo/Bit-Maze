@@ -177,7 +177,7 @@ static float speedChange = .99;
             
             if([type isEqual : @"1"]) { //wall
                 
-                image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
+                image = [SKSpriteNode spriteNodeWithImageNamed:@"metal"];
                 
                 //image.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:imageRect];
                 
@@ -185,7 +185,7 @@ static float speedChange = .99;
                 
             } else if(i == currentBitY && j == currentBitX) { //player
                 
-                image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
+                image = [SKSpriteNode spriteNodeWithImageNamed:@"circle"];
                 image.name = @"bit";
                 
                 self.bit = image;
@@ -381,20 +381,24 @@ static float speedChange = .99;
     
     //Snaps bit to grid
     
-    if(tappedPt.y > inGameFrame.height + BOTTOM_INDENT || tappedPt.y < BOTTOM_INDENT) {
+    int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
+    int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
+    
+    if(xInGrid >= NUM_COLUMNS || yInGrid >= NUM_ROWS || xInGrid < 0 || yInGrid < 0) {
         return;
     }
     
-    int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
-    int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
+    if([self isWallWithX: xInGrid andY: yInGrid]) {
+        return;
+    }
     
     if([gameGrid[yInGrid][xInGrid] isEqualToString: @"1"]) {
         return;
     }
     
-    if(![self touchIsWithinOneWithX:xInGrid andY:yInGrid]) {
-        return;
-    }
+    //if(![self touchIsWithinOneWithX:xInGrid andY:yInGrid]) {
+    //    return;
+    //}
     
     currentBitX = xInGrid;
     currentBitY = yInGrid;
@@ -402,8 +406,25 @@ static float speedChange = .99;
     [self updateScreen];
 }
 
+-(BOOL) isWallWithX: (int) xInGrid andY: (int) yInGrid {
+    int smallerY = MIN(yInGrid, currentBitY);
+    int smallerX = MIN(xInGrid, currentBitX);
+    
+    int largerY = MAX(yInGrid, currentBitY);
+    int largerX = MAX(xInGrid, currentBitX);
+    
+    for(int i=smallerY; i<largerY; i++) {
+        NSMutableArray* row = gameGrid[i];
+        for(int j = smallerX; j<largerX; j++) {
+            if([row[j] isEqualToString:@"1"]) return true;
+        }
+    }
+    
+    return false;
+}
+
 -(BOOL) touchIsWithinOneWithX: (int) xInGrid andY: (int) yInGrid {
-    if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 1) {
+    if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 5) {
         return true;
     }
     return false;
