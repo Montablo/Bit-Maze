@@ -403,7 +403,7 @@ static float speedChange = .99;
 }
 
 -(BOOL) touchIsWithinOneWithX: (int) xInGrid andY: (int) yInGrid {
-    if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 10) {
+    if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 1) {
         return true;
     }
     return false;
