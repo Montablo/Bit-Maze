@@ -37,8 +37,6 @@ static float speedChange = .99;
         
         [self initializeVariables];
         
-        [self initializePhysics];
-        
         [self initializeGame];
         
         [self startGame];
