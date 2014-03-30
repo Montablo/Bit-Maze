@@ -55,14 +55,14 @@ static float speedChange = .99;
 
 -(void) initializePhysics {
     //SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:CGRectMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame), inGameFrame.width, inGameFrame.height)];
-    SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
+    //SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
     // 2 Set physicsBody of scene to borderBody
-    self.physicsBody = borderBody;
+    //self.physicsBody = borderBody;
     
-    self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
-    self.scaleMode = SKSceneScaleModeAspectFit;
+    //self.physicsWorld.gravity = CGVectorMake(0.0f, 0.0f);
+    //self.scaleMode = SKSceneScaleModeAspectFit;
     //self.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:inGameFrame];
-    self.physicsBody.friction = 0.0f;
+    //self.physicsBody.friction = 0.0f;
 }
 
 -(void) initializeGame {
@@ -109,6 +109,8 @@ static float speedChange = .99;
             
             NSNumber* frequency = [NSNumber numberWithInt: [allLinedStrings[i+2] integerValue]];
             [patternOccurences[patternNumber] addObject: frequency];
+            
+            i += 2;
             
         } else if([allLinedStrings[i]  isEqual: @"END"]) { //if end, continue to next pattern
             
@@ -162,7 +164,7 @@ static float speedChange = .99;
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"1"];
                 
-                image.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:imageRect];
+                //image.physicsBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:imageRect];
                 
                 image.name = @"wall";
                 
@@ -173,10 +175,10 @@ static float speedChange = .99;
                 
                 self.bit = image;
                 
-                image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
+                //image.physicsBody = [SKPhysicsBody bodyWithRectangleOfSize:CGSizeMake(width, height)];
                 
-                image.physicsBody.restitution = 1.0f;
-                image.physicsBody.friction = 0.0f;
+                //image.physicsBody.restitution = 1.0f;
+                //image.physicsBody.friction = 0.0f;
                 
                 image.zPosition = 100;
                 
@@ -213,7 +215,7 @@ static float speedChange = .99;
             
             
             if(gameGrid.count == 0) {
-                spaceRow[NUM_COLUMNS / 2 - 1] = @"2";
+                //spaceRow[NUM_COLUMNS / 2 - 1] = @"2";
             }
             
             [gameGrid addObject : spaceRow];
@@ -226,7 +228,7 @@ static float speedChange = .99;
             NSMutableArray* nextRow = currentPattern[currentPatternRow];
             
             if(gameGrid.count == 0) {
-                nextRow[NUM_COLUMNS / 2 - 1] = @"2";
+                //nextRow[NUM_COLUMNS / 2 - 1] = @"2";
             }
             
             [gameGrid addObject : nextRow];
@@ -245,32 +247,57 @@ static float speedChange = .99;
 }
 
 -(int) selectNewPatternNumber { //Generates a random pattern number, in the future may take frequency and starting number into considerasion
-    NSMutableArray* useablePatterns = [NSMutableArray array];
+    NSMutableArray* patternAdj = [NSMutableArray array];
+    NSMutableArray* probabilities = [NSMutableArray array];
     int total = 0;
-    NSMutableArray* numberRanges = [NSMutableArray array];
+    float sumProbabilities = 0;
     
     for (int i = 0; i < patterns.count; i++) {
         
         NSMutableArray* patternRow = patterns[i];
         
-        NSNumber* starting = patternOccurences[i][0];
-        NSNumber* frequency = patternOccurences[i][1];
         
-        int startingNumber = [starting intValue];
-        int frequencyInt = [frequency intValue];
+        int startingNumber = [patternOccurences[i][0] intValue];
         
-        if(patternRow.count != 0 && startingNumber <= numberOfPatternsUsed) {
-            [useablePatterns addObject:patterns[i]];
-            
-            total += frequencyInt;
-            
-            [numberRanges addObject:[NSNumber numberWithInt:total]];
+        NSNumber* frequencyInt = [NSNumber numberWithInt: [patternOccurences[i][1] intValue]];
+        
+        if(patternRow.count == 0 && startingNumber > numberOfPatternsUsed) {
+            frequencyInt = 0;
         }
+        [patternAdj addObject:frequencyInt];
+        
+        total += [frequencyInt intValue];
         
     }
-    NSLog(@"%@", numberRanges);
     
-    int newPatternNumber = arc4random() % (useablePatterns.count - 1) + 1;
+    for(int i = 0; i < patterns.count; i++) {
+        NSNumber* patternA = patternAdj[i];
+        
+        NSNumber* val;
+        
+        if([patternA floatValue] != 1.0) val = [NSNumber numberWithFloat:sumProbabilities + ([patternA floatValue] / total)];
+        else val = 0;
+        probabilities[i] = val;
+        sumProbabilities += [patternA floatValue] / total;
+    }
+    
+    float randomNumber = arc4random() / ((double) pow(2, 32) - 1);
+    
+    for(int i=0; i<patterns.count; i++) {
+        float firstInt = [probabilities[i] floatValue];
+        
+        if(i == 0) {
+            //Number is selected
+            if(randomNumber <= firstInt) return i;
+            else continue;
+        }
+        
+        float prev = [probabilities[i-1] floatValue];
+        
+        if(randomNumber <= firstInt && randomNumber > prev) {
+            return i;
+        }
+    }
     
     //return newPatternNumber;
     return false;
@@ -298,7 +325,7 @@ static float speedChange = .99;
     for(int i=0; i<bottomRow.count; i++) {
         if([bottomRow[i] isEqualToString:@"2"]) {
             [self endGame];
-            return;
+            //return;
         }
     }
     
