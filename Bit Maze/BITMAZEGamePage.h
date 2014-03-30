@@ -24,6 +24,15 @@
     
     float gameSpeed;
     
+    float tileWidth;
+    float tileHeight;
+    
+    BOOL gameHasStarted;
+    
+    int currentBitX;
+    int currentBitY;
+    
+    CGPoint startingPt;
 }
 
 typedef enum : uint8_t {
@@ -34,6 +43,8 @@ typedef enum : uint8_t {
 } colliderType;
 
 @property (nonatomic, weak) SKNode *bit;
+@property (nonatomic, weak) SKLabelNode *inGridY;
+@property (nonatomic, weak) SKLabelNode *inGridX;
 
 
 @end

@@ -51,6 +51,18 @@ static float speedChange = .99;
     gameSpeed = .3;
     
     patternOccurences = [NSMutableArray array];
+    
+    tileWidth = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
+    tileHeight = ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS ;
+    
+    self.inGridX = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    self.inGridY = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    
+    self.inGridX.position = CGPointMake(CGRectGetMidX(self.frame), 40);
+    self.inGridY.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    
+    [self addChild:self.inGridX];
+    [self addChild:self.inGridY];
 }
 
 -(void) initializePhysics {
@@ -76,9 +88,13 @@ static float speedChange = .99;
 }
 
 -(void) startGame {
-    [self scrollScreen];
     
     [self updateScreen];
+    
+    gameHasStarted = YES;
+    
+    [self scrollScreen];
+    
 }
 
 -(void) initializePatterns {
@@ -90,7 +106,7 @@ static float speedChange = .99;
     
     // first, separate by new line
     NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-
+    
     BOOL patternHasStarted = NO;
     int patternNumber = 0;
     int rowNumber = 0;
@@ -119,7 +135,7 @@ static float speedChange = .99;
             patternNumber ++;
             
             rowNumber = 0;
-
+            
         } else if(patternHasStarted) {
             
             [patterns[patternNumber] addObject: [NSMutableArray array]];
@@ -130,7 +146,7 @@ static float speedChange = .99;
             }
             
             rowNumber ++;
-
+            
         }
     }
 }
@@ -139,16 +155,15 @@ static float speedChange = .99;
     
     [self removeAllWalls];
     
-    float width = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
-    float height = ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS ;
+    [self removeAllBits];
     
     float y = BOTTOM_INDENT;
     
     for(int i=0; i<gameGrid.count; i++) {
         
         float x = 0;
-        y += height;
-
+        y += tileHeight;
+        
         NSMutableArray* currentRow = gameGrid[i];
         
         for(int j=0; j<currentRow.count; j++) {
@@ -156,9 +171,9 @@ static float speedChange = .99;
             
             SKSpriteNode* image;
             
-            x += width;
+            x += tileWidth;
             
-            CGRect imageRect = CGRectMake(x, y, width, height);
+            CGRect imageRect = CGRectMake(x, y, tileWidth, tileHeight);
             
             if([type isEqual : @"1"]) { //wall
                 
@@ -168,7 +183,7 @@ static float speedChange = .99;
                 
                 image.name = @"wall";
                 
-            } else if([type isEqual : @"2"]) { //player
+            } else if(i == currentBitY && j == currentBitX) { //player
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"0"];
                 image.name = @"bit";
@@ -181,14 +196,13 @@ static float speedChange = .99;
                 //image.physicsBody.friction = 0.0f;
                 
                 image.zPosition = 100;
-                
             } else {
                 continue;
             }
             
             CGPoint location = CGPointMake(x, y);
             
-            CGSize size = CGSizeMake(width, height);
+            CGSize size = CGSizeMake(tileWidth, tileHeight);
             
             image.size = size;
             
@@ -213,23 +227,23 @@ static float speedChange = .99;
             
             NSMutableArray* spaceRow = [NSMutableArray arrayWithObjects: @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", nil];
             
+            [gameGrid addObject : [NSMutableArray arrayWithArray:spaceRow]];
             
-            if(gameGrid.count == 0) {
-                //spaceRow[NUM_COLUMNS / 2 - 1] = @"2";
+            if(gameGrid.count == 1) {
+                for(int i=0; i<10; i++) {
+                    [gameGrid addObject:[NSMutableArray arrayWithArray:spaceRow]];
+                }
+                
+                currentBitY = 3;
+                currentBitX = NUM_COLUMNS / 2 - 1;
             }
-            
-            [gameGrid addObject : spaceRow];
             
             
         } else {
-        
+            
             NSMutableArray* currentPattern = patterns[currentPatternNumber];
             
             NSMutableArray* nextRow = currentPattern[currentPatternRow];
-            
-            if(gameGrid.count == 0) {
-                //nextRow[NUM_COLUMNS / 2 - 1] = @"2";
-            }
             
             [gameGrid addObject : nextRow];
             
@@ -240,7 +254,7 @@ static float speedChange = .99;
             } else {
                 currentPatternRow ++;
             }
-        
+            
         }
         
     }
@@ -307,40 +321,49 @@ static float speedChange = .99;
     
     [self enumerateChildNodesWithName:@"wall" usingBlock:^(SKNode *node, BOOL *stop) {
         /*if(node.position.y <= BOTTOM_INDENT + ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS) {
-            [node removeFromParent];
-        }
-        
-        if([self.bit intersectsNode:node]) {
-            
-        }*/
+         [node removeFromParent];
+         }
+         
+         if([self.bit intersectsNode:node]) {
+         
+         }*/
+        [node removeFromParent];
+    }];
+    
+}
+
+-(void) removeAllBits {
+    
+    [self enumerateChildNodesWithName:@"bit" usingBlock:^(SKNode *node, BOOL *stop) {
+        /*if(node.position.y <= BOTTOM_INDENT + ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS) {
+         [node removeFromParent];
+         }
+         
+         if([self.bit intersectsNode:node]) {
+         
+         }*/
         [node removeFromParent];
     }];
     
 }
 
 -(void) scrollScreen{
-    
-    NSMutableArray* bottomRow = gameGrid[0];
-    
-    for(int i=0; i<bottomRow.count; i++) {
-        if([bottomRow[i] isEqualToString:@"2"]) {
-            [self endGame];
-            //return;
-        }
+    if(currentBitY == 0) {
+        [self endGame];
+        return;
     }
+    
+    currentBitY--;
     
     [gameGrid removeObjectAtIndex:0];
     
     [self generateGrid];
-    
     
     [self updateScreen];
     
     gameSpeed *= speedChange;
     
     if(gameSpeed < maxSpeed) gameSpeed = maxSpeed;
-    
-    NSLog(@"%f", gameSpeed);
     
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
@@ -351,11 +374,45 @@ static float speedChange = .99;
 
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
 {
-    self.bit.position = [[touches anyObject] locationInNode:self];
+    
+    CGPoint tappedPt = [[touches anyObject] locationInNode: self];
+    
+    //self.bit.position = [[touches anyObject] locationInNode:self];
+    
+    //Snaps bit to grid
+    
+    if(tappedPt.y > inGameFrame.height + BOTTOM_INDENT || tappedPt.y < BOTTOM_INDENT) {
+        return;
+    }
+    
+    int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
+    int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
+    
+    if([gameGrid[yInGrid][xInGrid] isEqualToString: @"1"]) {
+        return;
+    }
+    
+    if(![self touchIsWithinOneWithX:xInGrid andY:yInGrid]) {
+        return;
+    }
+    
+    currentBitX = xInGrid;
+    currentBitY = yInGrid;
+    
+    [self updateScreen];
+}
+
+-(BOOL) touchIsWithinOneWithX: (int) xInGrid andY: (int) yInGrid {
+    if(sqrt(pow(yInGrid - currentBitY, 2) + pow(xInGrid - currentBitX, 2)) <= 10) {
+        return true;
+    }
+    return false;
 }
 
 -(void) update:(NSTimeInterval)currentTime {
     //self.bit.position = CGPointMake(self.bit.position.x+1, self.bit.position.y+1);
+    
+    self.inGridX.text = [NSString stringWithFormat:@"X: %i",currentBitX];
+    self.inGridY.text = [NSString stringWithFormat:@"Y: %i",currentBitY];
 }
-
 @end
