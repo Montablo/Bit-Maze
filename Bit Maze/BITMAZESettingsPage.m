@@ -38,7 +38,8 @@
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
-        SKSpriteNode *soundButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
+        SKSpriteNode *soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
+        soundButton.size = CGSizeMake(50, 50);
         soundButton.name = @"soundButton";
         soundButton.position = CGPointMake(CGRectGetMidX(self.frame), (CGRectGetMidY(self.frame)));
         

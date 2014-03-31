@@ -204,7 +204,7 @@ static NSString* COIN_IMG = @"coin";
             
             x += tileWidth;
             
-            if([type isEqual : @"1"]) { //wall
+            if([type isEqual : @"1"] || [type isEqual : @"6"]) { //wall
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:WALL_IMG];
                 
