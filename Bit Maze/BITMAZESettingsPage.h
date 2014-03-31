@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "BITMAZEFileReader.h"
 
-@interface BITMAZESettingsPage : SKScene
+@interface BITMAZESettingsPage : SKScene {
+    NSMutableArray *settingsArray;
+}
 
 @end

@@ -8,6 +8,8 @@
 
 #import "BITMAZEViewController.h"
 #import "BITMAZEHomePage.h"
+#import "BITMAZEFileReader.h"
+
 @import AVFoundation;
 
 @interface BITMAZEViewController ()
@@ -22,11 +24,15 @@
 {
     NSError *error;
     
-    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
-    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-    self.backgroundMusicPlayer.numberOfLoops = -1;
-    [self.backgroundMusicPlayer prepareToPlay];
-    //[self.backgroundMusicPlayer play];
+    if([[BITMAZEFileReader getFileLines:@"settings"][0] isEqualToString:@"0"]) {
+        
+        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
+        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+        self.backgroundMusicPlayer.numberOfLoops = -1;
+        [self.backgroundMusicPlayer prepareToPlay];
+        [self.backgroundMusicPlayer play];
+        
+    }
     
     [super viewDidLoad];
 

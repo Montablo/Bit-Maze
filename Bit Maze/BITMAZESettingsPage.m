@@ -16,6 +16,8 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
+        settingsArray = [BITMAZEFileReader getFileLines: @"settings"];
+        
         //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
         SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
         backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -38,7 +40,14 @@
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
-        SKSpriteNode *soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
+        SKSpriteNode *soundButton;
+        
+        if([settingsArray[0]  isEqual: @"0"]) {
+            soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
+        } else {
+            soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOff"];
+        }
+        
         soundButton.size = CGSizeMake(50, 50);
         soundButton.name = @"soundButton";
         soundButton.position = CGPointMake(CGRectGetMidX(self.frame), (CGRectGetMidY(self.frame)));
@@ -66,6 +75,8 @@
     if ([node.name isEqualToString:@"homeButton"]) {
         //Play button is touched
         [self launchHome];
+    } else if([node.name isEqualToString:@"soundButton"]) {
+        [self toggleSound];
     }
 }
 
@@ -81,6 +92,18 @@
     
     // Present the scene.
     [skView presentScene:scene];
+}
+
+-(void) toggleSound {
+    if([settingsArray[0] isEqualToString:@"0"]) {
+        settingsArray[0] = @"1";
+    } else {
+        settingsArray[0] = @"0";
+    }
+    
+    NSLog(@"%i", [BITMAZEFileReader storeFileLines: settingsArray inFile:@"settings"]);
+
+    NSLog(@"%@", [BITMAZEFileReader getFileLines: @"settings"][0]);
 }
 
 
