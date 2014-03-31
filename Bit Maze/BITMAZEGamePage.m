@@ -10,13 +10,17 @@
 
 @implementation BITMAZEGamePage
 
-static int NUM_ROWS = 52;
-static int NUM_COLUMNS = 40;
-static int TOP_INDENT = 40;
+static int NUM_ROWS      = 52;
+static int NUM_COLUMNS   = 40;
+static int TOP_INDENT    = 40;
 static int BOTTOM_INDENT = 40;
 
-static float maxSpeed = .1;
+static float maxSpeed    = .1;
 static float speedChange = .99;
+
+static NSString* BIT_IMG  = @"circle";
+static NSString* WALL_IMG = @"metal";
+static NSString* COIN_IMG = @"coin";
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -181,11 +185,17 @@ static float speedChange = .99;
             
             if([type isEqual : @"1"]) { //wall
                 
-                image = [SKSpriteNode spriteNodeWithImageNamed:@"metal"];
+                image = [SKSpriteNode spriteNodeWithImageNamed:WALL_IMG];
                 
                 image.name = @"wall";
                 
-            } else {
+            } else if([type isEqual : @"4"] || [type isEqual : @"5"]) {
+                if([type isEqual : @"4"] && arc4random() % 2 == 1) return; //if the type is a fifty percent chance, test that
+
+                image = [SKSpriteNode spriteNodeWithImageNamed : COIN_IMG];
+                image.name = @"coin";
+            }
+            else {
                 continue;
             }
             
@@ -205,7 +215,7 @@ static float speedChange = .99;
     
     SKSpriteNode* bit;
     
-    bit = [SKSpriteNode spriteNodeWithImageNamed:@"circle"];
+    bit = [SKSpriteNode spriteNodeWithImageNamed:@"BIT_IMG"];
     bit.name = @"bit";
     
     CGPoint location = CGPointMake(currentBitXFloat, currentBitYFloat);
@@ -407,6 +417,14 @@ static float speedChange = .99;
     currentBitXFloat = newX;
     currentBitYFloat = newY;
     
+    if([gameGrid[currentGridX][currentGridY].name isEqual : @"coin"]) {
+        
+        NSLog(@"You hit a coin!");
+
+        
+
+    }
+
     [self updateScreen];
 }
 
