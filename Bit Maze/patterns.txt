@@ -1,10 +1,12 @@
-0 - Empty
-1 - Wall
-2 - Powerup
-3 - Coin
+0 -   Empty
+1 -    Wall
+2 - Powerup - 50  % chance
+3 - Powerup - 100 % chance
+4 -    Coin - 50  % chance
+5 -    Coin - 100 % chance
 
 Dimensions:
-Row Length: 40
+Row    Length: 40
 Column Length: Depends
 
 DRAW FROM PLAYER PERSPECTIVE - DOWN-UP
