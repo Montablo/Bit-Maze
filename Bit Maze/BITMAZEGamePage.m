@@ -160,8 +160,6 @@ static float speedChange = .99;
             
             x += tileWidth;
             
-            CGRect imageRect = CGRectMake(x, y, tileWidth, tileHeight);
-            
             if([type isEqual : @"1"]) { //wall
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:@"metal"];
@@ -357,6 +355,7 @@ static float speedChange = .99;
 
 -(void) endGame {
     NSLog(@"You lose!");
+    [self resetGame];
 }
 
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
@@ -404,6 +403,20 @@ static float speedChange = .99;
     }
     
     return false;
+}
+
+-(void) resetGame {
+    // Configure the view.
+    SKView * skView = (SKView *)self.view;
+    skView.showsFPS = YES;
+    skView.showsNodeCount = YES;
+    
+    // Create and configure the scene.
+    SKScene * scene = [BITMAZEGamePage sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Present the scene.
+    [skView presentScene:scene];
 }
 
 -(void) update:(NSTimeInterval)currentTime {
