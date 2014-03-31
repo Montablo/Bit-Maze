@@ -21,11 +21,13 @@
 
 {
     NSError *error;
+    
     NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
     self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
     self.backgroundMusicPlayer.numberOfLoops = -1;
     [self.backgroundMusicPlayer prepareToPlay];
-    [self.backgroundMusicPlayer play];
+    //[self.backgroundMusicPlayer play];
+    
     [super viewDidLoad];
 
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {
@@ -39,7 +41,7 @@
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    skView.showsNodeCount = NO;
     
     // Create and configure the scene.
     SKScene * scene = [BITMAZEHomePage sceneWithSize:skView.bounds.size];

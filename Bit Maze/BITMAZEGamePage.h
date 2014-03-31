@@ -36,6 +36,8 @@
     float currentBitYFloat;
     
     CGPoint startingPt;
+    
+    int gameScore; //The current game score
 }
 
 typedef enum : uint8_t {
@@ -48,5 +50,6 @@ typedef enum : uint8_t {
 @property (nonatomic, weak) SKNode *bit;
 @property (nonatomic, weak) SKLabelNode *startingTime;
 
+@property (nonatomic, weak) SKLabelNode *scoreLabel;
 
 @end

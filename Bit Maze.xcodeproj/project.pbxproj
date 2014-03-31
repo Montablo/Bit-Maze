@@ -24,7 +24,6 @@
 		04E4A30B18E25F3700BD87E3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04E4A30918E25F3700BD87E3 /* Main.storyboard */; };
 		04E4A30E18E25F3700BD87E3 /* BITMAZEViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4A30D18E25F3700BD87E3 /* BITMAZEViewController.m */; };
 		04E4A31118E25F3700BD87E3 /* BITMAZEMyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4A31018E25F3700BD87E3 /* BITMAZEMyScene.m */; };
-		04E4A31318E25F3700BD87E3 /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 04E4A31218E25F3700BD87E3 /* Spaceship.png */; };
 		04E4A31518E25F3700BD87E3 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 04E4A31418E25F3700BD87E3 /* Images.xcassets */; };
 		04E4A31C18E25F3700BD87E3 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A31B18E25F3700BD87E3 /* XCTest.framework */; };
 		04E4A31D18E25F3700BD87E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A2F518E25F3700BD87E3 /* Foundation.framework */; };
@@ -70,7 +69,6 @@
 		04E4A30D18E25F3700BD87E3 /* BITMAZEViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BITMAZEViewController.m; sourceTree = "<group>"; };
 		04E4A30F18E25F3700BD87E3 /* BITMAZEMyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BITMAZEMyScene.h; sourceTree = "<group>"; };
 		04E4A31018E25F3700BD87E3 /* BITMAZEMyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BITMAZEMyScene.m; sourceTree = "<group>"; };
-		04E4A31218E25F3700BD87E3 /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		04E4A31418E25F3700BD87E3 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		04E4A31A18E25F3700BD87E3 /* Bit MazeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Bit MazeTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		04E4A31B18E25F3700BD87E3 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -159,7 +157,6 @@
 				04E4A30D18E25F3700BD87E3 /* BITMAZEViewController.m */,
 				04E4A30F18E25F3700BD87E3 /* BITMAZEMyScene.h */,
 				04E4A31018E25F3700BD87E3 /* BITMAZEMyScene.m */,
-				04E4A31218E25F3700BD87E3 /* Spaceship.png */,
 				04B8CCDD18E721860022ACC9 /* Sounds */,
 				04E4A31418E25F3700BD87E3 /* Images.xcassets */,
 				04E4A2FE18E25F3700BD87E3 /* Supporting Files */,
@@ -285,7 +282,6 @@
 				046A612718E8EA74009CDF8F /* BackgroundMusic.mp3 in Resources */,
 				04E4A31518E25F3700BD87E3 /* Images.xcassets in Resources */,
 				04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */,
-				04E4A31318E25F3700BD87E3 /* Spaceship.png in Resources */,
 				04E4A30B18E25F3700BD87E3 /* Main.storyboard in Resources */,
 				0468343F18E3B705000672AE /* patterns.txt in Resources */,
 			);

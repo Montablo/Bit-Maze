@@ -22,23 +22,23 @@
         backgroundImage.zPosition = -1;
         backgroundImage.alpha = 0.7;
         
-        SKSpriteNode *playButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
+        SKSpriteNode *playButton = [SKSpriteNode new];
+        playButton.size = CGSizeMake(50, 50);
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
         SKSpriteNode *playIcon = [SKSpriteNode spriteNodeWithImageNamed:@"PlayIcon"];
         playIcon.name = @"playButton";
-        playIcon.xScale = 0.8;
-        playIcon.yScale = 0.8;
+        playIcon.size = CGSizeMake(50, 50);
         playIcon.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
         SKSpriteNode *settingIcon = [SKSpriteNode spriteNodeWithImageNamed:@"GearIcon"];
         settingIcon.name = @"settingButton";
-        settingIcon.xScale = 0.15;
-        settingIcon.yScale = 0.15;
+        settingIcon.size = CGSizeMake(50, 50);
         settingIcon.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
-        SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
+        SKSpriteNode *settingButton = [SKSpriteNode new];
+        settingButton.size = CGSizeMake(50, 50);
         settingButton.name = @"settingButton";
         settingButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
@@ -95,7 +95,7 @@
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    skView.showsNodeCount = NO;
     
     // Create and configure the scene.
     SKScene * scene = [BITMAZEGamePage sceneWithSize:skView.bounds.size];

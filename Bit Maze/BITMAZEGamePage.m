@@ -45,18 +45,34 @@ static float speedChange = .99;
     
     gameSpeed = .3;
     
+    gameScore = 0;
+    
     patternOccurences = [NSMutableArray array];
     
     tileWidth = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
     tileHeight = ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS ;
     
+    self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    
+    self.scoreLabel.text = @"Score: 0";
+    self.scoreLabel.fontSize = 30;
+    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    
+    self.scoreLabel.zPosition = 90;
+    
+    [self addChild:self.scoreLabel];
+    
+    SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restart"];
+    restartButton.name = @"restartButton";
+    restartButton.size = CGSizeMake(15, 15);
+    restartButton.position = CGPointMake(15, 15);
+    
+    [self addChild:restartButton];
 }
 
 -(void) initializeGame {
     
     [self initializePatterns];
-    
-    NSLog(@"%@", patternOccurences);
     
     [self generateGrid];
     
@@ -64,7 +80,7 @@ static float speedChange = .99;
 
 -(void) startGame {
     
-    /*self.startingTime = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];;
+    /*self.startingTime = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     
     self.startingTime.fontSize = 30;
     self.startingTime.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -72,7 +88,7 @@ static float speedChange = .99;
     [self addChild:self.startingTime];
     
     for(int i=1; i<4; i++) {
-        self.startingTime.text = [NSString stringWithFormat:@"%i", i];;
+        self.startingTime.text = [NSString stringWithFormat:@"%i", i];
         sleep(1);
     }
     
@@ -253,7 +269,7 @@ static float speedChange = .99;
     }
 }
 
--(int) selectNewPatternNumber { //Generates a random pattern number, in the future may take frequency and starting number into considerasion
+-(int) selectNewPatternNumber { //Generates a random pattern number, takes frequency and starting number into considerasion
     NSMutableArray* patternAdj = [NSMutableArray array];
     NSMutableArray* probabilities = [NSMutableArray array];
     int total = 0;
@@ -353,12 +369,15 @@ static float speedChange = .99;
     
     if(gameSpeed < maxSpeed) gameSpeed = maxSpeed;
     
+    gameScore++;
+    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", gameScore];
+    
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
 
 -(void) endGame {
     NSLog(@"You lose!");
-    [self resetGame];
+    //[self resetGame];
 }
 
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
@@ -408,11 +427,25 @@ static float speedChange = .99;
     return false;
 }
 
+-(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
+    /* Called when a touch begins */
+    
+    UITouch *touch = [touches anyObject];
+    CGPoint location = [touch locationInNode:self];
+    SKNode *node = [self nodeAtPoint:location];
+    //NSLog(@"Node name where touch began: %@", node.name);
+    
+    if ([node.name isEqualToString:@"restartButton"]) {
+        //Play button is touched
+        [self resetGame];
+    }
+}
+
 -(void) resetGame {
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
-    skView.showsNodeCount = YES;
+    skView.showsNodeCount = NO;
     
     // Create and configure the scene.
     SKScene * scene = [BITMAZEGamePage sceneWithSize:skView.bounds.size];
