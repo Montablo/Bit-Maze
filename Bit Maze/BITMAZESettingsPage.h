@@ -10,7 +10,7 @@
 #import "BITMAZEFileReader.h"
 
 @interface BITMAZESettingsPage : SKScene {
-    NSMutableArray *settingsArray;
+    NSUserDefaults *defaults;
 }
 
 @end

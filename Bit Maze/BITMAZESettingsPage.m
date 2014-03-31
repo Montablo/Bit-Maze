@@ -8,15 +8,19 @@
 
 #import "BITMAZESettingsPage.h"
 #import "BITMAZEHomePage.h"
+#import "BITMAZEViewController.h"
 
 @implementation BITMAZESettingsPage
 
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
-        /* Setup your scene here */
         
-        settingsArray = [BITMAZEFileReader getFileLines: @"settings"];
+        defaults = [NSUserDefaults standardUserDefaults];
+        
+        NSLog(@"%@", [defaults stringForKey:@"sound"]);
+        
+        /* Setup your scene here */
         
         //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
         SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
@@ -42,7 +46,7 @@
         
         SKSpriteNode *soundButton;
         
-        if([settingsArray[0]  isEqual: @"0"]) {
+        if([[defaults stringForKey:@"sound"]  isEqual: @"0"]) {
             soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
         } else {
             soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOff"];
@@ -95,15 +99,12 @@
 }
 
 -(void) toggleSound {
-    if([settingsArray[0] isEqualToString:@"0"]) {
-        settingsArray[0] = @"1";
+    if([[defaults stringForKey:@"sound"] isEqualToString:@"0"]) {
+        [defaults setObject:@"1" forKey:@"sound"];
     } else {
-        settingsArray[0] = @"0";
+        [defaults setObject:@"0" forKey:@"sound"];
     }
     
-    NSLog(@"%i", [BITMAZEFileReader storeFileLines: settingsArray inFile:@"settings"]);
-
-    NSLog(@"%@", [BITMAZEFileReader getFileLines: @"settings"][0]);
 }
 
 

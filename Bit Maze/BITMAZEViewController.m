@@ -8,7 +8,7 @@
 
 #import "BITMAZEViewController.h"
 #import "BITMAZEHomePage.h"
-#import "BITMAZEFileReader.h"
+#import "BITMAZEAppFunctions.h"
 
 @import AVFoundation;
 
@@ -22,17 +22,9 @@
 - (void)viewDidLoad
 
 {
-    NSError *error;
+    //[self checkSound];
     
-    if([[BITMAZEFileReader getFileLines:@"settings"][0] isEqualToString:@"0"]) {
-        
-        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
-        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
-        self.backgroundMusicPlayer.numberOfLoops = -1;
-        [self.backgroundMusicPlayer prepareToPlay];
-        [self.backgroundMusicPlayer play];
-        
-    }
+    //[BITMAZEAppFunctions checkSound];
     
     [super viewDidLoad];
 
@@ -55,6 +47,28 @@
     
     // Present the scene.
     [skView presentScene:scene];
+}
+
+-(void) checkSound {
+    
+    NSError *error;
+    
+    NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+    
+    if([defaults stringForKey:@"sound"] == nil) {
+        [defaults setObject:@"0" forKey:@"sound"];
+    }
+    
+    if([[defaults stringForKey:@"sound"] isEqualToString:@"0"]) {
+        
+        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
+        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+        self.backgroundMusicPlayer.numberOfLoops = -1;
+        [self.backgroundMusicPlayer prepareToPlay];
+        [self.backgroundMusicPlayer play];
+        
+    }
+    
 }
 
 - (BOOL)prefersStatusBarHidden {
