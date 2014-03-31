@@ -26,11 +26,11 @@
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
-        SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        playLabel.text = @"Play";
-        playLabel.name = @"playButton";
-        playLabel.fontSize = 20;
-        playLabel.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
+        SKSpriteNode *playIcon = [SKSpriteNode spriteNodeWithImageNamed:@"PlayIcon"];
+        playIcon.name = @"playButton";
+        playIcon.xScale = 0.8;
+        playIcon.yScale = 0.8;
+        playIcon.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
         SKLabelNode *settingLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
         settingLabel.text = @"Settings";
@@ -49,7 +49,7 @@
         titleImage.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
         [self addChild:playButton];
-        [self addChild:playLabel];
+        [self addChild:playIcon];
         [self addChild:titleImage];
         [self addChild:backgroundImage];
         [self addChild:settingButton];
