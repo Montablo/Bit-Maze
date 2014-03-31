@@ -32,11 +32,11 @@
         playIcon.yScale = 0.8;
         playIcon.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
-        SKLabelNode *settingLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        settingLabel.text = @"Settings";
-        settingLabel.name = @"settingButton";
-        settingLabel.fontSize = 15;
-        settingLabel.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
+        SKSpriteNode *settingIcon = [SKSpriteNode spriteNodeWithImageNamed:@"GearIcon"];
+        settingIcon.name = @"settingButton";
+        settingIcon.xScale = 0.15;
+        settingIcon.yScale = 0.15;
+        settingIcon.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
         SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         settingButton.name = @"settingButton";
@@ -53,7 +53,7 @@
         [self addChild:titleImage];
         [self addChild:backgroundImage];
         [self addChild:settingButton];
-        [self addChild:settingLabel];
+        [self addChild:settingIcon];
         
     }
     
