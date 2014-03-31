@@ -8,12 +8,24 @@
 
 #import "BITMAZEViewController.h"
 #import "BITMAZEHomePage.h"
-
 @import AVFoundation;
+
+@interface BITMAZEViewController ()
+@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+@end
+
 @implementation BITMAZEViewController
 
+
 - (void)viewDidLoad
+
 {
+    NSError *error;
+    NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
+    self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+    self.backgroundMusicPlayer.numberOfLoops = -1;
+    [self.backgroundMusicPlayer prepareToPlay];
+    [self.backgroundMusicPlayer play];
     [super viewDidLoad];
 
     if ([self respondsToSelector:@selector(setNeedsStatusBarAppearanceUpdate)]) {

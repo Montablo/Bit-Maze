@@ -84,6 +84,7 @@ static float speedChange = .99;
     
     [self scrollScreen];
     
+    
 }
 
 -(void) initializePatterns {

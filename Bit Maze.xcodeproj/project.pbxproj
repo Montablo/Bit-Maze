@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		040226E018E61F710009245C /* BITMAZESettingsPage.m in Sources */ = {isa = PBXBuildFile; fileRef = 040226DF18E61F710009245C /* BITMAZESettingsPage.m */; };
 		0468343F18E3B705000672AE /* patterns.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0468343E18E3B705000672AE /* patterns.txt */; };
+		046A612718E8EA74009CDF8F /* BackgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 046A612618E8EA74009CDF8F /* BackgroundMusic.mp3 */; };
+		046A612918E8EAAC009CDF8F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046A612818E8EAAC009CDF8F /* AVFoundation.framework */; };
 		04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDE18E721860022ACC9 /* background-music-aac.caf */; };
 		04B8CCE118E721870022ACC9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */; };
 		04D79C5918E3AFEB0086CF75 /* BITMAZEGamePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */; };
@@ -46,6 +48,8 @@
 		040226DE18E61F710009245C /* BITMAZESettingsPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZESettingsPage.h; sourceTree = "<group>"; };
 		040226DF18E61F710009245C /* BITMAZESettingsPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZESettingsPage.m; sourceTree = "<group>"; };
 		0468343E18E3B705000672AE /* patterns.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = patterns.txt; sourceTree = "<group>"; };
+		046A612618E8EA74009CDF8F /* BackgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BackgroundMusic.mp3; sourceTree = "<group>"; };
+		046A612818E8EAAC009CDF8F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		04B8CCDE18E721860022ACC9 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		04D79C5718E3AFEB0086CF75 /* BITMAZEGamePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEGamePage.h; sourceTree = "<group>"; };
@@ -82,6 +86,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				046A612918E8EAAC009CDF8F /* AVFoundation.framework in Frameworks */,
 				04E4A2F818E25F3700BD87E3 /* CoreGraphics.framework in Frameworks */,
 				04E4A2FA18E25F3700BD87E3 /* UIKit.framework in Frameworks */,
 				04E4A2FC18E25F3700BD87E3 /* SpriteKit.framework in Frameworks */,
@@ -133,6 +138,7 @@
 		04E4A2F418E25F3700BD87E3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				046A612818E8EAAC009CDF8F /* AVFoundation.framework */,
 				04E4A2F518E25F3700BD87E3 /* Foundation.framework */,
 				04E4A2F718E25F3700BD87E3 /* CoreGraphics.framework */,
 				04E4A2F918E25F3700BD87E3 /* UIKit.framework */,
@@ -149,6 +155,7 @@
 				04E4A30718E25F3700BD87E3 /* BITMAZEAppDelegate.m */,
 				04E4A30918E25F3700BD87E3 /* Main.storyboard */,
 				04E4A30C18E25F3700BD87E3 /* BITMAZEViewController.h */,
+				046A612618E8EA74009CDF8F /* BackgroundMusic.mp3 */,
 				04E4A30D18E25F3700BD87E3 /* BITMAZEViewController.m */,
 				04E4A30F18E25F3700BD87E3 /* BITMAZEMyScene.h */,
 				04E4A31018E25F3700BD87E3 /* BITMAZEMyScene.m */,
@@ -275,6 +282,7 @@
 			files = (
 				04B8CCE118E721870022ACC9 /* pew-pew-lei.caf in Resources */,
 				04E4A30218E25F3700BD87E3 /* InfoPlist.strings in Resources */,
+				046A612718E8EA74009CDF8F /* BackgroundMusic.mp3 in Resources */,
 				04E4A31518E25F3700BD87E3 /* Images.xcassets in Resources */,
 				04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */,
 				04E4A31318E25F3700BD87E3 /* Spaceship.png in Resources */,

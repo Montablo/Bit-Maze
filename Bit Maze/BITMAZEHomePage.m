@@ -26,17 +26,17 @@
         playButton.name = @"playButton";
         playButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
-        SKLabelNode *playLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        playLabel.text = @"Play";
-        playLabel.name = @"playButton";
-        playLabel.fontSize = 20;
-        playLabel.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
+        SKSpriteNode *playIcon = [SKSpriteNode spriteNodeWithImageNamed:@"PlayIcon"];
+        playIcon.name = @"playButton";
+        playIcon.xScale = 0.8;
+        playIcon.yScale = 0.8;
+        playIcon.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMidY(self.frame));
         
-        SKLabelNode *settingLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        settingLabel.text = @"Settings";
-        settingLabel.name = @"settingButton";
-        settingLabel.fontSize = 15;
-        settingLabel.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
+        SKSpriteNode *settingIcon = [SKSpriteNode spriteNodeWithImageNamed:@"GearIcon"];
+        settingIcon.name = @"settingButton";
+        settingIcon.xScale = 0.15;
+        settingIcon.yScale = 0.15;
+        settingIcon.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
         SKSpriteNode *settingButton = [SKSpriteNode spriteNodeWithColor: [SKColor colorWithRed:.8 green:.3 blue:.3 alpha:1.0] size:CGSizeMake(50, 50)];
         settingButton.name = @"settingButton";
@@ -49,11 +49,11 @@
         titleImage.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
         [self addChild:playButton];
-        [self addChild:playLabel];
+        [self addChild:playIcon];
         [self addChild:titleImage];
         [self addChild:backgroundImage];
         [self addChild:settingButton];
-        [self addChild:settingLabel];
+        [self addChild:settingIcon];
         
     }
     
