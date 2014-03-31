@@ -55,4 +55,8 @@ typedef enum : uint8_t {
 @property (nonatomic, weak) SKLabelNode *scoreLabel;
 @property (nonatomic, weak) SKLabelNode *coinLabel;
 
+@property (nonatomic, weak) SKLabelNode *inGridY;
+@property (nonatomic, weak) SKLabelNode *inGridX;
+
+
 @end

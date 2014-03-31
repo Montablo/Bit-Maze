@@ -47,6 +47,15 @@ static NSString* COIN_IMG = @"coin";
 
 -(void) initializeVariables {
     
+    self.inGridX = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    self.inGridY = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    
+    self.inGridX.position = CGPointMake(CGRectGetMidX(self.frame), 40);
+    self.inGridY.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    
+    //[self addChild:self.inGridX];
+    //[self addChild:self.inGridY];
+    
     gameSpeed = .3;
     
     gameScore = 0;
@@ -272,7 +281,7 @@ static NSString* COIN_IMG = @"coin";
             
             NSMutableArray* currentPattern = patterns[currentPatternNumber];
             
-            NSMutableArray* nextRow = currentPattern[currentPatternRow];
+            NSMutableArray* nextRow = [NSMutableArray arrayWithArray: currentPattern[currentPatternRow]];
             
             for(int i=0; i<nextRow.count; i++) {
                 if([nextRow[i] isEqualToString: @"4"]) {
@@ -430,13 +439,13 @@ static NSString* COIN_IMG = @"coin";
     currentBitXFloat = newX;
     currentBitYFloat = newY;
     
-    NSString* currentSpace = gameGrid[currentBitX][currentBitY];
+    NSString* currentSpace = gameGrid[currentBitY][currentBitX];
     
     if([currentSpace isEqualToString:@"5"]) { //coin
         
         NSLog(@"You hit a coin!");
 
-        //[self processCoinAtBit];
+        [self processCoinAtBit];
 
     }
 
@@ -444,11 +453,11 @@ static NSString* COIN_IMG = @"coin";
 }
 
 -(void) processCoinAtBit {
-    gameGrid[currentBitX][currentBitY] = @"0";
+    gameGrid[currentBitY][currentBitX] = @"0";
     
     coins ++;
     
-    self.coinLabel.text = [NSString stringWithFormat:@"%i", coins];
+    self.coinLabel.text = [NSString stringWithFormat:@"Coins: %i", coins];
 }
 
 -(BOOL) isWallWithX: (int) xInGrid andY: (int) yInGrid {
@@ -497,6 +506,7 @@ static NSString* COIN_IMG = @"coin";
 }
 
 -(void) update:(NSTimeInterval)currentTime {
-    
+    //self.inGridX.text = [NSString stringWithFormat:@"X: %i",currentBitX];
+    //self.inGridY.text = [NSString stringWithFormat:@"Y: %i",currentBitY];
 }
 @end
