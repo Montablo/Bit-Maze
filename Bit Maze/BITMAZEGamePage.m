@@ -23,9 +23,6 @@ static float speedChange = .99;
         /* Setup your scene here */
         NSLog(@"Started");
         
-        
-        
-        
         inGameFrame = CGSizeMake(CGRectGetWidth(self.frame), CGRectGetHeight(self.frame) - ((float) TOP_INDENT + BOTTOM_INDENT));
         
         NSLog(@"Width: %f, Height: %f", inGameFrame.width, inGameFrame.height);
@@ -53,15 +50,6 @@ static float speedChange = .99;
     tileWidth = [UIScreen mainScreen].bounds.size.width / NUM_COLUMNS;
     tileHeight = ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS ;
     
-    self.inGridX = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-    self.inGridY = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-    
-    self.inGridX.position = CGPointMake(CGRectGetMidX(self.frame), 40);
-    self.inGridY.position = CGPointMake(CGRectGetMidX(self.frame), 0);
-    
-    [self addChild:self.inGridX];
-    [self addChild:self.inGridY];
-    
 }
 
 -(void) initializeGame {
@@ -75,6 +63,20 @@ static float speedChange = .99;
 }
 
 -(void) startGame {
+    
+    /*self.startingTime = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];;
+    
+    self.startingTime.fontSize = 30;
+    self.startingTime.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    
+    [self addChild:self.startingTime];
+    
+    for(int i=1; i<4; i++) {
+        self.startingTime.text = [NSString stringWithFormat:@"%i", i];;
+        sleep(1);
+    }
+    
+    [self.startingTime removeFromParent];*/
     
     [self updateScreen];
     
@@ -420,7 +422,6 @@ static float speedChange = .99;
 }
 
 -(void) update:(NSTimeInterval)currentTime {
-    self.inGridX.text = [NSString stringWithFormat:@"X: %i",currentBitX];
-    self.inGridY.text = [NSString stringWithFormat:@"Y: %i",currentBitY];
+    
 }
 @end

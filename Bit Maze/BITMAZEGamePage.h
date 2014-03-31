@@ -46,8 +46,7 @@ typedef enum : uint8_t {
 } colliderType;
 
 @property (nonatomic, weak) SKNode *bit;
-@property (nonatomic, weak) SKLabelNode *inGridY;
-@property (nonatomic, weak) SKLabelNode *inGridX;
+@property (nonatomic, weak) SKLabelNode *startingTime;
 
 
 @end
