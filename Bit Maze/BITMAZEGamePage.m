@@ -59,12 +59,22 @@ static NSString* COIN_IMG = @"coin";
     self.scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     
     self.scoreLabel.text = @"Score: 0";
-    self.scoreLabel.fontSize = 30;
-    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    self.scoreLabel.fontSize = 15;
+    self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 15);
     
     self.scoreLabel.zPosition = 90;
     
     [self addChild:self.scoreLabel];
+    
+    self.coinLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    
+    self.coinLabel.text = @"Coins: 0";
+    self.coinLabel.fontSize = 15;
+    self.coinLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    
+    self.coinLabel.zPosition = 90;
+    
+    [self addChild:self.coinLabel];
     
     SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restart"];
     restartButton.name = @"restartButton";
@@ -163,9 +173,11 @@ static NSString* COIN_IMG = @"coin";
 
 -(void) updateScreen { //adds the board to the screen
     
-    [self removeAllWalls];
+    [self removeAllOfName:@"wall"];
     
-    [self removeAllBits];
+    [self removeAllOfName:@"coin"];
+    
+    [self removeAllOfName:@"bit"];
     
     float y = BOTTOM_INDENT;
     
@@ -189,9 +201,7 @@ static NSString* COIN_IMG = @"coin";
                 
                 image.name = @"wall";
                 
-            } else if([type isEqual : @"4"] || [type isEqual : @"5"]) {
-                if([type isEqual : @"4"] && arc4random() % 2 == 1) return; //if the type is a fifty percent chance, test that
-
+            } else if([type isEqual : @"5"]) {
                 image = [SKSpriteNode spriteNodeWithImageNamed : COIN_IMG];
                 image.name = @"coin";
             }
@@ -215,7 +225,7 @@ static NSString* COIN_IMG = @"coin";
     
     SKSpriteNode* bit;
     
-    bit = [SKSpriteNode spriteNodeWithImageNamed:@"BIT_IMG"];
+    bit = [SKSpriteNode spriteNodeWithImageNamed: BIT_IMG];
     bit.name = @"bit";
     
     CGPoint location = CGPointMake(currentBitXFloat, currentBitYFloat);
@@ -263,6 +273,16 @@ static NSString* COIN_IMG = @"coin";
             NSMutableArray* currentPattern = patterns[currentPatternNumber];
             
             NSMutableArray* nextRow = currentPattern[currentPatternRow];
+            
+            for(int i=0; i<nextRow.count; i++) {
+                if([nextRow[i] isEqualToString: @"4"]) {
+                    if(arc4random() % 2 == 1) {
+                        nextRow[i] = @"0";
+                    } else {
+                        nextRow[i] = @"5";
+                    }
+                }
+            }
             
             [gameGrid addObject : nextRow];
             
@@ -336,9 +356,9 @@ static NSString* COIN_IMG = @"coin";
     return false;
 }
 
--(void) removeAllWalls {
+-(void) removeAllOfName : (NSString*) name {
     
-    [self enumerateChildNodesWithName:@"wall" usingBlock:^(SKNode *node, BOOL *stop) {
+    [self enumerateChildNodesWithName: name usingBlock:^(SKNode *node, BOOL *stop) {
         /*if(node.position.y <= BOTTOM_INDENT + ([UIScreen mainScreen].bounds.size.height - (TOP_INDENT + BOTTOM_INDENT)) / NUM_ROWS) {
          [node removeFromParent];
          }
@@ -346,14 +366,6 @@ static NSString* COIN_IMG = @"coin";
          if([self.bit intersectsNode:node]) {
          
          }*/
-        [node removeFromParent];
-    }];
-    
-}
-
--(void) removeAllBits {
-    
-    [self enumerateChildNodesWithName:@"bit" usingBlock:^(SKNode *node, BOOL *stop) {
         [node removeFromParent];
     }];
     
@@ -384,6 +396,7 @@ static NSString* COIN_IMG = @"coin";
     
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
+
 
 -(void) endGame {
     NSLog(@"You lose!");
@@ -417,15 +430,25 @@ static NSString* COIN_IMG = @"coin";
     currentBitXFloat = newX;
     currentBitYFloat = newY;
     
-    if([gameGrid[currentGridX][currentGridY].name isEqual : @"coin"]) {
+    NSString* currentSpace = gameGrid[currentBitX][currentBitY];
+    
+    if([currentSpace isEqualToString:@"5"]) { //coin
         
         NSLog(@"You hit a coin!");
 
-        
+        //[self processCoinAtBit];
 
     }
 
     [self updateScreen];
+}
+
+-(void) processCoinAtBit {
+    gameGrid[currentBitX][currentBitY] = @"0";
+    
+    coins ++;
+    
+    self.coinLabel.text = [NSString stringWithFormat:@"%i", coins];
 }
 
 -(BOOL) isWallWithX: (int) xInGrid andY: (int) yInGrid {

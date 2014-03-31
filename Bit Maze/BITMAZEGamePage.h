@@ -38,6 +38,8 @@
     CGPoint startingPt;
     
     int gameScore; //The current game score
+    
+    int coins;
 }
 
 typedef enum : uint8_t {
@@ -51,5 +53,6 @@ typedef enum : uint8_t {
 @property (nonatomic, weak) SKLabelNode *startingTime;
 
 @property (nonatomic, weak) SKLabelNode *scoreLabel;
+@property (nonatomic, weak) SKLabelNode *coinLabel;
 
 @end
