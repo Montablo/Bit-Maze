@@ -476,6 +476,12 @@ static NSString* COIN_IMG = @"coin";
     }
     
     if([self isWallWithX: xInGrid andY: yInGrid]) {
+        
+        [self travelX:xInGrid];
+        [self travelY:yInGrid];
+        
+        [self updateScreen];
+        
         return;
     }
     
@@ -504,6 +510,18 @@ static NSString* COIN_IMG = @"coin";
     coins ++;
     
     self.coinLabel.text = [NSString stringWithFormat:@"Coins: %i", coins];
+}
+
+-(void) travelX: (int) xInGrid {
+    if(![self isWallWithX:xInGrid andY:currentBitY]) {
+        currentBitX = xInGrid;
+    }
+}
+
+-(void) travelY: (int) yInGrid {
+    if(![self isWallWithX:currentBitX andY:yInGrid]) {
+        currentBitY = yInGrid;
+    }
 }
 
 -(BOOL) isWallWithX: (int) xInGrid andY: (int) yInGrid {
