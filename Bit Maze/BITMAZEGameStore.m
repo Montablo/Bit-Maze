@@ -17,10 +17,6 @@
         
         /* Setup your scene here */
         
-        storeSettings = [BITMAZEFileReader getFileLines:@"store"];
-        NSString* STRINGnumCoins = storeSettings[0];
-        numCoins = STRINGnumCoins.intValue;
-        
         //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
         SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
         backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
@@ -49,9 +45,7 @@
         [self addChild:backgroundImage];
         [self addChild:homeButton];
         
-        storeSettings[0] = @"150";
         
-        [BITMAZEFileReader storeFileLines:storeSettings inFile:@"store"];
         
     }
     

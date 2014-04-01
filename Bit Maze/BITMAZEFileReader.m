@@ -10,31 +10,21 @@
 
 @implementation BITMAZEFileReader
 
-+(NSArray *) getFileLines : (NSString *) fileName {
-    
-    NSString* fileRoot = [[NSBundle mainBundle] pathForResource:fileName ofType:@"txt"];
-    
-    // read everything from text
-    NSString* fileContents = [NSString stringWithContentsOfFile:fileRoot encoding:NSUTF8StringEncoding error:nil];
-    
-    // first, separate by new line
-    NSArray* allLinedStrings = [fileContents componentsSeparatedByCharactersInSet: [NSCharacterSet newlineCharacterSet]];
-    
-    return [NSMutableArray arrayWithArray:allLinedStrings];
-    
+- (void)encodeWithCoder:(NSCoder *)coder {
+    [coder encodeBool:_coins forKey:@"coins"];
+    [coder encodeObject:_powerups    forKey:@"powerups"];
+    [coder encodeObject:_scores forKey:@"scores"];
 }
 
-+(BOOL) storeFileLines : (NSMutableArray *) fileLines inFile : (NSString *) fileName {
+- (id)initWithCoder:(NSCoder *)coder {
+    self = [self init];
+    self.coins = [coder decodeBoolForKey:@"coins"];
+    NSArray *powerupsArr = [coder decodeObjectForKey:@"powerups"];
+    self.powerups   = [[NSMutableArray alloc] initWithArray:powerupsArr copyItems:YES];
+    NSArray *scoresArr = [coder decodeObjectForKey:@"scores"];
+    self.scores   = [[NSMutableArray alloc] initWithArray:scoresArr copyItems:YES];
     
-    NSString *fileRoot = [[NSBundle mainBundle] pathForResource:fileName ofType:@"txt"];
-    
-    [[NSFileManager defaultManager] createFileAtPath:fileRoot contents:nil attributes:nil];
-    
-    NSString *str = @"test";
-    [str writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
-    
-    return true;
+    return self;
 }
-
 
 @end

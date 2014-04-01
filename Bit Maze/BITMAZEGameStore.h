@@ -12,6 +12,8 @@
 
     NSMutableArray* storeSettings;
     int numCoins;
+    
+    NSString *_docPath;
 
 }
 

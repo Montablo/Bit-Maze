@@ -8,10 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BITMAZEFileReader : NSObject
+@interface BITMAZEFileReader : NSObject <NSCoding>
 
-+(NSMutableArray *) getFileLines : (NSString *) fileName;
+@property int coins;
+@property (strong, nonatomic) NSMutableArray* powerups;
 
-+(BOOL) storeFileLines : (NSMutableArray *) fileLines inFile : (NSString *) fileName;
+@property (strong, nonatomic) NSMutableArray* scores;
+
+
+@property (copy) NSString *docPath;
+
+- (id)init;
+- (id)initWithDocPath:(NSString *)docPath;
+- (void)saveData;
+- (void)deleteDoc;
 
 @end
