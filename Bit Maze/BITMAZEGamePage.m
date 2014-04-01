@@ -7,6 +7,7 @@
 //
 
 #import "BITMAZEGamePage.h"
+#import "BITMAZELinkPages.h"
 
 @implementation BITMAZEGamePage
 
@@ -40,7 +41,7 @@ static NSString* COIN_IMG = @"coin";
         
         [self initializeGame];
         
-        [self startGame];
+        //[self startGame];
     }
     return self;
 }
@@ -84,13 +85,6 @@ static NSString* COIN_IMG = @"coin";
     self.coinLabel.zPosition = 90;
     
     [self addChild:self.coinLabel];
-    
-    SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restart"];
-    restartButton.name = @"restartButton";
-    restartButton.size = CGSizeMake(15, 15);
-    restartButton.position = CGPointMake(15, 15);
-    
-    [self addChild:restartButton];
 }
 
 -(void) initializeGame {
@@ -99,6 +93,7 @@ static NSString* COIN_IMG = @"coin";
     
     [self generateGrid];
     
+    [self updateScreen];
 }
 
 -(void) startGame {
@@ -116,8 +111,6 @@ static NSString* COIN_IMG = @"coin";
     }
     
     [self.startingTime removeFromParent];*/
-    
-    [self updateScreen];
     
     gameHasStarted = YES;
     
@@ -409,11 +402,64 @@ static NSString* COIN_IMG = @"coin";
 
 -(void) endGame {
     NSLog(@"You lose!");
+    
+    SKSpriteNode *endGamePopUp = [SKSpriteNode spriteNodeWithColor:[SKColor grayColor] size: CGSizeMake(inGameFrame.width, inGameFrame.height)];
+    endGamePopUp.name = @"endGamePopUp";
+    endGamePopUp.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
+    
+    endGamePopUp.zPosition = 150;
+    endGamePopUp.alpha = .99;
+    
+    SKLabelNode *finalScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    finalScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3);
+    finalScore.name = @"finalScore";
+    finalScore.zPosition = 151;
+    finalScore.fontSize = 15;
+    finalScore.fontColor = [SKColor blackColor];
+    finalScore.text = [NSString stringWithFormat:@"You lose! Your final score was %i.", gameScore];
+    
+    SKLabelNode *finalCoins = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    finalCoins.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3 - 20);
+    finalCoins.name = @"finalScore";
+    finalCoins.zPosition = 151;
+    finalCoins.fontSize = 15;
+    finalCoins.fontColor = [SKColor blackColor];
+    finalCoins.text = [NSString stringWithFormat:@"You collected %i coins!", coins];
+    
+    SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restart"];
+    restartButton.name = @"restartButton";
+    restartButton.zPosition = 151;
+    restartButton.size = CGSizeMake(50, 50);
+    restartButton.position = CGPointMake(CGRectGetMaxX(self.frame)/3, CGRectGetMaxY(self.frame)/3);
+    
+    SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"home"];
+    homeButton.name = @"homeButton";
+    homeButton.zPosition = 151;
+    homeButton.size = CGSizeMake(50, 50);
+    homeButton.position = CGPointMake(2*CGRectGetMaxX(self.frame)/3, CGRectGetMaxY(self.frame)/3);
+    
+    SKSpriteNode *storeButton = [SKSpriteNode spriteNodeWithImageNamed:@"store"];
+    storeButton.name = @"storeButton";
+    storeButton.zPosition = 151;
+    storeButton.size = CGSizeMake(50, 50);
+    storeButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)/3 - 70);
+    
+    [self addChild:storeButton];
+    [self addChild:homeButton];
+    [self addChild:restartButton];
+    [self addChild:endGamePopUp];
+    [self addChild:finalScore];
+    [self addChild:finalCoins];
+    
     //[self resetGame];
 }
 
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
 {
+    
+    if(!gameHasStarted) {
+        [self startGame];
+    }
     
     CGPoint tappedPt = [[touches anyObject] locationInNode: self];
     
@@ -487,22 +533,12 @@ static NSString* COIN_IMG = @"coin";
     
     if ([node.name isEqualToString:@"restartButton"]) {
         //Play button is touched
-        [self resetGame];
+        [BITMAZELinkPages gamePage:self];
+    } else if([node.name isEqualToString:@"homeButton"]) {
+        [BITMAZELinkPages homePage:self];
+    } else if([node.name isEqualToString:@"storeButton"]) {
+        [BITMAZELinkPages storePage:self];
     }
-}
-
--(void) resetGame {
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = NO;
-    
-    // Create and configure the scene.
-    SKScene * scene = [BITMAZEGamePage sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
 }
 
 -(void) update:(NSTimeInterval)currentTime {

@@ -7,8 +7,7 @@
 //
 
 #import "BITMAZEHomePage.h"
-#import "BITMAZEGamePage.h"
-#import "BITMAZESettingsPage.h"
+#import "BITMAZELinkPages.h"
 
 @implementation BITMAZEHomePage
 
@@ -37,23 +36,24 @@
         settingIcon.size = CGSizeMake(50, 50);
         settingIcon.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
-        SKSpriteNode *settingButton = [SKSpriteNode new];
-        settingButton.size = CGSizeMake(50, 50);
-        settingButton.name = @"settingButton";
-        settingButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
-        
         SKSpriteNode *titleImage = [SKSpriteNode spriteNodeWithImageNamed:@"BitMazeTitle"];
         titleImage.xScale = 0.5;
         titleImage.yScale = 0.5;
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleImage.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
+        SKSpriteNode *storeButton = [SKSpriteNode spriteNodeWithImageNamed:@"store"];
+        storeButton.name = @"storeButton";
+        storeButton.zPosition = 151;
+        storeButton.size = CGSizeMake(50, 50);
+        storeButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)/3 - 70);
+        
         [self addChild:playButton];
         [self addChild:playIcon];
         [self addChild:titleImage];
         [self addChild:backgroundImage];
-        [self addChild:settingButton];
         [self addChild:settingIcon];
+        [self addChild:storeButton];
         
     }
     
@@ -70,39 +70,13 @@
     
     if ([node.name isEqualToString:@"playButton"]) {
         //Play button is touched
-        [self startGame];
+        [BITMAZELinkPages gamePage:self];
     } else if ([node.name isEqualToString:@"settingButton"]) {
         //Settings button is touched
-        [self launchSettings];
+        [BITMAZELinkPages settingsPage:self];
+    } else if([node.name isEqualToString:@"storeButton"]) {
+        [BITMAZELinkPages storePage:self];
     }
-}
-
--(void) launchSettings {
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    //skView.showsFPS = YES;
-    //skView.showsNodeCount = YES;
-    
-    // Create and configure the scene.
-    SKScene * scene = [BITMAZESettingsPage sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
-}
-
--(void) startGame {
-    // Configure the view.
-    SKView * skView = (SKView *)self.view;
-    skView.showsFPS = YES;
-    skView.showsNodeCount = NO;
-    
-    // Create and configure the scene.
-    SKScene * scene = [BITMAZEGamePage sceneWithSize:skView.bounds.size];
-    scene.scaleMode = SKSceneScaleModeAspectFill;
-    
-    // Present the scene.
-    [skView presentScene:scene];
 }
 
 -(void)update:(CFTimeInterval)currentTime {

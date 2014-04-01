@@ -28,13 +28,12 @@
     
     NSString *fileRoot = [[NSBundle mainBundle] pathForResource:fileName ofType:@"txt"];
     
-    for(int i=0; i<fileLines.count; i++) {
-        NSString *line = fileLines[i];
-        
-        [line writeToFile:fileRoot atomically:YES];
-    }
+    [[NSFileManager defaultManager] createFileAtPath:fileRoot contents:nil attributes:nil];
+    
+    NSString *str = @"test";
+    [str writeToFile:fileName atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    
     return true;
-    //return [fileLines writeToFile:fileRoot atomically:YES];
 }
 
 

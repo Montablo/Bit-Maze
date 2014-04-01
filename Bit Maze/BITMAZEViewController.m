@@ -8,7 +8,6 @@
 
 #import "BITMAZEViewController.h"
 #import "BITMAZEHomePage.h"
-#import "BITMAZEAppFunctions.h"
 
 @import AVFoundation;
 
@@ -23,8 +22,6 @@
 
 {
     //[self checkSound];
-    
-    //[BITMAZEAppFunctions checkSound];
     
     [super viewDidLoad];
 
