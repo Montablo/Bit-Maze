@@ -2,25 +2,16 @@
 //  BITMAZEFileReader.h
 //  Bit Maze
 //
-//  Created by Jack on 3/31/14.
+//  Created by Jack on 4/1/14.
 //  Copyright (c) 2014 Montablo. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>
 
-@interface BITMAZEFileReader : NSObject <NSCoding>
+@interface BITMAZEFileReader : NSObject
 
-@property int coins;
-@property (strong, nonatomic) NSMutableArray* powerups;
-
-@property (strong, nonatomic) NSMutableArray* scores;
-
-
-@property (copy) NSString *docPath;
-
-- (id)init;
-- (id)initWithDocPath:(NSString *)docPath;
-- (void)saveData;
-- (void)deleteDoc;
++(NSMutableArray*) getArray;
++(BOOL) storeArray : (NSMutableArray*) array;
++(BOOL) clearArray;
 
 @end

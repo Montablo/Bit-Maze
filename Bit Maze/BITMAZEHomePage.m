@@ -46,7 +46,13 @@
         storeButton.name = @"storeButton";
         storeButton.zPosition = 151;
         storeButton.size = CGSizeMake(50, 50);
-        storeButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)/3 - 70);
+        storeButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMaxY(self.frame)/3 - 70);
+        
+        SKSpriteNode *scoreButton = [SKSpriteNode spriteNodeWithImageNamed:@"highscore"];
+        scoreButton.name = @"scoreButton";
+        scoreButton.zPosition = 151;
+        scoreButton.size = CGSizeMake(50, 50);
+        scoreButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMaxY(self.frame)/3 - 70);
         
         [self addChild:playButton];
         [self addChild:playIcon];
@@ -54,6 +60,7 @@
         [self addChild:backgroundImage];
         [self addChild:settingIcon];
         [self addChild:storeButton];
+        [self addChild:scoreButton];
         
     }
     
@@ -76,6 +83,8 @@
         [BITMAZELinkPages settingsPage:self];
     } else if([node.name isEqualToString:@"storeButton"]) {
         [BITMAZELinkPages storePage:self];
+    } else if([node.name isEqualToString:@"scoreButton"]) {
+        [BITMAZELinkPages scorePage:self];
     }
 }
 

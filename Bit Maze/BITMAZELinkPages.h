@@ -14,5 +14,6 @@
 +(void) storePage : (SKScene *) currentPage;
 +(void) settingsPage : (SKScene *) currentPage;
 +(void) gamePage : (SKScene *) currentPage;
++(void) scorePage : (SKScene *) currentPage;
 
 @end

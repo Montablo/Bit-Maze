@@ -11,6 +11,7 @@
 #import "BITMAZEGameStore.h"
 #import "BITMAZEGamePage.h"
 #import "BITMAZESettingsPage.h"
+#import "BITMAZEScorePage.h"
 
 @implementation BITMAZELinkPages
 
@@ -42,6 +43,19 @@
     [skView presentScene:scene];
 }
 
++(void) scorePage : (SKScene *) currentPage {
+    // Configure the view.
+    SKView * skView = (SKView *)currentPage.view;
+    skView.showsFPS = YES;
+    skView.showsNodeCount = NO;
+    
+    // Create and configure the scene.
+    SKScene * scene = [BITMAZEScorePage sceneWithSize:skView.bounds.size];
+    scene.scaleMode = SKSceneScaleModeAspectFill;
+    
+    // Present the scene.
+    [skView presentScene:scene];
+}
 
 +(void) settingsPage : (SKScene *) currentPage {
     // Configure the view.

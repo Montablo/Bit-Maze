@@ -2,7 +2,7 @@
 //  BITMAZEFileReader.m
 //  Bit Maze
 //
-//  Created by Jack on 3/31/14.
+//  Created by Jack on 4/1/14.
 //  Copyright (c) 2014 Montablo. All rights reserved.
 //
 
@@ -10,21 +10,56 @@
 
 @implementation BITMAZEFileReader
 
-- (void)encodeWithCoder:(NSCoder *)coder {
-    [coder encodeBool:_coins forKey:@"coins"];
-    [coder encodeObject:_powerups    forKey:@"powerups"];
-    [coder encodeObject:_scores forKey:@"scores"];
++(NSMutableArray*) getArray {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *stringsPlistPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"userdata.plist"];
+    
+    NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:stringsPlistPath];
+    
+    if(array.count == 0) {
+        array = [BITMAZEFileReader initializeValues:array];
+        
+        [BITMAZEFileReader storeArray:array];
+    }
+    
+    return [NSMutableArray arrayWithArray:array];
+    
 }
 
-- (id)initWithCoder:(NSCoder *)coder {
-    self = [self init];
-    self.coins = [coder decodeBoolForKey:@"coins"];
-    NSArray *powerupsArr = [coder decodeObjectForKey:@"powerups"];
-    self.powerups   = [[NSMutableArray alloc] initWithArray:powerupsArr copyItems:YES];
-    NSArray *scoresArr = [coder decodeObjectForKey:@"scores"];
-    self.scores   = [[NSMutableArray alloc] initWithArray:scoresArr copyItems:YES];
++(BOOL) storeArray:(NSMutableArray *)array {
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *stringsPlistPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"userdata.plist"];
     
-    return self;
+    return [array writeToFile:stringsPlistPath atomically:YES];
+    
+}
+
++(BOOL) clearArray {
+    
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *stringsPlistPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"userdata.plist"];
+    
+    return [@[] writeToFile:stringsPlistPath atomically:YES];
+
+}
+
++(NSMutableArray*) initializeValues : (NSMutableArray*) array {
+    NSMutableArray* newArray = [NSMutableArray arrayWithArray:@[[NSMutableArray arrayWithArray:@[]], [NSMutableArray arrayWithArray:@[]]]];
+    NSMutableArray* storeSettings = newArray[0];
+    
+    if(storeSettings.count == 0) {
+        [storeSettings addObject:@"0"];
+        [storeSettings addObject:@[@"0", @"0", @"0", @"0"]];
+    }
+    
+    NSMutableArray* scoreSettings = newArray[1];
+    
+    if(scoreSettings.count == 0) {
+        [scoreSettings addObject:@[@"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0", @"0"]];
+    }
+    
+    return newArray;
 }
 
 @end

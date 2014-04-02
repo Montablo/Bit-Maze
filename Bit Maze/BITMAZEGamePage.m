@@ -8,6 +8,7 @@
 
 #import "BITMAZEGamePage.h"
 #import "BITMAZELinkPages.h"
+#import "BITMAZEFileReader.h"
 
 @implementation BITMAZEGamePage
 
@@ -85,6 +86,33 @@ static NSString* COIN_IMG = @"coin";
     self.coinLabel.zPosition = 90;
     
     [self addChild:self.coinLabel];
+    
+    self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
+    self.pauseButton.name = @"pauseButton";
+    self.pauseButton.zPosition = 151;
+    self.pauseButton.size = CGSizeMake(30, 30);
+    self.pauseButton.position = CGPointMake(15, 15);
+    
+    [self addChild:self.pauseButton];
+}
+
+-(void) pause {
+    gameIsPaused = !gameIsPaused;
+    
+    [self.pauseButton removeFromParent];
+    
+    if(gameIsPaused) {
+        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"play"];
+    } else {
+        self.pauseButton = [SKSpriteNode spriteNodeWithImageNamed:@"pause"];
+    }
+
+    self.pauseButton.name = @"pauseButton";
+    self.pauseButton.zPosition = 151;
+    self.pauseButton.size = CGSizeMake(30, 30);
+    self.pauseButton.position = CGPointMake(15, 15);
+    
+    [self addChild:self.pauseButton];
 }
 
 -(void) initializeGame {
@@ -113,6 +141,7 @@ static NSString* COIN_IMG = @"coin";
     [self.startingTime removeFromParent];*/
     
     gameHasStarted = YES;
+    gameIsPaused = NO;
     
     [self scrollScreen];
     
@@ -232,7 +261,7 @@ static NSString* COIN_IMG = @"coin";
     
     CGPoint location = CGPointMake(currentBitXFloat, currentBitYFloat);
     
-    CGSize size = CGSizeMake(tileWidth, tileHeight);
+    CGSize size = CGSizeMake(tileHeight, tileHeight);
     
     bit.size = size;
     
@@ -374,33 +403,58 @@ static NSString* COIN_IMG = @"coin";
 }
 
 -(void) scrollScreen{
-    if(currentBitY == 0) {
-        [self endGame];
-        return;
+    if(!gameIsPaused) {
+        if(currentBitY == 0) {
+            [self endGame];
+            return;
+        }
+        
+        currentBitY--;
+        
+        currentBitYFloat -= tileHeight;
+        
+        [gameGrid removeObjectAtIndex:0];
+        
+        [self generateGrid];
+        
+        [self updateScreen];
+        
+        gameSpeed *= speedChange;
+        
+        if(gameSpeed < maxSpeed) gameSpeed = maxSpeed;
+        
+        gameScore++;
+        self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", gameScore];
     }
-    
-    currentBitY--;
-    
-    currentBitYFloat -= tileHeight;
-    
-    [gameGrid removeObjectAtIndex:0];
-    
-    [self generateGrid];
-    
-    [self updateScreen];
-    
-    gameSpeed *= speedChange;
-    
-    if(gameSpeed < maxSpeed) gameSpeed = maxSpeed;
-    
-    gameScore++;
-    self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", gameScore];
-    
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
 
 
 -(void) endGame {
+    
+    NSMutableArray *usersettings = [BITMAZEFileReader getArray];
+    
+    int numPrevCoins = [usersettings[0][0] intValue];
+    
+    int newCoins = numPrevCoins + coins;
+    
+    usersettings[0][0] = [NSString stringWithFormat:@"%i", newCoins];
+    
+    NSMutableArray* highscores = usersettings[1][0];
+    for(int i=0; i<highscores.count; i++) {
+        int highscoreInt = [highscores[i] intValue];
+        
+        if(gameScore > highscoreInt) {
+            [highscores insertObject:[NSString stringWithFormat:@"%i", gameScore] atIndex:i];
+            [highscores removeLastObject];
+            
+            break;
+        }
+        
+    }
+    
+    [BITMAZEFileReader storeArray:usersettings];
+    
     NSLog(@"You lose!");
     
     SKSpriteNode *endGamePopUp = [SKSpriteNode spriteNodeWithColor:[SKColor grayColor] size: CGSizeMake(inGameFrame.width, inGameFrame.height)];
@@ -411,20 +465,29 @@ static NSString* COIN_IMG = @"coin";
     endGamePopUp.alpha = .99;
     
     SKLabelNode *finalScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-    finalScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3);
+    finalScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3+50);
     finalScore.name = @"finalScore";
     finalScore.zPosition = 151;
-    finalScore.fontSize = 15;
+    finalScore.fontSize = 30;
     finalScore.fontColor = [SKColor blackColor];
-    finalScore.text = [NSString stringWithFormat:@"You lose! Your final score was %i.", gameScore];
+    finalScore.text = [NSString stringWithFormat:@"Your score: %i", gameScore];
+    
+    
+    SKLabelNode *highScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    highScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3);
+    highScore.name = @"finalScore";
+    highScore.zPosition = 151;
+    highScore.fontSize = 30;
+    highScore.fontColor = [SKColor blackColor];
+    highScore.text = [NSString stringWithFormat:@"High score: %@", highscores[0]];
     
     SKLabelNode *finalCoins = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-    finalCoins.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3 - 20);
+    finalCoins.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3 - 50);
     finalCoins.name = @"finalScore";
     finalCoins.zPosition = 151;
-    finalCoins.fontSize = 15;
+    finalCoins.fontSize = 30;
     finalCoins.fontColor = [SKColor blackColor];
-    finalCoins.text = [NSString stringWithFormat:@"You collected %i coins!", coins];
+    finalCoins.text = [NSString stringWithFormat:@"%i coins!", coins];
     
     SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restart"];
     restartButton.name = @"restartButton";
@@ -442,9 +505,17 @@ static NSString* COIN_IMG = @"coin";
     storeButton.name = @"storeButton";
     storeButton.zPosition = 151;
     storeButton.size = CGSizeMake(50, 50);
-    storeButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMaxY(self.frame)/3 - 70);
+    storeButton.position = CGPointMake(CGRectGetMaxX(self.frame)/3, CGRectGetMaxY(self.frame)/3 - 70);
     
+    SKSpriteNode *scoreButton = [SKSpriteNode spriteNodeWithImageNamed:@"highscore"];
+    scoreButton.name = @"scoreButton";
+    scoreButton.zPosition = 151;
+    scoreButton.size = CGSizeMake(50, 50);
+    scoreButton.position = CGPointMake(2*CGRectGetMaxX(self.frame)/3, CGRectGetMaxY(self.frame)/3 - 70);
+    
+    [self addChild:highScore];
     [self addChild:storeButton];
+    [self addChild:scoreButton];
     [self addChild:homeButton];
     [self addChild:restartButton];
     [self addChild:endGamePopUp];
@@ -456,52 +527,53 @@ static NSString* COIN_IMG = @"coin";
 
 -(void)touchesMoved:(NSSet*) touches withEvent:(UIEvent*) event
 {
-    
-    if(!gameHasStarted) {
-        [self startGame];
-    }
-    
-    CGPoint tappedPt = [[touches anyObject] locationInNode: self];
-    
-    //Snaps bit to grid
-    
-    int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
-    int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
-    
-    float newX = tappedPt.x;
-    float newY = tappedPt.y;
-    
-    if(xInGrid >= NUM_COLUMNS || yInGrid >= NUM_ROWS || xInGrid < 0 || yInGrid < 0) {
-        return;
-    }
-    
-    if([self isWallWithX: xInGrid andY: yInGrid]) {
+    if(!gameIsPaused) {
+        if(!gameHasStarted) {
+            [self startGame];
+        }
         
-        [self travelX:xInGrid];
-        [self travelY:yInGrid];
+        CGPoint tappedPt = [[touches anyObject] locationInNode: self];
         
+        //Snaps bit to grid
+        
+        int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
+        int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
+        
+        float newX = tappedPt.x;
+        float newY = tappedPt.y;
+        
+        if(xInGrid >= NUM_COLUMNS || yInGrid >= NUM_ROWS || xInGrid < 0 || yInGrid < 0) {
+            return;
+        }
+        
+        if([self isWallWithX: xInGrid andY: yInGrid]) {
+            
+            [self travelX:xInGrid];
+            [self travelY:yInGrid];
+            
+            [self updateScreen];
+            
+            return;
+        }
+        
+        currentBitX = xInGrid;
+        currentBitY = yInGrid;
+        
+        currentBitXFloat = newX;
+        currentBitYFloat = newY;
+        
+        NSString* currentSpace = gameGrid[currentBitY][currentBitX];
+        
+        if([currentSpace isEqualToString:@"5"]) { //coin
+            
+            NSLog(@"You hit a coin!");
+
+            [self processCoinAtBit];
+
+        }
+
         [self updateScreen];
-        
-        return;
     }
-    
-    currentBitX = xInGrid;
-    currentBitY = yInGrid;
-    
-    currentBitXFloat = newX;
-    currentBitYFloat = newY;
-    
-    NSString* currentSpace = gameGrid[currentBitY][currentBitX];
-    
-    if([currentSpace isEqualToString:@"5"]) { //coin
-        
-        NSLog(@"You hit a coin!");
-
-        [self processCoinAtBit];
-
-    }
-
-    [self updateScreen];
 }
 
 -(void) processCoinAtBit {
@@ -556,6 +628,10 @@ static NSString* COIN_IMG = @"coin";
         [BITMAZELinkPages homePage:self];
     } else if([node.name isEqualToString:@"storeButton"]) {
         [BITMAZELinkPages storePage:self];
+    } else if([node.name isEqualToString:@"scoreButton"]) {
+        [BITMAZELinkPages scorePage:self];
+    } else if([node.name isEqualToString:@"pauseButton"]) {
+        [self pause];
     }
 }
 

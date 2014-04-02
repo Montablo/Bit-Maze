@@ -1,23 +1,21 @@
 //
-//  BITMAZEGameStore.m
+//  BITMAZEScorePage.m
 //  Bit Maze
 //
-//  Created by Jack on 3/31/14.
+//  Created by Jack on 4/1/14.
 //  Copyright (c) 2014 Montablo. All rights reserved.
 //
 
-#import "BITMAZEGameStore.h"
-#import "BITMAZELinkPages.h"
-#import "BITMAZEFileReader.h"
+#import "BITMAZEScorePage.h"
 
-@implementation BITMAZEGameStore
+@implementation BITMAZEScorePage
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         
         /* Setup your scene here */
         
-        [self initializeStore];
+        [self initializeScores];
         
         //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
         SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
@@ -31,22 +29,24 @@
         homeButton.position = CGPointMake(CGRectGetMidX(self.frame), 2*(CGRectGetHeight(self.frame)/3));
         
         SKLabelNode *titleLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        titleLabel.text = @"Bit Maze";
+        titleLabel.text = @"High Scores";
         titleLabel.fontSize = 30;
         titleLabel.zPosition = 100;
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
-        SKLabelNode *coinsLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        coinsLabel.text = [NSString stringWithFormat:@"Coins: %i", numCoins];
-        coinsLabel.fontSize = 20;
-        coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY - 125);
+        SKLabelNode *labelLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+        labelLabel.text = @"Bit Maze";
+        labelLabel.fontSize = 30;
+        labelLabel.zPosition = 100;
+        labelLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY+50);
         
-        [self addChild:coinsLabel];
+        [self displayScores];
+        
         [self addChild:titleLabel];
         [self addChild:backgroundImage];
         [self addChild:homeButton];
-        
+        [self addChild:labelLabel];
         
         
     }
@@ -54,12 +54,27 @@
     return self;
 }
 
--(void) initializeStore {
-    storeSettings = [BITMAZEFileReader getArray][0];
-    
-    numCoins = [storeSettings[0] intValue];
+-(void) initializeScores {
+    scoreSettings = [BITMAZEFileReader getArray][1];
     
 }
+
+-(void) displayScores {
+    NSMutableArray *scoresArr = scoreSettings[0];
+    for(int i=0; i<scoresArr.count; i++) {
+        
+        SKLabelNode *scoreLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+        scoreLabel.text = [NSString stringWithFormat:@"%i: %@", (i+1), scoresArr[i]];
+        scoreLabel.fontSize = 20;
+        scoreLabel.name = @"scoreLabel";
+        scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), (2*(CGRectGetHeight(self.frame))/3 - 75) - (25*i));
+        
+        [self addChild:scoreLabel];
+        
+    }
+}
+
+
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
@@ -74,5 +89,6 @@
         [BITMAZELinkPages homePage:self];
     }
 }
+
 
 @end

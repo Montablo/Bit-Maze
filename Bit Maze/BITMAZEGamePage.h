@@ -28,6 +28,7 @@
     float tileHeight;
     
     BOOL gameHasStarted;
+    BOOL gameIsPaused;
     
     int currentBitX;
     int currentBitY;
@@ -51,6 +52,8 @@ typedef enum : uint8_t {
 
 @property (nonatomic, weak) SKNode *bit;
 @property (nonatomic, weak) SKLabelNode *startingTime;
+
+@property (nonatomic, weak) SKSpriteNode *pauseButton;
 
 @property (nonatomic, weak) SKLabelNode *scoreLabel;
 @property (nonatomic, weak) SKLabelNode *coinLabel;
