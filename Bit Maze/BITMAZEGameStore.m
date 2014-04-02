@@ -24,7 +24,6 @@
         backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         backgroundImage.size = CGSizeMake(CGRectGetMaxX(self.frame), CGRectGetMaxY(self.frame));
         backgroundImage.zPosition = -1;
-        backgroundImage.alpha = 0.4;
         
         SKSpriteNode *homeButton = [SKSpriteNode spriteNodeWithImageNamed:@"home"];
         homeButton.name = @"homeButton";

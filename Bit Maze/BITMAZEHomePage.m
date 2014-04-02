@@ -20,7 +20,6 @@
         backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         backgroundImage.zPosition = -1;
         backgroundImage.size = CGSizeMake(CGRectGetMaxX(self.frame), CGRectGetMaxY(self.frame));
-        backgroundImage.alpha = 0.7;
         
         SKSpriteNode *playButton = [SKSpriteNode new];
         playButton.size = CGSizeMake(50, 50);
