@@ -37,8 +37,7 @@
         settingIcon.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
         SKSpriteNode *titleImage = [SKSpriteNode spriteNodeWithImageNamed:@"BitMazeTitle"];
-        titleImage.xScale = 0.5;
-        titleImage.yScale = 0.5;
+        titleImage.size = CGSizeMake(250, 50);
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleImage.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
