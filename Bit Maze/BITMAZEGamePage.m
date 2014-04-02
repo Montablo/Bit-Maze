@@ -345,8 +345,8 @@ static NSString* COIN_IMG = @"coin";
         
         NSNumber* frequencyInt = [NSNumber numberWithInt: [patternOccurences[i][1] intValue]];
         
-        if(patternRow.count == 0 && startingNumber > numberOfPatternsUsed) {
-            frequencyInt = 0;
+        if(patternRow.count == 0 || startingNumber > numberOfPatternsUsed) {
+            frequencyInt = [NSNumber numberWithInt:0];
         }
         [patternAdj addObject:frequencyInt];
         
