@@ -19,7 +19,7 @@
         SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
         backgroundImage.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         backgroundImage.zPosition = -1;
-        backgroundImage.alpha = 0.7;
+        backgroundImage.size = CGSizeMake(CGRectGetMaxX(self.frame), CGRectGetMaxY(self.frame));
         
         SKSpriteNode *playButton = [SKSpriteNode new];
         playButton.size = CGSizeMake(50, 50);
@@ -37,8 +37,7 @@
         settingIcon.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMidY(self.frame));
         
         SKSpriteNode *titleImage = [SKSpriteNode spriteNodeWithImageNamed:@"BitMazeTitle"];
-        titleImage.xScale = 0.5;
-        titleImage.yScale = 0.5;
+        titleImage.size = CGSizeMake(250, 50);
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleImage.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         

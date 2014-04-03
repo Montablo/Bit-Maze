@@ -464,7 +464,7 @@ static NSString* COIN_IMG = @"coin";
     endGamePopUp.zPosition = 150;
     endGamePopUp.alpha = .99;
     
-    SKLabelNode *finalScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    SKLabelNode *finalScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
     finalScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3+50);
     finalScore.name = @"finalScore";
     finalScore.zPosition = 151;
@@ -473,7 +473,7 @@ static NSString* COIN_IMG = @"coin";
     finalScore.text = [NSString stringWithFormat:@"Your score: %i", gameScore];
     
     
-    SKLabelNode *highScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    SKLabelNode *highScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3);
     highScore.name = @"finalScore";
     highScore.zPosition = 151;
@@ -481,13 +481,13 @@ static NSString* COIN_IMG = @"coin";
     highScore.fontColor = [SKColor blackColor];
     highScore.text = [NSString stringWithFormat:@"High score: %@", highscores[0]];
     
-    SKLabelNode *finalCoins = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    SKLabelNode *finalCoins = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
     finalCoins.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3 - 50);
     finalCoins.name = @"finalScore";
     finalCoins.zPosition = 151;
     finalCoins.fontSize = 30;
     finalCoins.fontColor = [SKColor blackColor];
-    finalCoins.text = [NSString stringWithFormat:@"%i coins!", coins];
+    finalCoins.text = [NSString stringWithFormat:@"Coins earned: %i", coins];
     
     SKSpriteNode *restartButton = [SKSpriteNode spriteNodeWithImageNamed:@"restart"];
     restartButton.name = @"restartButton";
