@@ -72,6 +72,7 @@ static NSString* COIN_IMG = @"coin";
     self.scoreLabel.text = @"Score: 0";
     self.scoreLabel.fontSize = 15;
     self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 15);
+    self.scoreLabel.color = [SKColor colorWithRed:.1 green:.68 blue:1.0 alpha:1.0];
     
     self.scoreLabel.zPosition = 90;
     
@@ -82,6 +83,7 @@ static NSString* COIN_IMG = @"coin";
     self.coinLabel.text = @"Coins: 0";
     self.coinLabel.fontSize = 15;
     self.coinLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    self.coinLabel.color = [SKColor colorWithRed:.1 green:.68 blue:1.0 alpha:1.0];
     
     self.coinLabel.zPosition = 90;
     
@@ -208,8 +210,6 @@ static NSString* COIN_IMG = @"coin";
     
     [self removeAllOfName:@"coin"];
     
-    [self removeAllOfName:@"bit"];
-    
     float y = BOTTOM_INDENT;
     
     for(int i=0; i<gameGrid.count; i++) {
@@ -253,6 +253,13 @@ static NSString* COIN_IMG = @"coin";
             
         }
     }
+    [self updateBit];
+}
+
+-(void) updateBit {
+    
+    [self removeAllOfName:@"bit"];
+    
     
     SKSpriteNode* bit;
     
@@ -270,6 +277,7 @@ static NSString* COIN_IMG = @"coin";
     [self addChild:bit];
     
     self.bit = bit;
+    
 }
 
 -(void) generateGrid { //a method that can be used for initial board generation and in game generation
@@ -551,7 +559,7 @@ static NSString* COIN_IMG = @"coin";
             [self travelX:xInGrid];
             [self travelY:yInGrid];
             
-            //[self updateScreen];
+            [self updateBit];
             
             return;
         }
@@ -572,7 +580,7 @@ static NSString* COIN_IMG = @"coin";
 
         }
 
-        //[self updateScreen];
+        [self updateBit];
     }
 }
 
