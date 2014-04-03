@@ -44,6 +44,7 @@
     
     // Present the scene.
     [skView presentScene:scene];
+    
 }
 
 -(void) checkSound {

@@ -572,7 +572,7 @@ static NSString* COIN_IMG = @"coin";
 
         }
 
-        [self updateScreen];
+        //[self updateScreen];
     }
 }
 
@@ -582,6 +582,10 @@ static NSString* COIN_IMG = @"coin";
     coins ++;
     
     self.coinLabel.text = [NSString stringWithFormat:@"Coins: %i", coins];
+}
+
+-(void) processCoinsNearby {
+    
 }
 
 -(void) travelX: (int) xInGrid {

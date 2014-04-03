@@ -53,10 +53,10 @@ typedef enum : uint8_t {
 @property (nonatomic, weak) SKNode *bit;
 @property (nonatomic, weak) SKLabelNode *startingTime;
 
-@property (nonatomic, weak) SKSpriteNode *pauseButton;
+@property (nonatomic, strong) SKSpriteNode *pauseButton;
 
-@property (nonatomic, weak) SKLabelNode *scoreLabel;
-@property (nonatomic, weak) SKLabelNode *coinLabel;
+@property (nonatomic, strong) SKLabelNode *scoreLabel;
+@property (nonatomic, strong) SKLabelNode *coinLabel;
 
 @property (nonatomic, weak) SKLabelNode *inGridY;
 @property (nonatomic, weak) SKLabelNode *inGridX;
