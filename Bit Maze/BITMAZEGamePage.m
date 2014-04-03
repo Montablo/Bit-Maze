@@ -551,7 +551,7 @@ static NSString* COIN_IMG = @"coin";
             [self travelX:xInGrid];
             [self travelY:yInGrid];
             
-            [self updateScreen];
+            //[self updateScreen];
             
             return;
         }
