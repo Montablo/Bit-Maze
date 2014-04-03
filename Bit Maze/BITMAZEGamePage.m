@@ -20,8 +20,8 @@ static int BOTTOM_INDENT = 40;
 static float maxSpeed    = .1;
 static float speedChange = .99;
 
-static NSString* BIT_IMG  = @"circle";
-static NSString* WALL_IMG = @"metal";
+static NSString* BIT_IMG  = @"bit";
+static NSString* WALL_IMG = @"wall";
 static NSString* COIN_IMG = @"coin";
 
 -(id)initWithSize:(CGSize)size {
@@ -36,7 +36,7 @@ static NSString* COIN_IMG = @"coin";
         patterns = [NSMutableArray array];
         gameGrid = [NSMutableArray array];
         
-        self.backgroundColor = [SKColor colorWithRed:0 green:0 blue:0 alpha:1.0];
+        self.backgroundColor = [SKColor whiteColor];
         
         [self initializeVariables];
         
@@ -464,7 +464,7 @@ static NSString* COIN_IMG = @"coin";
     endGamePopUp.zPosition = 150;
     endGamePopUp.alpha = .99;
     
-    SKLabelNode *finalScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+    SKLabelNode *finalScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     finalScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3+50);
     finalScore.name = @"finalScore";
     finalScore.zPosition = 151;
@@ -473,7 +473,7 @@ static NSString* COIN_IMG = @"coin";
     finalScore.text = [NSString stringWithFormat:@"Your score: %i", gameScore];
     
     
-    SKLabelNode *highScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+    SKLabelNode *highScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3);
     highScore.name = @"finalScore";
     highScore.zPosition = 151;
@@ -481,7 +481,7 @@ static NSString* COIN_IMG = @"coin";
     highScore.fontColor = [SKColor blackColor];
     highScore.text = [NSString stringWithFormat:@"High score: %@", highscores[0]];
     
-    SKLabelNode *finalCoins = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue Light"];
+    SKLabelNode *finalCoins = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     finalCoins.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3 - 50);
     finalCoins.name = @"finalScore";
     finalCoins.zPosition = 151;
