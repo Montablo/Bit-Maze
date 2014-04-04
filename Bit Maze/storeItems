@@ -11,3 +11,22 @@ The ice powerup now appears twice as frequently.
 The ice powerup lasts much longer!
 END
 START
+Fire
+50
+Desc
+150
+Desc
+450
+Desc
+900
+Desc
+END
+ENDP
+
+THEMES
+START
+WALL
+Metal wall
+metalwall.png
+END
+ENDT
