@@ -15,7 +15,7 @@
 static int NUM_ROWS      = 52;
 static int NUM_COLUMNS   = 40;
 static int TOP_INDENT    = 40;
-static int BOTTOM_INDENT = 40;
+static int BOTTOM_INDENT = 80;
 
 static float maxSpeed    = .1;
 static float speedChange = .99;
@@ -23,6 +23,8 @@ static float speedChange = .99;
 static NSString* BIT_IMG  = @"bit";
 static NSString* WALL_IMG = @"wall";
 static NSString* COIN_IMG = @"coin";
+
+static int TOUCH_Y_MARGIN = 80;
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
@@ -72,7 +74,7 @@ static NSString* COIN_IMG = @"coin";
     self.scoreLabel.text = @"Score: 0";
     self.scoreLabel.fontSize = 15;
     self.scoreLabel.position = CGPointMake(CGRectGetMidX(self.frame), 15);
-    self.scoreLabel.color = [SKColor colorWithRed:.1 green:.68 blue:1.0 alpha:1.0];
+    self.scoreLabel.fontColor = [SKColor blueColor];
     
     self.scoreLabel.zPosition = 90;
     
@@ -83,7 +85,7 @@ static NSString* COIN_IMG = @"coin";
     self.coinLabel.text = @"Coins: 0";
     self.coinLabel.fontSize = 15;
     self.coinLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
-    self.coinLabel.color = [SKColor colorWithRed:.1 green:.68 blue:1.0 alpha:1.0];
+    self.coinLabel.fontColor = [SKColor blueColor];
     
     self.coinLabel.zPosition = 90;
     
@@ -299,7 +301,7 @@ static NSString* COIN_IMG = @"coin";
                     [gameGrid addObject:[NSMutableArray arrayWithArray:spaceRow]];
                 }
                 
-                currentBitY = 3;
+                currentBitY = 15;
                 currentBitX = NUM_COLUMNS / 2 - 1;
                 
                 currentBitYFloat = currentBitY*tileHeight;
@@ -545,10 +547,10 @@ static NSString* COIN_IMG = @"coin";
         //Snaps bit to grid
         
         int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
-        int yInGrid = (tappedPt.y - BOTTOM_INDENT) / tileHeight;
+        int yInGrid = ((tappedPt.y + TOUCH_Y_MARGIN) - BOTTOM_INDENT) / tileHeight;
         
         float newX = tappedPt.x;
-        float newY = tappedPt.y;
+        float newY = tappedPt.y + TOUCH_Y_MARGIN;
         
         if(xInGrid >= NUM_COLUMNS || yInGrid >= NUM_ROWS || xInGrid < 0 || yInGrid < 0) {
             return;
@@ -576,7 +578,7 @@ static NSString* COIN_IMG = @"coin";
             
             NSLog(@"You hit a coin!");
 
-            [self processCoinAtBit];
+            [self processCoinAtBitY : currentBitY andX: currentBitX];
 
         }
 
@@ -584,7 +586,7 @@ static NSString* COIN_IMG = @"coin";
     }
 }
 
--(void) processCoinAtBit {
+-(void) processCoinAtBitY : (int) y andX: (int) x {
     gameGrid[currentBitY][currentBitX] = @"0";
     
     coins ++;
@@ -593,7 +595,17 @@ static NSString* COIN_IMG = @"coin";
 }
 
 -(void) processCoinsNearby {
-    
+    for(int i=currentBitY-1; i<= currentBitY + 1; i++) {
+        for(int j=currentBitX-1; j<=currentBitX + 1; j++) {
+            NSMutableArray *row = gameGrid[0];
+            if(j < 0 || j >= row.count - 1 || i < 0 || i >= gameGrid.count - 1) continue;
+            
+            if([gameGrid[i][j]  isEqual: @"5"]) { //is a coin
+                [self processCoinAtBitY:i andX:j];
+            }
+            
+        }
+    }
 }
 
 -(void) travelX: (int) xInGrid {
