@@ -26,6 +26,7 @@ static NSString* COIN_IMG = @"coin";
 
 static int TOUCH_Y_MARGIN = 80;
 
+
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
@@ -205,7 +206,6 @@ static int TOUCH_Y_MARGIN = 80;
         }
     }
 }
-
 -(void) updateScreen { //adds the board to the screen
     
     [self removeAllOfName:@"wall"];

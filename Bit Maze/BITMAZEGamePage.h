@@ -7,8 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import <iAd/iAd.h>
 
-@interface BITMAZEGamePage : SKScene {
+@interface BITMAZEGamePage : SKScene <ADBannerViewDelegate>
+{
     NSMutableArray* patterns; //Stores patterns, read from patterns.txt
     NSMutableArray* patternOccurences; //Stores [0] starting number and [1] frequency
     
