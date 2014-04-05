@@ -1,0 +1,11 @@
+START
+WALL
+Metal wall
+metalwall.png
+END
+
+START
+BIT
+Metal bit
+metalbit.png
+END

@@ -1,0 +1,44 @@
+START
+Ice
+50
+Unlocks the ice powerup, which freezes the screen.
+150
+Makes the ice powerup last twice as long!
+450
+The ice powerup now appears twice as frequently.
+900
+The ice powerup lasts much longer!
+END
+START
+Teleport
+50
+Desc3
+150
+Desc
+450
+Desc
+900
+Desc
+END
+START
+Steel
+50
+Desc3
+150
+Desc
+450
+Desc
+900
+Desc
+END
+START
+Coin Magnet
+50
+Desc3
+150
+Desc
+450
+Desc
+900
+Desc
+END

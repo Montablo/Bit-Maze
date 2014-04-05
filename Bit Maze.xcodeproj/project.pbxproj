@@ -14,7 +14,7 @@
 		0451173218EFA9FF00FDC5BC /* iAd.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0451173118EFA9FE00FDC5BC /* iAd.framework */; };
 		046A612718E8EA74009CDF8F /* BackgroundMusic.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 046A612618E8EA74009CDF8F /* BackgroundMusic.mp3 */; };
 		046A612918E8EAAC009CDF8F /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 046A612818E8EAAC009CDF8F /* AVFoundation.framework */; };
-		0472D6E018EE39A70046757E /* storeItems in Resources */ = {isa = PBXBuildFile; fileRef = 0472D6DF18EE39A70046757E /* storeItems */; };
+		0472D6E018EE39A70046757E /* powerups.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0472D6DF18EE39A70046757E /* powerups.txt */; };
 		0481537918EB87BE00AE793C /* BITMAZEScorePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481537818EB87BE00AE793C /* BITMAZEScorePage.m */; };
 		04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDE18E721860022ACC9 /* background-music-aac.caf */; };
 		04B8CCE118E721870022ACC9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */; };
@@ -36,6 +36,7 @@
 		04E4A32818E25F3800BD87E3 /* Bit_MazeTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 04E4A32718E25F3800BD87E3 /* Bit_MazeTests.m */; };
 		04F8A98E18E3AB5000A34F4D /* BITMAZEHomePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F8A98D18E3AB5000A34F4D /* BITMAZEHomePage.m */; };
 		04FC8F7918EB6CE40012B0BD /* BITMAZEFileReader.m in Sources */ = {isa = PBXBuildFile; fileRef = 04FC8F7818EB6CE40012B0BD /* BITMAZEFileReader.m */; };
+		04FFF20918EF90B600A9C189 /* themes.txt in Resources */ = {isa = PBXBuildFile; fileRef = 04FFF20818EF90B600A9C189 /* themes.txt */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +60,7 @@
 		0451173118EFA9FE00FDC5BC /* iAd.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iAd.framework; path = System/Library/Frameworks/iAd.framework; sourceTree = SDKROOT; };
 		046A612618E8EA74009CDF8F /* BackgroundMusic.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = BackgroundMusic.mp3; sourceTree = "<group>"; };
 		046A612818E8EAAC009CDF8F /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
-		0472D6DF18EE39A70046757E /* storeItems */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = storeItems; sourceTree = "<group>"; };
+		0472D6DF18EE39A70046757E /* powerups.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = powerups.txt; sourceTree = "<group>"; };
 		0481537718EB87BE00AE793C /* BITMAZEScorePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEScorePage.h; sourceTree = "<group>"; };
 		0481537818EB87BE00AE793C /* BITMAZEScorePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEScorePage.m; sourceTree = "<group>"; };
 		04B8CCDE18E721860022ACC9 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
@@ -90,6 +91,7 @@
 		04F8A98D18E3AB5000A34F4D /* BITMAZEHomePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEHomePage.m; sourceTree = "<group>"; };
 		04FC8F7718EB6CE40012B0BD /* BITMAZEFileReader.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEFileReader.h; sourceTree = "<group>"; };
 		04FC8F7818EB6CE40012B0BD /* BITMAZEFileReader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEFileReader.m; sourceTree = "<group>"; };
+		04FFF20818EF90B600A9C189 /* themes.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = themes.txt; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -187,8 +189,9 @@
 				04FC8F7818EB6CE40012B0BD /* BITMAZEFileReader.m */,
 				0481537718EB87BE00AE793C /* BITMAZEScorePage.h */,
 				0481537818EB87BE00AE793C /* BITMAZEScorePage.m */,
-				0472D6DF18EE39A70046757E /* storeItems */,
+				0472D6DF18EE39A70046757E /* powerups.txt */,
 				0439FD4018EE505300EBEA69 /* patterns.txt */,
+				04FFF20818EF90B600A9C189 /* themes.txt */,
 			);
 			path = "Bit Maze";
 			sourceTree = "<group>";
@@ -309,12 +312,13 @@
 			files = (
 				04B8CCE118E721870022ACC9 /* pew-pew-lei.caf in Resources */,
 				04E4A30218E25F3700BD87E3 /* InfoPlist.strings in Resources */,
-				0472D6E018EE39A70046757E /* storeItems in Resources */,
+				0472D6E018EE39A70046757E /* powerups.txt in Resources */,
 				0439FD4118EE505300EBEA69 /* patterns.txt in Resources */,
 				046A612718E8EA74009CDF8F /* BackgroundMusic.mp3 in Resources */,
 				04E4A31518E25F3700BD87E3 /* Images.xcassets in Resources */,
 				04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */,
 				04E4A30B18E25F3700BD87E3 /* Main.storyboard in Resources */,
+				04FFF20918EF90B600A9C189 /* themes.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

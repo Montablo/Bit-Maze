@@ -13,6 +13,9 @@
     NSMutableArray* storeSettings;
     int numCoins;
 
+    NSMutableArray *powerupDefaults;
+    NSMutableArray *themeDefaults;
+    
 }
 
 @end
