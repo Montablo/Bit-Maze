@@ -10,12 +10,16 @@
 
 @interface BITMAZEGameStore : SKScene {
 
+    NSMutableArray *appSettings;
+    
     NSMutableArray* storeSettings;
     int numCoins;
 
     NSMutableArray *powerupDefaults;
     NSMutableArray *themeDefaults;
     
+    int currentItem;
+    int storeType; //powerup or theme
 }
 
 @end

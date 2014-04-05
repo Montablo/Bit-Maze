@@ -12,7 +12,7 @@ END
 START
 Teleport
 50
-Desc3
+Teleports you to a random location in front of you!
 150
 Desc
 450
@@ -23,7 +23,7 @@ END
 START
 Steel
 50
-Desc3
+Allows you to hit the bottom for a short period of time.
 150
 Desc
 450

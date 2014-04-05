@@ -41,12 +41,8 @@
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 150;
         titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
-        SKLabelNode *coinsLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        coinsLabel.text = [NSString stringWithFormat:@"Coins: %i", numCoins];
-        coinsLabel.fontSize = 30;
-        coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+        [self updateCoins];
         
-        [self addChild:coinsLabel];
         [self addChild:titleLabel];
         [self addChild:backgroundImage];
         [self addChild:homeButton];
@@ -149,6 +145,7 @@
 }
 
 -(void) displayStore {
+    
     //Adds main box
     
     SKSpriteNode *storeBackground = [SKSpriteNode spriteNodeWithImageNamed:@"storeBackground"];
@@ -186,30 +183,136 @@
     
     //adds each powerup option
     
-    for(int i=0; i < powerupDefaults.count; i++) {
+    [self displayCurrentItem];
+    
+    [self addArrows];
+    
+}
+
+-(void) addArrows {
+    
+    SKSpriteNode *arrow1 = [SKSpriteNode spriteNodeWithImageNamed:@"Arrow1"];
+    arrow1.size = CGSizeMake(40, 40);
+    arrow1.name = @"forwardArrow";
+    
+    arrow1.position = CGPointMake(260, 100);
+    
+    [self addChild:arrow1];
+    
+    SKSpriteNode *arrow2 = [SKSpriteNode spriteNodeWithImageNamed:@"Arrow2"];
+    arrow2.size = CGSizeMake(40, 40);
+    arrow2.name = @"backArrow";
+    
+    arrow2.position = CGPointMake(210, 100);
+    
+    [self addChild:arrow2];
+}
+
+-(void) displayCurrentItem {
+    
+    SKLabelNode* currentName = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    currentName.text = powerupDefaults[currentItem][0];
+    currentName.fontSize = 30;
+    currentName.name = @"itemDesc";
+    currentName.fontColor = [SKColor blackColor];
+    [currentName setPosition:CGPointMake(CGRectGetMidX(self.frame), 330.0)];
+    [self addChild:currentName];
+    
+    int currentNum = [storeSettings[1][currentItem] intValue];
+    
+    NSString *desc = powerupDefaults[currentItem][1][currentNum][1];
+    
+    NSArray *descArray = [desc componentsSeparatedByString:@" "];
+    
+    NSUInteger halfLength = desc.length / 2;
+    NSUInteger currentLength = 0;
+    
+    NSMutableArray *firstLine = [NSMutableArray array];
+    NSMutableArray *secondLine = [NSMutableArray array];
+    
+    BOOL first = YES;
+    
+    for(int i=0; i<descArray.count; i++) {
         
-        SKLabelNode* currentName = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        currentName.text = powerupDefaults[i][0];
-        currentName.fontSize = 20;
-        currentName.fontColor = [SKColor blackColor];
-        [currentName setPosition:CGPointMake(CGRectGetMaxX(self.frame) - CGRectGetMidY(self.frame), 364.0 - (i * (CGRectGetMaxY(self.frame) / 2 / powerupDefaults.count)))];
-        [self addChild:currentName];
+        NSString *currentWord = descArray[i];
         
-        int currentNum = [storeSettings[1][i] intValue];
+        if(first) {
+            
+            currentLength += currentWord.length;
+            
+            [firstLine addObject:currentWord];
+            
+            if(currentLength >= halfLength) {
+                first = NO;
+            }
+        } else {
         
-        SKLabelNode* currentDesc = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
-        currentDesc.text = powerupDefaults[i][1][currentNum][1];
-        currentDesc.fontSize = 12;
-        currentDesc.fontColor = [SKColor blackColor];
+            [secondLine addObject:currentWord];
+        }
         
-        [currentDesc setPosition:CGPointMake((CGRectGetMaxX(self.frame) - CGRectGetMidY(self.frame)) + 110, 345.0 - (i * (CGRectGetMaxY(self.frame) / 2 / powerupDefaults.count)))];
-        [self addChild:currentDesc];
     }
+    
+    NSString *line1 = [firstLine componentsJoinedByString:@" "];
+    NSString *line2 = [secondLine componentsJoinedByString:@" "];
+    
+    SKLabelNode* currentDescLine1 = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    currentDescLine1.text = line1;
+    currentDescLine1.fontSize = 16;
+    currentDescLine1.fontColor = [SKColor blackColor];
+    currentDescLine1.name = @"itemDesc";
+    
+    [currentDescLine1 setPosition:CGPointMake(CGRectGetMidX(self.frame), 300.0)];
+    [self addChild:currentDescLine1];
+    
+    SKLabelNode* currentDescLine2 = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    currentDescLine2.text = line2;
+    currentDescLine2.fontSize = 16;
+    currentDescLine2.name = @"itemDesc";
+    currentDescLine2.fontColor = [SKColor blackColor];
+    
+    [currentDescLine2 setPosition:CGPointMake(CGRectGetMidX(self.frame), 280.0)];
+    [self addChild:currentDescLine2];
+    
+    int cost = [powerupDefaults[currentItem][1][currentNum][0] intValue];
+    
+    SKSpriteNode* buyButton = [SKSpriteNode spriteNodeWithImageNamed: @"roundButton"];
+    buyButton.name = @"buyButton";
+    buyButton.zPosition = 10;
+    buyButton.position = CGPointMake(CGRectGetMidX(self.frame), 200);
+    
+    [self addChild:buyButton];
+    
+    SKLabelNode* buyLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    buyLabel.name = @"buyButton";
+    buyLabel.zPosition = 15;
+    buyLabel.fontColor = [SKColor blackColor];
+    if(cost > numCoins) {
+        buyLabel.fontSize = 15;
+        buyLabel.text = @"Not enough coins";
+    } else {
+        buyLabel.fontSize = 30;
+        buyLabel.text = @"Buy";
+    }
+    buyLabel.position = CGPointMake(CGRectGetMidX(self.frame), 200);
+    
+    [self addChild:buyLabel];
+    
+    SKLabelNode* costLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    costLabel.name = @"buyButton";
+    costLabel.zPosition = 15;
+    costLabel.fontSize = 20;
+    costLabel.fontColor = [SKColor blackColor];
+    costLabel.text = [NSString stringWithFormat:@"%i coins", cost];
+    costLabel.position = CGPointMake(CGRectGetMidX(self.frame), 175);
+    
+    [self addChild:costLabel];
     
 }
 
 -(void) initializeStore {
-    storeSettings = [BITMAZEFileReader getArray][0];
+    appSettings = [BITMAZEFileReader getArray];
+    
+    storeSettings = appSettings[0];
     
     numCoins = [storeSettings[0] intValue];
     
@@ -217,6 +320,61 @@
     
     themeDefaults = [NSMutableArray array];
     
+    currentItem = 0;
+    storeType = 0;
+    
+}
+
+-(void) updateItem {
+    [self removeCurrentItem];
+    
+    [self displayCurrentItem];
+}
+
+-(void) removeCurrentItem {
+    [self enumerateChildNodesWithName:@"itemDesc" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
+    
+    [self enumerateChildNodesWithName:@"buyButton" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
+}
+
+-(void) buyCurrent {
+    int currentNum = [storeSettings[1][currentItem] intValue];
+    
+    int cost = [powerupDefaults[currentItem][1][currentNum][0] intValue];
+    
+    if(numCoins < cost) {
+        return;
+    }
+    
+    storeSettings[0] = [NSString stringWithFormat: @"%i", numCoins - cost];
+    
+    storeSettings[1][currentItem] = [NSString stringWithFormat: @"%i", currentNum + 1];
+    
+    [BITMAZEFileReader storeArray:appSettings];
+    
+    [self updateItem];
+    
+    numCoins = numCoins - cost;
+    
+    [self updateCoins];
+}
+
+-(void) updateCoins {
+    [self enumerateChildNodesWithName:@"coinsLabel" usingBlock:^(SKNode *node, BOOL *stop) {
+        [node removeFromParent];
+    }];
+    
+    SKLabelNode *coinsLabel = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    coinsLabel.text = [NSString stringWithFormat:@"Coins: %i", numCoins];
+    coinsLabel.fontSize = 30;
+    coinsLabel.name = @"coinsLabel";
+    coinsLabel.position = CGPointMake(CGRectGetMidX(self.frame), 0);
+    
+    [self addChild:coinsLabel];
 }
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
@@ -230,6 +388,33 @@
     if ([node.name isEqualToString:@"homeButton"]) {
         //Play button is touched
         [BITMAZELinkPages homePage:self];
+    } else if([node.name isEqualToString:@"backArrow"]) {
+        if(currentItem > 0) {
+            currentItem--;
+            
+            [self updateItem];
+        }
+    } else if([node.name isEqualToString:@"forwardArrow"]) {
+        if(storeType == 0) { //powerup
+            if(currentItem < powerupDefaults.count - 1) {
+                
+                currentItem++;
+                
+                [self updateItem];
+            }
+        }
+        
+        if(storeType == 1) { //theme
+            if(currentItem < themeDefaults.count - 1) {
+                
+                currentItem++;
+                
+                [self updateItem];
+                
+            }
+        }
+    } else if([node.name isEqualToString:@"buyButton"]) {
+        [self buyCurrent];
     }
 }
 
