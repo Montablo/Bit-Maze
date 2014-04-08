@@ -17,8 +17,8 @@ static int NUM_COLUMNS   = 40;
 static int TOP_INDENT    = 40;
 static int BOTTOM_INDENT = 80;
 
-static float maxSpeed    = .1;
-static float speedChange = .99;
+static float maxSpeed    = .08;
+static float speedChange = .88;
 
 static NSString* BIT_IMG  = @"bit";
 static NSString* WALL_IMG = @"wall";
