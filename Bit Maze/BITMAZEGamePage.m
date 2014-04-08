@@ -99,6 +99,10 @@ static int TOUCH_Y_MARGIN = 80;
     self.pauseButton.position = CGPointMake(15, 15);
     
     [self addChild:self.pauseButton];
+    
+    userArray = [BITMAZEFileReader getArray];
+    
+    currentPowerup = -1;
 }
 
 -(void) pause {
@@ -212,6 +216,14 @@ static int TOUCH_Y_MARGIN = 80;
     
     [self removeAllOfName:@"coin"];
     
+    [self removeAllOfName:@"ice"];
+    
+    [self removeAllOfName:@"teleport"];
+    
+    [self removeAllOfName:@"steel"];
+    
+    [self removeAllOfName:@"magnet"];
+    
     float y = BOTTOM_INDENT;
     
     for(int i=0; i<gameGrid.count; i++) {
@@ -228,7 +240,7 @@ static int TOUCH_Y_MARGIN = 80;
             
             x += tileWidth;
             
-            if([type isEqual : @"1"] || [type isEqual : @"6"]) { //wall
+            if([type isEqual : @"1"]) { //wall
                 
                 image = [SKSpriteNode spriteNodeWithImageNamed:WALL_IMG];
                 
@@ -237,6 +249,18 @@ static int TOUCH_Y_MARGIN = 80;
             } else if([type isEqual : @"5"]) {
                 image = [SKSpriteNode spriteNodeWithImageNamed : COIN_IMG];
                 image.name = @"coin";
+            } else if([type isEqual : @"6"]) {
+                image = [SKSpriteNode spriteNodeWithImageNamed : @"ice"];
+                image.name = @"ice";
+            } else if([type isEqual : @"7"]) {
+                image = [SKSpriteNode spriteNodeWithImageNamed : @"teleport"];
+                image.name = @"teleport";
+            } else if([type isEqual : @"8"]) {
+                image = [SKSpriteNode spriteNodeWithImageNamed : @"steel"];
+                image.name = @"steel";
+            } else if([type isEqual : @"9"]) {
+                image = [SKSpriteNode spriteNodeWithImageNamed : @"magnet"];
+                image.name = @"magnet";
             }
             else {
                 continue;
@@ -261,6 +285,7 @@ static int TOUCH_Y_MARGIN = 80;
 -(void) updateBit {
     
     [self removeAllOfName:@"bit"];
+    [self removeAllOfName:@"pup"];
     
     
     SKSpriteNode* bit;
@@ -277,6 +302,41 @@ static int TOUCH_Y_MARGIN = 80;
     bit.position = location;
     
     [self addChild:bit];
+    
+    if(currentPowerup != -1) {
+    
+        SKSpriteNode* pup;
+        
+        switch (currentPowerup) {
+            case 0:
+                pup = [SKSpriteNode spriteNodeWithImageNamed: @"ice"];
+                break;
+                
+            case 1:
+                pup = [SKSpriteNode spriteNodeWithImageNamed: @"teleport"];
+                break;
+                
+            case 2:
+                pup = [SKSpriteNode spriteNodeWithImageNamed: @"steel"];
+                break;
+                
+            case 3:
+                pup = [SKSpriteNode spriteNodeWithImageNamed: @"magnet"];
+                break;
+        }
+        
+        
+        CGPoint location = CGPointMake(currentBitXFloat, currentBitYFloat);
+        
+        CGSize size = CGSizeMake(tileHeight, tileHeight);
+        
+        pup.name = @"pup";
+        pup.size = size;
+        
+        pup.position = location;
+        
+        [self addChild:pup];
+    }
     
     self.bit = bit;
     
@@ -316,12 +376,14 @@ static int TOUCH_Y_MARGIN = 80;
             NSMutableArray* nextRow = [NSMutableArray arrayWithArray: currentPattern[currentPatternRow]];
             
             for(int i=0; i<nextRow.count; i++) {
-                if([nextRow[i] isEqualToString: @"4"]) {
+                if([nextRow[i] isEqualToString: @"4"]) { //coin 50 % chance
                     if(arc4random() % 2 == 1) {
                         nextRow[i] = @"0";
                     } else {
                         nextRow[i] = @"5";
                     }
+                } else if([nextRow[i] isEqualToString:@"3"]) { //powerup
+                    nextRow[i] = [self getPowerup];
                 }
             }
             
@@ -338,6 +400,74 @@ static int TOUCH_Y_MARGIN = 80;
         }
         
     }
+}
+
+-(NSString *) getPowerup {
+    NSArray* powerupSettings = userArray[0][1];
+    
+    NSMutableArray* powerupsFrequencies = [NSMutableArray array];
+    NSMutableArray* probabilities = [NSMutableArray array];
+    int total = 0;
+    float sumProbabilities = 0;
+    
+    for (int i = 0; i < powerupSettings.count; i++) {
+        
+        NSNumber *frequencyInt;
+        
+        if([powerupSettings[i] isEqualToString:@"0"]) {
+            frequencyInt = [NSNumber numberWithInt: 0];
+        } else if([powerupSettings[i] isEqualToString:@"1"]) {
+            frequencyInt = [NSNumber numberWithInt: 8];
+        } else {
+            frequencyInt = [NSNumber numberWithInt: 16];
+        }
+        
+        [powerupsFrequencies addObject:frequencyInt];
+        
+        total += [frequencyInt intValue];
+        
+    }
+    
+    int rest = 100 - total;
+    [powerupsFrequencies addObject:[NSNumber numberWithInt:rest]];
+    
+    total += rest;
+    
+    for(int i = 0; i < powerupsFrequencies.count; i++) {
+        NSNumber* currentProb = powerupsFrequencies[i];
+        
+        NSNumber* val;
+        
+        val = [NSNumber numberWithFloat:sumProbabilities + ([currentProb floatValue] / total)];
+        
+        probabilities[i] = val;
+        sumProbabilities += [currentProb floatValue] / total;
+    }
+    
+    float randomNumber = arc4random() / ((double) pow(2, 32) - 1);
+    
+    for(int i=0; i<powerupsFrequencies.count; i++) {
+        if(i == powerupsFrequencies.count - 1) {
+            return @"0";
+        }
+        
+        float firstInt = [probabilities[i] floatValue];
+        
+        if(i == 0) {
+            //Number is selected
+            if(randomNumber <= firstInt) return [NSString stringWithFormat:@"%i", i + 6];
+            else continue;
+        }
+        
+        float prev = [probabilities[i-1] floatValue];
+        
+        if(randomNumber <= firstInt && randomNumber > prev) {
+            return [NSString stringWithFormat:@"%i", i + 6];
+        }
+    }
+    
+    
+    return @"ERROR";
 }
 
 -(int) selectNewPatternNumber { //Generates a random pattern number, takes frequency and starting number into considerasion
@@ -413,8 +543,13 @@ static int TOUCH_Y_MARGIN = 80;
 }
 
 -(void) scrollScreen{
-    if(!gameIsPaused) {
-        if(currentBitY == 0) {
+    
+    if(!gameIsPaused && currentPowerup != 0) {
+        
+        if(currentPowerup == 2 && currentBitY == 0) {
+            currentBitY = 1;
+            currentBitYFloat += tileHeight;
+        } else if(currentBitY == 0) {
             [self endGame];
             return;
         }
@@ -436,21 +571,20 @@ static int TOUCH_Y_MARGIN = 80;
         gameScore++;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", gameScore];
     }
+    
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
 
 
 -(void) endGame {
     
-    NSMutableArray *usersettings = [BITMAZEFileReader getArray];
-    
-    int numPrevCoins = [usersettings[0][0] intValue];
+    int numPrevCoins = [userArray[0][0] intValue];
     
     int newCoins = numPrevCoins + coins;
     
-    usersettings[0][0] = [NSString stringWithFormat:@"%i", newCoins];
+    userArray[0][0] = [NSString stringWithFormat:@"%i", newCoins];
     
-    NSMutableArray* highscores = usersettings[1][0];
+    NSMutableArray* highscores = userArray[1][0];
     for(int i=0; i<highscores.count; i++) {
         int highscoreInt = [highscores[i] intValue];
         
@@ -463,7 +597,7 @@ static int TOUCH_Y_MARGIN = 80;
         
     }
     
-    [BITMAZEFileReader storeArray:usersettings];
+    [BITMAZEFileReader storeArray:userArray];
     
     NSLog(@"You lose!");
     
@@ -572,31 +706,33 @@ static int TOUCH_Y_MARGIN = 80;
         currentBitXFloat = newX;
         currentBitYFloat = newY;
         
-        NSString* currentSpace = gameGrid[currentBitY][currentBitX];
+        [self checkCoinsNearBit];
         
-        if([currentSpace isEqualToString:@"5"]) { //coin
-            
-            NSLog(@"You hit a coin!");
-
-            [self processCoinAtBitY : currentBitY andX: currentBitX];
-
+        [self checkPowerupsNearBit];
+        
+        if(currentBitY == NUM_ROWS - 1 && currentPowerup == 0) {
+            currentPowerup = -1;
         }
 
         [self updateBit];
     }
 }
 
--(void) processCoinAtBitY : (int) y andX: (int) x {
-    gameGrid[currentBitY][currentBitX] = @"0";
+-(void) checkCoinsNearBit {
     
-    coins ++;
+    int range = 1;
     
-    self.coinLabel.text = [NSString stringWithFormat:@"Coins: %i", coins];
-}
-
--(void) processCoinsNearby {
-    for(int i=currentBitY-1; i<= currentBitY + 1; i++) {
-        for(int j=currentBitX-1; j<=currentBitX + 1; j++) {
+    if(currentPowerup == 3) {
+        if([userArray[0][1][3] isEqualToString:@"3"]) {
+            range = 26;
+        } else {
+            range = 5;
+        }
+    }
+    
+    for(int i = currentBitY - range; i <= currentBitY + range; i++) {
+        for(int j = currentBitX - range; j <= currentBitX + range; j++) {
+            
             NSMutableArray *row = gameGrid[0];
             if(j < 0 || j >= row.count - 1 || i < 0 || i >= gameGrid.count - 1) continue;
             
@@ -604,8 +740,100 @@ static int TOUCH_Y_MARGIN = 80;
                 [self processCoinAtBitY:i andX:j];
             }
             
+            
         }
     }
+}
+
+-(void) checkPowerupsNearBit {
+    
+    for(int i = currentBitY - 1; i <= currentBitY + 1; i++) {
+        for(int j = currentBitX - 1; j <= currentBitX + 1; j++) {
+            
+            NSMutableArray *row = gameGrid[0];
+            if(j < 0 || j >= row.count - 1 || i < 0 || i >= gameGrid.count - 1) continue;
+            
+            if([gameGrid[i][j]  isEqual: @"6"] || [gameGrid[i][j]  isEqual: @"7"] || [gameGrid[i][j]  isEqual: @"8"] || [gameGrid[i][j]  isEqual: @"9"]) { //is a powerup
+                [self processPowerupAtBitY:i andX:j];
+            }
+            
+            
+        }
+    }
+}
+
+-(void) processPowerupAtBitY : (int) y andX: (int) x {
+    
+    currentPowerup = [gameGrid[y][x] intValue] - 6;
+    
+    float delay;
+    
+    if(currentPowerup == 0 || currentPowerup == 2) {
+        if([userArray[0][1][currentPowerup] isEqualToString:@"1"] || [userArray[0][1][currentPowerup] isEqualToString:@"2"]) {
+            delay = 5.0;
+        } else {
+            delay = 10.0;
+        }
+    } else if(currentPowerup == 3) {
+        if([userArray[0][1][currentPowerup] isEqualToString:@"1"] || [userArray[0][1][currentPowerup] isEqualToString:@"2"]) {
+            delay = 10.0;
+        } else {
+            delay = 20.0;
+        }
+    } else {
+        
+        gameGrid[y][x] = @"0";
+        currentPowerup = -1;
+        //process teleport
+        
+        currentBitY += 20;
+        
+        currentBitYFloat += 20*tileHeight;
+        
+        if(currentBitY > NUM_ROWS - 1) {
+            currentBitY = NUM_ROWS - 1;
+            currentBitYFloat = (NUM_ROWS-1)*tileHeight;
+        }
+        
+        for(int i = currentBitY - 5; i <= currentBitY + 5; i++) {
+            for(int j = currentBitX - 5; j <= currentBitX + 5; j++) {
+                
+                NSMutableArray *row = gameGrid[0];
+                if(j < 0 || j >= row.count - 1 || i < 0 || i >= gameGrid.count - 1) continue;
+                
+                gameGrid[i][j] = @"0";
+                
+                
+            }
+        }
+        
+        [self updateScreen];
+        
+        return;
+    }
+    
+    [self performSelector:@selector(terminatePowerup:) withObject: [NSNumber numberWithInt:currentPowerup] afterDelay:delay];
+    
+    gameGrid[y][x] = @"0";
+    
+    [self updateScreen];
+    
+}
+
+-(void) terminatePowerup : (NSNumber *) prevPowerup {
+    if([prevPowerup intValue] == currentPowerup) {
+        currentPowerup = -1;
+    }
+}
+
+-(void) processCoinAtBitY : (int) y andX: (int) x {
+    gameGrid[y][x] = @"0";
+    
+    coins ++;
+    
+    self.coinLabel.text = [NSString stringWithFormat:@"Coins: %i", coins];
+    
+    [self updateScreen];
 }
 
 -(void) travelX: (int) xInGrid {

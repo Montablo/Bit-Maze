@@ -1,44 +1,44 @@
 START
 Ice
 50
-Unlocks the ice powerup, which freezes the screen.
+Unlocks the ice powerup, which freezes the screen. (5 s)
 150
-Makes the ice powerup last twice as long!
+The ice powerup now appears twice as frequently. (16)
 450
-The ice powerup now appears twice as frequently.
+Makes the ice powerup last twice as long! (10 s)
 900
-The ice powerup lasts much longer!
+The ice powerup freezes off some coins on the screen!
 END
 START
 Teleport
 50
 Teleports you to a random location in front of you!
 150
-Desc
+The teleport powerup now appears twice as frequently. (16)
 450
-Desc
+Now teleports you up to 15 bits further!
 900
-Desc
+The teleport powerup gives you an extra 25 points!
 END
 START
 Steel
 50
-Allows you to hit the bottom for a short period of time.
+Allows you to hit the bottom for a short period of time. (5 s)
 150
-Desc
+The steel powerup now appears twice as frequently. (16)
 450
-Desc
+Makes the steel powerup last twice as long! (10 s)
 900
-Desc
+The steel powerup lasts for 20 seconds!
 END
 START
 Coin Magnet
 50
-Desc3
+The coin magnet allows you to grab coins from a distance! (10 s)
 150
-Desc
+The coin magnet appears twice as frequently. (16)
 450
-Desc
+The coin magenet will last twice as long! (20 s)
 900
-Desc
+The coin magnet grabs every coin on the screen!
 END

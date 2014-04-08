@@ -18,7 +18,7 @@
     NSMutableArray *array = [NSMutableArray arrayWithContentsOfFile:stringsPlistPath];
     
     if(array.count == 0) {
-        array = [BITMAZEFileReader initializeValues:array];
+        array = [BITMAZEFileReader initializeValues];
         
         [BITMAZEFileReader storeArray:array];
     }
@@ -40,11 +40,11 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *stringsPlistPath = [[paths objectAtIndex:0] stringByAppendingPathComponent:@"userdata.plist"];
     
-    return [@[] writeToFile:stringsPlistPath atomically:YES];
+    return [[self initializeValues] writeToFile:stringsPlistPath atomically:YES];
 
 }
 
-+(NSMutableArray*) initializeValues : (NSMutableArray*) array {
++(NSMutableArray*) initializeValues{
     NSMutableArray* newArray = [NSMutableArray arrayWithArray:@[[NSMutableArray arrayWithArray:@[]], [NSMutableArray arrayWithArray:@[]]]];
     NSMutableArray* storeSettings = newArray[0];
     

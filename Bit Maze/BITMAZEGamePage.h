@@ -43,14 +43,11 @@
     int gameScore; //The current game score
     
     int coins;
+    
+    int currentPowerup;//The number of the current powerup
+    
+    NSMutableArray *userArray;
 }
-
-typedef enum : uint8_t {
-    colliderTypeWall = 1,
-    colliderTypeBit = 2,
-    colliderTypePowerup = 3,
-    colliderTypeCoin = 4
-} colliderType;
 
 @property (nonatomic, weak) SKNode *bit;
 @property (nonatomic, weak) SKLabelNode *startingTime;
