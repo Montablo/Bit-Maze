@@ -45,6 +45,7 @@
     int coins;
     
     int currentPowerup;//The number of the current powerup
+    int currentKey;
     
     NSMutableArray *userArray;
 }

@@ -103,6 +103,7 @@ static int TOUCH_Y_MARGIN = 80;
     userArray = [BITMAZEFileReader getArray];
     
     currentPowerup = -1;
+    currentKey = 0;
 }
 
 -(void) pause {
@@ -723,7 +724,7 @@ static int TOUCH_Y_MARGIN = 80;
     int range = 1;
     
     if(currentPowerup == 3) {
-        if([userArray[0][1][3] isEqualToString:@"3"]) {
+        if([userArray[0][1][3] isEqualToString:@"4"]) {
             range = 26;
         } else {
             range = 5;
@@ -812,7 +813,9 @@ static int TOUCH_Y_MARGIN = 80;
         return;
     }
     
-    [self performSelector:@selector(terminatePowerup:) withObject: [NSNumber numberWithInt:currentPowerup] afterDelay:delay];
+    currentKey ++;
+    
+    [self terminatePowerup: @[[NSNumber numberWithInt:currentPowerup] , [NSNumber numberWithFloat:delay], [NSNumber numberWithInt:currentKey]]];
     
     gameGrid[y][x] = @"0";
     
@@ -820,11 +823,33 @@ static int TOUCH_Y_MARGIN = 80;
     
 }
 
--(void) terminatePowerup : (NSNumber *) prevPowerup {
-    if([prevPowerup intValue] == currentPowerup) {
-        currentPowerup = -1;
+-(void) terminatePowerup : (NSArray*) args {
+    NSNumber *prevPowerup = args[0];
+    NSNumber *delay = args[1];
+    int prevKey = [args[2] intValue];
+    
+    if([prevPowerup intValue] == currentPowerup && currentKey == prevKey) {
+        
+        if([delay floatValue] <= 0 && !gameIsPaused) {
+            
+            currentPowerup = -1;
+            
+        } else {
+            
+            if(!gameIsPaused) delay = [NSNumber numberWithFloat:[delay floatValue] - .5];
+            
+            //if([delay floatValue] <= 0) delay = [NSNumber numberWithFloat: 1.0];
+            
+            NSLog(@"Delay : %@", delay);
+            
+            [self performSelector:@selector(terminatePowerup:) withObject: @[prevPowerup, delay, args[2]] afterDelay:.5];
+        
+        }
+        
+        
     }
 }
+
 
 -(void) processCoinAtBitY : (int) y andX: (int) x {
     gameGrid[y][x] = @"0";

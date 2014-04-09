@@ -262,6 +262,11 @@
     currentDescLine1.name = @"itemDesc";
     
     [currentDescLine1 setPosition:CGPointMake(CGRectGetMidX(self.frame), 300.0)];
+    
+    if(currentNum == 3) {
+        currentDescLine1.text = @"Maximum level.";
+    }
+    
     [self addChild:currentDescLine1];
     
     SKLabelNode* currentDescLine2 = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
@@ -270,8 +275,13 @@
     currentDescLine2.name = @"itemDesc";
     currentDescLine2.fontColor = [SKColor blackColor];
     
+    if(currentNum == 3) {
+        currentDescLine2.text = @"";
+    }
+    
     [currentDescLine2 setPosition:CGPointMake(CGRectGetMidX(self.frame), 280.0)];
     [self addChild:currentDescLine2];
+    
     
     int cost = [powerupDefaults[currentItem][1][currentNum][0] intValue];
     
@@ -293,6 +303,12 @@
         buyLabel.fontSize = 30;
         buyLabel.text = @"Buy";
     }
+    
+    if(currentNum == 3) {
+        buyLabel.text = @"Maximum level.";
+        buyLabel.fontSize = 20;
+    }
+    
     buyLabel.position = CGPointMake(CGRectGetMidX(self.frame), 200);
     
     [self addChild:buyLabel];
@@ -304,6 +320,10 @@
     costLabel.fontColor = [SKColor blackColor];
     costLabel.text = [NSString stringWithFormat:@"%i coins", cost];
     costLabel.position = CGPointMake(CGRectGetMidX(self.frame), 175);
+    
+    if(currentNum == 3) {
+        costLabel.text = @"";
+    }
     
     [self addChild:costLabel];
     
@@ -345,7 +365,12 @@
 }
 
 -(void) buyCurrent {
+    
     int currentNum = [storeSettings[1][currentItem] intValue];
+    
+    if(currentNum == 3) {
+        return;
+    }
     
     int cost = [powerupDefaults[currentItem][1][currentNum][0] intValue];
     
