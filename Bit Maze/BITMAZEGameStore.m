@@ -323,6 +323,9 @@
     currentItem = 0;
     storeType = 0;
     
+    //appSettings[0][0] = @"99999";
+    
+    //[BITMAZEFileReader storeArray:appSettings];
 }
 
 -(void) updateItem {
