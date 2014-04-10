@@ -44,7 +44,6 @@
         float titleY = 2*(CGRectGetHeight(self.frame))/3 + 50;
         titleLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY);
         
-        SKSpriteNode *soundButton;
         
         if([[defaults stringForKey:@"sound"]  isEqual: @"0"]) {
             soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
@@ -54,12 +53,25 @@
         
         soundButton.size = CGSizeMake(50, 50);
         soundButton.name = @"soundButton";
-        soundButton.position = CGPointMake(CGRectGetMidX(self.frame), (CGRectGetMidY(self.frame)));
+        soundButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame));
         
         [self addChild:titleLabel];
         [self addChild:backgroundImage];
         [self addChild:homeButton];
         [self addChild:soundButton];
+        
+        offsetButton = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+        
+        if([[defaults stringForKey:@"offset"]  isEqual: @"0"]) {
+            offsetButton.text = @"Offset on.";
+        } else {
+            offsetButton.text = @"Offset off.";
+        }
+        
+        offsetButton.name = @"offsetButton";
+        offsetButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 100);
+        
+        [self addChild:offsetButton];
         
     }
     
@@ -80,16 +92,44 @@
         [BITMAZELinkPages homePage:self];
     } else if([node.name isEqualToString:@"soundButton"]) {
         [self toggleSound];
+    }  else if([node.name isEqualToString:@"offsetButton"]) {
+        [self toggleOffset];
     }
 }
 
 -(void) toggleSound {
+    [soundButton removeFromParent];
+    
     if([[defaults stringForKey:@"sound"] isEqualToString:@"0"]) {
         [defaults setObject:@"1" forKey:@"sound"];
+        
+        soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOff"];
     } else {
         [defaults setObject:@"0" forKey:@"sound"];
+        
+        soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
     }
     
+    soundButton.size = CGSizeMake(50, 50);
+    soundButton.name = @"soundButton";
+    soundButton.position = CGPointMake(CGRectGetMidX(self.frame), (CGRectGetMidY(self.frame)));
+    
+    [self addChild:soundButton];
+    
+}
+
+-(void) toggleOffset {
+    
+    if([[defaults stringForKey:@"offset"] isEqualToString:@"0"]) {
+        [defaults setObject:@"1" forKey:@"offset"];
+        
+        offsetButton.text = @"Offset off.";
+    } else {
+        [defaults setObject:@"0" forKey:@"offset"];
+        
+        offsetButton.text = @"Offset on.";
+    }
+
 }
 
 

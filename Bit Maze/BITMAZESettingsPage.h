@@ -11,6 +11,9 @@
 
 @interface BITMAZESettingsPage : SKScene {
     NSUserDefaults *defaults;
+    
+    SKSpriteNode *soundButton;
+    SKLabelNode *offsetButton;
 }
 
 @end

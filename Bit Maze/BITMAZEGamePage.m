@@ -14,17 +14,15 @@
 
 static int NUM_ROWS      = 52;
 static int NUM_COLUMNS   = 40;
-static int TOP_INDENT    = 40;
+static int TOP_INDENT    = 60;
 static int BOTTOM_INDENT = 80;
 
-static float maxSpeed    = .08;
-static float speedChange = .88;
+static float maxSpeed    = .07;
+static float speedChange = .97;
 
 static NSString* BIT_IMG  = @"bit";
 static NSString* WALL_IMG = @"wall";
 static NSString* COIN_IMG = @"coin";
-
-static int TOUCH_Y_MARGIN = 80;
 
 
 -(id)initWithSize:(CGSize)size {
@@ -104,6 +102,12 @@ static int TOUCH_Y_MARGIN = 80;
     
     currentPowerup = -1;
     currentKey = 0;
+    
+    if([[[NSUserDefaults standardUserDefaults] stringForKey:@"offset"] isEqualToString:@"0"]) { //offset on
+        TOUCH_Y_OFFSET = 80;
+    } else {
+        TOUCH_Y_OFFSET = 0;
+    }
 }
 
 -(void) pause {
@@ -573,6 +577,8 @@ static int TOUCH_Y_MARGIN = 80;
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", gameScore];
     }
     
+    NSLog(@"Speed : %f" , gameSpeed);
+    
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
 
@@ -682,10 +688,10 @@ static int TOUCH_Y_MARGIN = 80;
         //Snaps bit to grid
         
         int xInGrid = tappedPt.x / tileWidth; //int type is used so we have an integer value
-        int yInGrid = ((tappedPt.y + TOUCH_Y_MARGIN) - BOTTOM_INDENT) / tileHeight;
+        int yInGrid = ((tappedPt.y + TOUCH_Y_OFFSET) - BOTTOM_INDENT) / tileHeight;
         
         float newX = tappedPt.x;
-        float newY = tappedPt.y + TOUCH_Y_MARGIN;
+        float newY = tappedPt.y + TOUCH_Y_OFFSET;
         
         if(xInGrid >= NUM_COLUMNS || yInGrid >= NUM_ROWS || xInGrid < 0 || yInGrid < 0) {
             return;
@@ -840,7 +846,7 @@ static int TOUCH_Y_MARGIN = 80;
             
             //if([delay floatValue] <= 0) delay = [NSNumber numberWithFloat: 1.0];
             
-            NSLog(@"Delay : %@", delay);
+            //NSLog(@"Delay : %@", delay);
             
             [self performSelector:@selector(terminatePowerup:) withObject: @[prevPowerup, delay, args[2]] afterDelay:.5];
         

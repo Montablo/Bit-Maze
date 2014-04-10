@@ -47,6 +47,8 @@
     int currentPowerup;//The number of the current powerup
     int currentKey;
     
+    int TOUCH_Y_OFFSET;
+    
     NSMutableArray *userArray;
 }
 
