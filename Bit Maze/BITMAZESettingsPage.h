@@ -14,6 +14,8 @@
     
     SKSpriteNode *soundButton;
     SKLabelNode *offsetButton;
+    SKLabelNode *resetButton;
+    SKLabelNode *injectCoinButton;
 }
 
 @end

@@ -17,8 +17,6 @@
         
         defaults = [NSUserDefaults standardUserDefaults];
         
-        NSLog(@"%@", [defaults stringForKey:@"sound"]);
-        
         /* Setup your scene here */
         
         //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
@@ -73,6 +71,20 @@
         
         [self addChild:offsetButton];
         
+        
+        resetButton = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+        resetButton.text = @"Reset game";
+        resetButton.name = @"resetButton";
+        resetButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 150);
+        
+        [self addChild:resetButton];
+        
+        injectCoinButton = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+        injectCoinButton.text = @"Inject 100 Coins";
+        injectCoinButton.name = @"injectCoinButton";
+        injectCoinButton.position = CGPointMake(CGRectGetMidX(self.frame), CGRectGetMidY(self.frame) - 200);
+        
+        [self addChild:injectCoinButton];
     }
     
     return self;
@@ -92,8 +104,14 @@
         [BITMAZELinkPages homePage:self];
     } else if([node.name isEqualToString:@"soundButton"]) {
         [self toggleSound];
-    }  else if([node.name isEqualToString:@"offsetButton"]) {
+    } else if([node.name isEqualToString:@"offsetButton"]) {
         [self toggleOffset];
+    } else if([node.name isEqualToString:@"resetButton"]) {
+        [self confirmReset];
+    } else if([node.name isEqualToString:@"injectCoinButton"]) {
+        NSMutableArray *userArray = [BITMAZEFileReader getArray];
+        userArray[0][0] = [NSString stringWithFormat : @"%i", [userArray[0][0] intValue] + 100];
+        [BITMAZEFileReader storeArray:userArray];
     }
 }
 
@@ -130,6 +148,23 @@
         offsetButton.text = @"Offset on.";
     }
 
+}
+
+- (void) alertView:(UIAlertView *) alertView clickedButtonAtIndex:(NSInteger) index {
+    if(index == 1) { //wants to reset
+        [BITMAZEFileReader clearArray];
+    }
+}
+
+-(void) confirmReset {
+    
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:@"Are you sure that you want to reset this game? Everything you have will be deleted, and it cannot be undone."
+                                                   delegate:self
+                                          cancelButtonTitle:@"Cancel"
+                                          otherButtonTitles:@"Yes, Reset Game", nil];
+    
+    [alert show];
+    
 }
 
 

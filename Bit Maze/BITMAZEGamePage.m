@@ -577,8 +577,6 @@ static NSString* COIN_IMG = @"coin";
         self.scoreLabel.text = [NSString stringWithFormat:@"Score: %i", gameScore];
     }
     
-    NSLog(@"Speed : %f" , gameSpeed);
-    
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
 
