@@ -697,8 +697,8 @@ static NSString* COIN_IMG = @"coin";
         
         if([self isWallWithX: xInGrid andY: yInGrid]) {
             
-            [self travelX:xInGrid];
-            [self travelY:yInGrid];
+            [self travelX:xInGrid:newX];
+            [self travelY:yInGrid:newY];
             
             [self updateBit];
             
@@ -865,16 +865,44 @@ static NSString* COIN_IMG = @"coin";
     [self updateScreen];
 }
 
--(void) travelX: (int) xInGrid {
-    if(![self isWallWithX:xInGrid andY:currentBitY]) {
+-(void) travelX: (int) xInGrid : (float) newX {
+    if(![self checkX:xInGrid]) {
         currentBitX = xInGrid;
+        currentBitXFloat = newX;
     }
 }
 
--(void) travelY: (int) yInGrid {
-    if(![self isWallWithX:currentBitX andY:yInGrid]) {
+-(void) travelY: (int) yInGrid : (float) newY {
+    if(![self checkY:yInGrid]) {
         currentBitY = yInGrid;
+        currentBitYFloat = newY;
     }
+}
+
+-(BOOL) checkX : (int) xInGrid {
+    
+    int smallerX = MIN(xInGrid, currentBitX);
+    
+    int largerX = MAX(xInGrid, currentBitX);
+    
+    for(int i=smallerX; i<=largerX; i++) {
+        if([gameGrid[currentBitY][i]  isEqual: @"1"]) return YES;
+    }
+    
+    return NO;
+}
+
+-(BOOL) checkY : (int) yInGrid {
+    
+    int smallerY = MIN(yInGrid, currentBitY);
+    
+    int largerY = MAX(yInGrid, currentBitY);
+    
+    for(int i=smallerY; i<=largerY; i++) {
+        if([gameGrid[i][currentBitX]  isEqual: @"1"]) return YES;
+    }
+    
+    return NO;
 }
 
 -(BOOL) isWallWithX: (int) xInGrid andY: (int) yInGrid {
