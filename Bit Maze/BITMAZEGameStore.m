@@ -283,7 +283,7 @@
     
     [currentDescLine1 setPosition:CGPointMake(CGRectGetMidX(self.frame), 300.0)];
     
-    if(currentNum == 3) {
+    if(currentNum == 4) {
         currentDescLine1.text = @"Maximum level.";
     }
     
@@ -295,7 +295,7 @@
     currentDescLine2.name = @"itemDesc";
     currentDescLine2.fontColor = [SKColor blackColor];
     
-    if(currentNum == 3) {
+    if(currentNum == 4) {
         currentDescLine2.text = @"";
     }
     
@@ -324,7 +324,7 @@
         buyLabel.text = @"Buy";
     }
     
-    if(currentNum == 3) {
+    if(currentNum == 4) {
         buyLabel.text = @"Maximum level.";
         buyLabel.fontSize = 20;
     }
@@ -341,7 +341,7 @@
     costLabel.text = [NSString stringWithFormat:@"%i coins", cost];
     costLabel.position = CGPointMake(CGRectGetMidX(self.frame), 175);
     
-    if(currentNum == 3) {
+    if(currentNum == 4) {
         costLabel.text = @"";
     }
     
@@ -388,11 +388,13 @@
     
     int currentNum = [storeSettings[1][currentItem] intValue];
     
+    NSLog(@"%@", storeSettings);
+    
     if(currentNum == 3) {
         return;
     }
     
-    int cost = [powerupDefaults[currentItem][1][currentNum][0] intValue];
+    int cost = [powerupDefaults[currentItem][1][currentNum + 1][0] intValue];
     
     if(numCoins < cost) {
         return;
