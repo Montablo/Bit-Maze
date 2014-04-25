@@ -160,17 +160,21 @@
     [self addChild:horiz_line];
     
     SKSpriteNode* vert_line = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(0.5, CGRectGetMaxY(self.frame)/2 - (380.0 - CGRectGetMaxY(self.frame)/4))];
-    [vert_line setPosition:CGPointMake(CGRectGetMidX(self.frame) + 50, 403.0)];
+    [vert_line setPosition:CGPointMake(CGRectGetMidX(self.frame) + 51, 403.0)];
     [self addChild:vert_line];
+    
+    SKSpriteNode* vert_line2 = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(0.5, CGRectGetMaxY(self.frame)/2 - (380.0 - CGRectGetMaxY(self.frame)/4))];
+    [vert_line2 setPosition:CGPointMake(CGRectGetMidX(self.frame) - 51, 403.0)];
+    [self addChild:vert_line2];
     
     //Adds powerup and theme labels
     
     SKLabelNode* powerup_label = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     powerup_label.text = @"Powerups";
-    powerup_label.fontSize = 35;
+    powerup_label.fontSize = 25;
     powerup_label.name = @"powerup_label";
     powerup_label.fontColor = [SKColor blackColor];
-    [powerup_label setPosition:CGPointMake(CGRectGetMidX(self.frame) - 24, 380.0)];
+    [powerup_label setPosition:CGPointMake(CGRectGetMidX(self.frame), 380.0)];
     [self addChild:powerup_label];
     
     SKLabelNode* theme_label = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
@@ -178,8 +182,16 @@
     theme_label.fontSize = 25;
     theme_label.name = @"theme_label";
     theme_label.fontColor = [SKColor blackColor];
-    [theme_label setPosition:CGPointMake(CGRectGetMidX(self.frame) + 93, 380.0)];
+    [theme_label setPosition:CGPointMake(CGRectGetMidX(self.frame) + 97, 380.0)];
     [self addChild:theme_label];
+    
+    SKLabelNode* more_label = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    more_label.text = @"More ";
+    more_label.fontSize = 25;
+    more_label.name = @"more_label";
+    more_label.fontColor = [SKColor blackColor];
+    [more_label setPosition:CGPointMake(CGRectGetMidX(self.frame) - 97, 380.0)];
+    [self addChild:more_label];
     
     //adds each powerup option
     
