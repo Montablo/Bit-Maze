@@ -18,7 +18,7 @@
 
 #pragma mark iAd Delegate Methods
 
-/*-(void)bannerViewDidLoadAd:(ADBannerView *)banner
+-(void)bannerViewDidLoadAd:(ADBannerView *)banner
 {
     [UIView beginAnimations:nil context:nil];
     
@@ -39,7 +39,7 @@
     
     [UIView commitAnimations];
     
-}*/
+}
 
 - (void)viewDidLoad
 
