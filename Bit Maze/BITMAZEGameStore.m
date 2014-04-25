@@ -388,11 +388,13 @@
     
     int currentNum = [storeSettings[1][currentItem] intValue];
     
-    if(currentNum == 4) {
+    NSLog(@"%@", storeSettings);
+    
+    if(currentNum == 3) {
         return;
     }
     
-    int cost = [powerupDefaults[currentItem][1][currentNum][0] intValue];
+    int cost = [powerupDefaults[currentItem][1][currentNum + 1][0] intValue];
     
     if(numCoins < cost) {
         return;
