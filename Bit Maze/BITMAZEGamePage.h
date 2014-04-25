@@ -63,5 +63,7 @@
 @property (nonatomic, weak) SKLabelNode *inGridY;
 @property (nonatomic, weak) SKLabelNode *inGridX;
 
+@property (nonatomic, strong) SKLabelNode *touchToPlay;
+@property (nonatomic, strong) SKSpriteNode *touchImage;
 
 @end

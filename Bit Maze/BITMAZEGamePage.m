@@ -98,6 +98,15 @@ static NSString* COIN_IMG = @"coin";
     
     [self addChild:self.pauseButton];
     
+    
+    self.touchImage = [SKSpriteNode spriteNodeWithImageNamed:@"tapToPlay"];
+    self.touchImage.name = @"touchImage";
+    self.touchImage.zPosition = 151;
+    self.touchImage.size = CGSizeMake(40, 60);
+    self.touchImage.position = CGPointMake(CGRectGetMidX(self.frame), 60);
+    
+    [self addChild:self.touchImage];
+    
     userArray = [BITMAZEFileReader getArray];
     
     currentPowerup = -1;
@@ -153,6 +162,8 @@ static NSString* COIN_IMG = @"coin";
     }
     
     [self.startingTime removeFromParent];*/
+    
+    [self.touchImage removeFromParent];
     
     gameHasStarted = YES;
     gameIsPaused = NO;

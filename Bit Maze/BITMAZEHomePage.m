@@ -53,6 +53,10 @@
         scoreButton.size = CGSizeMake(50, 50);
         scoreButton.position = CGPointMake(2*(CGRectGetWidth(self.frame)/3), CGRectGetMaxY(self.frame)/3 - 70);
         
+        //NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        //if([defaults ])
+        
+        
         [self addChild:playButton];
         [self addChild:playIcon];
         [self addChild:titleImage];

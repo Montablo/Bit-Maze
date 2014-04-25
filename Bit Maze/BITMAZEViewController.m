@@ -44,7 +44,7 @@
 - (void)viewDidLoad
 
 {
-    [self checkSound];
+    //[self checkSound];
     
     [super viewDidLoad];
 

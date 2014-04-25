@@ -1,6 +1,5 @@
 0 -    Empty
 1 -     Wall
-2 -    Fwall - A fake wall
 3 -  Powerup - 100 % chance
 4 -     Coin - 50  % chance
 5 -     Coin - 100 % chance
