@@ -38,7 +38,7 @@ The coin magnet allows you to grab coins from a distance! (10 s)
 150
 The coin magnet appears twice as frequently. (16)
 450
-The coin magenet will last twice as long! (20 s)
+The coin magnet will last twice as long! (20 s)
 900
 The coin magnet grabs every coin on the screen!
 END

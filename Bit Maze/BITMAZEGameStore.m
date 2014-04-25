@@ -159,7 +159,7 @@
     [horiz_line setPosition:CGPointMake(CGRectGetMidX(self.frame), 380.0)];
     [self addChild:horiz_line];
     
-    SKSpriteNode* vert_line = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(0.5, CGRectGetMaxY(self.frame)/2 - (380.0 - CGRectGetMaxY(self.frame)/4))];
+    /*SKSpriteNode* vert_line = [SKSpriteNode spriteNodeWithColor:[SKColor blackColor] size:CGSizeMake(0.5, CGRectGetMaxY(self.frame)/2 - (380.0 - CGRectGetMaxY(self.frame)/4))];
     [vert_line setPosition:CGPointMake(CGRectGetMidX(self.frame) + 51, 403.0)];
     [self addChild:vert_line];
     
@@ -167,7 +167,7 @@
     [vert_line2 setPosition:CGPointMake(CGRectGetMidX(self.frame) - 51, 403.0)];
     [self addChild:vert_line2];
     
-    //Adds powerup and theme labels
+    //Adds powerup and theme labels (SAVING FOR NEXT UPDATE)
     
     SKLabelNode* powerup_label = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     powerup_label.text = @"Powerups";
@@ -190,8 +190,16 @@
     more_label.fontSize = 25;
     more_label.name = @"more_label";
     more_label.fontColor = [SKColor blackColor];
-    [more_label setPosition:CGPointMake(CGRectGetMidX(self.frame) - 97, 380.0)];
-    [self addChild:more_label];
+    [more_label setPosition:CGPointMake(CGRectGetMidX(self.frame) - 97, 380.0)];*/
+    
+    SKLabelNode* store_label = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
+    store_label.text = @" Store ";
+    store_label.fontSize = 40;
+    store_label.name = @"store_label";
+    store_label.fontColor = [SKColor blackColor];
+    [store_label setPosition:CGPointMake(CGRectGetMidX(self.frame), 380.0)];
+    
+    [self addChild:store_label];
     
     //adds each powerup option
     
