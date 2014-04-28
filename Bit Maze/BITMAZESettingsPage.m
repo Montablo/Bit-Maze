@@ -8,6 +8,11 @@
 
 #import "BITMAZESettingsPage.h"
 #import "BITMAZELinkPages.h"
+@import AVFoundation;
+
+@interface BITMAZESettingsPage ()
+@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+@end
 
 @implementation BITMAZESettingsPage
 
@@ -122,10 +127,19 @@
         [defaults setObject:@"1" forKey:@"sound"];
         
         soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOff"];
+        
+        
     } else {
         [defaults setObject:@"0" forKey:@"sound"];
         
         soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
+        
+        NSError *error;
+        NSURL * backgroundMusicURL = [[NSBundle mainBundle] URLForResource:@"BackgroundMusic" withExtension:@"mp3"];
+        self.backgroundMusicPlayer = [[AVAudioPlayer alloc] initWithContentsOfURL:backgroundMusicURL error:&error];
+        self.backgroundMusicPlayer.numberOfLoops = -1;
+        [self.backgroundMusicPlayer prepareToPlay];
+        [self.backgroundMusicPlayer play];
     }
     
     soundButton.size = CGSizeMake(50, 50);
