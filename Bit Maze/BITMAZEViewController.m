@@ -70,6 +70,8 @@
     
 }
 
+
+
 -(void) checkSound {
     
     NSError *error;
