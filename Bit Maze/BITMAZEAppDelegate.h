@@ -2,7 +2,7 @@
 //  BITMAZEAppDelegate.h
 //  Bit Maze
 //
-//  Created by Galen and Jack on 3/26/14.
+//  Created by Galen, Jack, and Jacob on 3/26/14.
 //  Copyright (c) 2014 Montablo. All rights reserved.
 //  Not any more!
 
