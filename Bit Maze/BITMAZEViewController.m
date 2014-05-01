@@ -8,10 +8,13 @@
 
 #import "BITMAZEViewController.h"
 #import "BITMAZEHomePage.h"
+#import "GCHelper.h"
+#import "AudioPlayer.h"
+
 @import AVFoundation;
 
 @interface BITMAZEViewController ()
-@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
+//@property (nonatomic) AVAudioPlayer * backgroundMusicPlayer;
 @end
 
 @implementation BITMAZEViewController
@@ -56,6 +59,10 @@
         [[UIApplication sharedApplication] setStatusBarHidden:YES withAnimation:UIStatusBarAnimationSlide];
     }
     
+    //[[GCHelper defaultHelper] authenticateLocalUserOnViewController:self setCallbackObject:self withPauseSelector:@selector(authenticationRequired)];
+    //[[GCHelper defaultHelper] registerListener:self];
+    
+    
     // Configure the view.
     SKView * skView = (SKView *)self.view;
     skView.showsFPS = YES;
@@ -70,7 +77,7 @@
     
 }
 
--(void) checkSound {
+/*-(void) checkSound {
     
     NSError *error;
     
@@ -90,7 +97,7 @@
         
     }
     
-}
+}*/
 
 - (BOOL)prefersStatusBarHidden {
     return YES;

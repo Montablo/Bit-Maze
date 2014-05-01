@@ -122,10 +122,16 @@
         [defaults setObject:@"1" forKey:@"sound"];
         
         soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOff"];
+        
+        NSLog(@"%@", [defaults stringForKey:@"sound"]);
+        [[AudioPlayer defaultAudioPlayer] pause];
     } else {
         [defaults setObject:@"0" forKey:@"sound"];
         
         soundButton = [SKSpriteNode spriteNodeWithImageNamed:@"soundOn"];
+        
+        [[AudioPlayer defaultAudioPlayer] play];
+        
     }
     
     soundButton.size = CGSizeMake(50, 50);

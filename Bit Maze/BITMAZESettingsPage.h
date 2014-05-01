@@ -8,6 +8,7 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import "BITMAZEFileReader.h"
+#import "AudioPlayer.h"
 
 @interface BITMAZESettingsPage : SKScene {
     NSUserDefaults *defaults;

@@ -591,12 +591,14 @@ static NSString* COIN_IMG = @"coin";
     [self performSelector:@selector(scrollScreen) withObject:nil afterDelay:gameSpeed];
 }
 
-
+#pragma mark End Game
 -(void) endGame {
     
     int numPrevCoins = [userArray[0][0] intValue];
     
     int newCoins = numPrevCoins + coins;
+    
+    [[GCHelper defaultHelper] reportScore:gameScore forLeaderboardID:kLeaderBoardIdentifier];
     
     userArray[0][0] = [NSString stringWithFormat:@"%i", newCoins];
     

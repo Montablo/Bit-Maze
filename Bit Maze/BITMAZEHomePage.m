@@ -8,12 +8,31 @@
 
 #import "BITMAZEHomePage.h"
 #import "BITMAZELinkPages.h"
+#import "AudioPlayer.h"
 
 @implementation BITMAZEHomePage
 
 -(id)initWithSize:(CGSize)size {
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
+        
+        
+        
+        NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
+        
+        NSLog(@"%@", [defaults stringForKey:@"sound"]);
+        
+        if([defaults stringForKey:@"sound"] == nil) {
+            [defaults setObject:@"0" forKey:@"sound"];
+        }
+        
+        if([[defaults stringForKey:@"sound"] isEqualToString:@"0"]) {
+            
+            
+            
+            [[AudioPlayer defaultAudioPlayer] play];
+            
+        }
         
         //self.backgroundColor = [SKColor colorWithRed:0.1 green:0.7 blue:0.4 alpha:1.0];
         SKSpriteNode *backgroundImage = [SKSpriteNode spriteNodeWithImageNamed:@"HomePageBackground"];
@@ -72,6 +91,7 @@
 
 -(void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event {
     /* Called when a touch begins */
+    
     
     UITouch *touch = [touches anyObject];
     CGPoint location = [touch locationInNode:self];
