@@ -67,7 +67,7 @@
         storeButton.size = CGSizeMake(50, 50);
         storeButton.position = CGPointMake(CGRectGetWidth(self.frame)/3, CGRectGetMaxY(self.frame)/3 - 70);
         
-        SKSpriteNode *scoreButton = [SKSpriteNode spriteNodeWithImageNamed:@"highscore"];
+        SKSpriteNode *scoreButton = [SKSpriteNode spriteNodeWithImageNamed:@"highscores"];
         scoreButton.name = @"scoreButton";
         scoreButton.zPosition = 151;
         scoreButton.size = CGSizeMake(50, 50);
@@ -108,9 +108,8 @@
     } else if([node.name isEqualToString:@"storeButton"]) {
         [BITMAZELinkPages storePage:self];
     } else if([node.name isEqualToString:@"scoreButton"]) {
-        //[BITMAZELinkPages scorePage:self];
         
-        [[GameKitHelper sharedGameKitHelper] showLeaderboardOnViewController:self.scene.view.window.rootViewController];
+        [BITMAZELinkPages scorePage:self];
         
     }
 }

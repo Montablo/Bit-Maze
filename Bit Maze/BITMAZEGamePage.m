@@ -668,7 +668,7 @@ static NSString* COIN_IMG = @"coin";
     storeButton.size = CGSizeMake(50, 50);
     storeButton.position = CGPointMake(CGRectGetMaxX(self.frame)/3, CGRectGetMaxY(self.frame)/3 - 70);
     
-    SKSpriteNode *scoreButton = [SKSpriteNode spriteNodeWithImageNamed:@"highscore"];
+    SKSpriteNode *scoreButton = [SKSpriteNode spriteNodeWithImageNamed:@"highscores"];
     scoreButton.name = @"scoreButton";
     scoreButton.zPosition = 151;
     scoreButton.size = CGSizeMake(50, 50);

@@ -41,8 +41,15 @@
         labelLabel.zPosition = 100;
         labelLabel.position = CGPointMake(CGRectGetMidX(self.frame), titleY+50);
         
+        SKSpriteNode *gamecenterButton = [SKSpriteNode spriteNodeWithImageNamed:@"gamecenter"];
+        gamecenterButton.name = @"gamecenterButton";
+        gamecenterButton.zPosition = 151;
+        gamecenterButton.size = CGSizeMake(50, 50);
+        gamecenterButton.position = CGPointMake(CGRectGetMidX(self.frame), 30);
+        
         [self displayScores];
         
+        [self addChild:gamecenterButton];
         [self addChild:titleLabel];
         [self addChild:backgroundImage];
         [self addChild:homeButton];
@@ -87,6 +94,8 @@
     if ([node.name isEqualToString:@"homeButton"]) {
         //Play button is touched
         [BITMAZELinkPages homePage:self];
+    } else if([node.name isEqualToString:@"gamecenterButton"]) {
+        [[GameKitHelper sharedGameKitHelper] showLeaderboardOnViewController:self.scene.view.window.rootViewController];
     }
 }
 

@@ -9,6 +9,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import "BITMAZELinkPages.h"
 #import "BITMAZEFileReader.h"
+#import "GameKitHelper.h"
 
 @interface BITMAZEScorePage : SKScene {
     
