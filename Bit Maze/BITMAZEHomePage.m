@@ -107,7 +107,10 @@
     } else if([node.name isEqualToString:@"storeButton"]) {
         [BITMAZELinkPages storePage:self];
     } else if([node.name isEqualToString:@"scoreButton"]) {
-        [BITMAZELinkPages scorePage:self];
+        //[BITMAZELinkPages scorePage:self];
+        
+        [[GameKitHelper sharedGameKitHelper] showLeaderboardOnViewController:self.scene.view.window.rootViewController];
+        
     }
 }
 

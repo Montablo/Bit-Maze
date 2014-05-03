@@ -18,7 +18,6 @@
 		0472D6E018EE39A70046757E /* powerups.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0472D6DF18EE39A70046757E /* powerups.txt */; };
 		0481537918EB87BE00AE793C /* BITMAZEScorePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481537818EB87BE00AE793C /* BITMAZEScorePage.m */; };
 		0486DA27191293A100C372C1 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0486DA26191293A100C372C1 /* GameKit.framework */; };
-		0486DA2E19129F5700C372C1 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486DA2D19129F5700C372C1 /* Constants.m */; };
 		04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDE18E721860022ACC9 /* background-music-aac.caf */; };
 		04B8CCE118E721870022ACC9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */; };
 		04D2F39D19146C2B002839D8 /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D2F39C19146C2B002839D8 /* GameKitHelper.m */; };
@@ -70,8 +69,6 @@
 		0481537718EB87BE00AE793C /* BITMAZEScorePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEScorePage.h; sourceTree = "<group>"; };
 		0481537818EB87BE00AE793C /* BITMAZEScorePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEScorePage.m; sourceTree = "<group>"; };
 		0486DA26191293A100C372C1 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		0486DA2C19129F5700C372C1 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
-		0486DA2D19129F5700C372C1 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		04B8CCDE18E721860022ACC9 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
 		04D2F39B19146C2B002839D8 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
@@ -189,8 +186,6 @@
 			isa = PBXGroup;
 			children = (
 				04D2F39A19146C16002839D8 /* GameKit */,
-				0486DA2C19129F5700C372C1 /* Constants.h */,
-				0486DA2D19129F5700C372C1 /* Constants.m */,
 				04E4A30618E25F3700BD87E3 /* BITMAZEAppDelegate.h */,
 				04E4A30718E25F3700BD87E3 /* BITMAZEAppDelegate.m */,
 				04E4A30918E25F3700BD87E3 /* Main.storyboard */,
@@ -376,7 +371,6 @@
 				040226E018E61F710009245C /* BITMAZESettingsPage.m in Sources */,
 				041EE63E1912A3400002E0E4 /* AudioPlayer.m in Sources */,
 				04F8A98E18E3AB5000A34F4D /* BITMAZEHomePage.m in Sources */,
-				0486DA2E19129F5700C372C1 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -613,6 +613,8 @@ static NSString* COIN_IMG = @"coin";
         
     }
     
+    [[GameKitHelper sharedGameKitHelper] reportScore:gameScore forLeaderboardID: @"BM_01"];
+    
     [BITMAZEFileReader storeArray:userArray];
     
     NSLog(@"You lose!");

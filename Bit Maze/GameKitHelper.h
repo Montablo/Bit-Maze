@@ -12,6 +12,7 @@
 @interface GameKitHelper : NSObject
 
 extern NSString *const PresentAuthenticationViewController;
+@property (nonatomic, strong) NSArray* leaderboards;
 
 @property (nonatomic, readonly) UIViewController *authenticationViewController;
 @property (nonatomic, readonly) NSError *lastError;
@@ -19,5 +20,8 @@ extern NSString *const PresentAuthenticationViewController;
 + (instancetype)sharedGameKitHelper;
 
 - (void)authenticateLocalPlayer;
+
+- (void)reportScore:(int64_t)score forLeaderboardID:(NSString*)identifier; //maybe
+- (void)showLeaderboardOnViewController:(UIViewController*)viewController;
 
 @end

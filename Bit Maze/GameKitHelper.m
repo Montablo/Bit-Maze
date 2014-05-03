@@ -12,6 +12,8 @@
     BOOL _enableGameCenter;
 }
 
+NSString* const kLeaderBoardIdentifier = @"Montablo.Bit-Maze";
+
 NSString *const PresentAuthenticationViewController = @"present_authentication_view_controller";
 
 + (instancetype)sharedGameKitHelper
@@ -74,6 +76,47 @@ NSString *const PresentAuthenticationViewController = @"present_authentication_v
         NSLog(@"GameKitHelper ERROR: %@",
               [[_lastError userInfo] description]);
     }
+}
+
+- (void)loadLeaderBoardInfo
+{
+    [GKLeaderboard loadLeaderboardsWithCompletionHandler:^(NSArray *leaderboards, NSError *error) {
+        self.leaderboards = leaderboards;
+    }];
+}
+
+- (void)reportScore:(int64_t)score forLeaderboardID:(NSString*)identifier
+{
+    GKScore *scoreReporter = [[GKScore alloc] initWithLeaderboardIdentifier: identifier];
+    scoreReporter.value = score;
+    scoreReporter.context = 0;
+    
+    [GKScore reportScores:@[scoreReporter] withCompletionHandler:^(NSError *error) {
+        if (error == nil) {
+            NSLog(@"Score reported successfully!");
+        } else {
+            NSLog(@"Unable to report score!");
+        }
+    }];
+}
+
+- (void)showLeaderboardOnViewController:(UIViewController*)viewController
+{
+    GKGameCenterViewController *gameCenterController = [[GKGameCenterViewController alloc] init];
+    if (gameCenterController != nil) {
+        gameCenterController.gameCenterDelegate = self;
+        gameCenterController.viewState = GKGameCenterViewControllerStateLeaderboards;
+        gameCenterController.leaderboardIdentifier = kLeaderBoardIdentifier;
+        
+        [viewController presentViewController: gameCenterController animated: YES completion:nil];
+    }
+}
+
+- (void)gameCenterViewControllerDidFinish:(GKGameCenterViewController *)gameCenterViewController
+{
+    [gameCenterViewController dismissViewControllerAnimated:YES completion:^{
+        
+    }];
 }
 
 

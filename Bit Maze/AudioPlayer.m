@@ -19,7 +19,7 @@ static AudioPlayer *_sharedHelper = nil;
     // dispatch_once will ensure that the method is only called once (thread-safe)
     static dispatch_once_t pred = 0;
     dispatch_once(&pred, ^{
-        _sharedHelper = [[AudioPlayer alloc] initWithFileNamed:kBackgroundMusic numberOfLoops:-1];
+        _sharedHelper = [[AudioPlayer alloc] initWithFileNamed:@"BackgroundMusic.mp4" numberOfLoops:-1];
     });
     return _sharedHelper;
 }

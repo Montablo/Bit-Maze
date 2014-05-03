@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "GameKitHelper.h"
 
 @interface BITMAZEHomePage : SKScene
 
