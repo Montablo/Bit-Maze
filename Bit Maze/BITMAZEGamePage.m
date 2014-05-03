@@ -196,10 +196,10 @@ static NSString* COIN_IMG = @"coin";
             
             [patternOccurences addObject:[NSMutableArray array]];
             
-            NSNumber* numberOfPatternsBefore = [NSNumber numberWithInt: [allLinedStrings[i+1] integerValue]];
+            NSNumber* numberOfPatternsBefore = [NSNumber numberWithInt: (int) [allLinedStrings[i+1] integerValue]];
             [patternOccurences[patternNumber] addObject: numberOfPatternsBefore];
             
-            NSNumber* frequency = [NSNumber numberWithInt: [allLinedStrings[i+2] integerValue]];
+            NSNumber* frequency = [NSNumber numberWithInt: (int) [allLinedStrings[i+2] integerValue]];
             [patternOccurences[patternNumber] addObject: frequency];
             
             i += 2;
@@ -598,8 +598,6 @@ static NSString* COIN_IMG = @"coin";
     
     int newCoins = numPrevCoins + coins;
     
-    [[GCHelper defaultHelper] reportScore:gameScore forLeaderboardID:kLeaderBoardIdentifier];
-    
     userArray[0][0] = [NSString stringWithFormat:@"%i", newCoins];
     
     NSMutableArray* highscores = userArray[1][0];
@@ -633,7 +631,6 @@ static NSString* COIN_IMG = @"coin";
     finalScore.fontSize = 30;
     finalScore.fontColor = [SKColor blackColor];
     finalScore.text = [NSString stringWithFormat:@"Your score: %i", gameScore];
-    
     
     SKLabelNode *highScore = [SKLabelNode labelNodeWithFontNamed:@"Helvetica Neue UltraLight"];
     highScore.position = CGPointMake(CGRectGetMidX(self.frame), 2*CGRectGetMaxY(self.frame)/3);
@@ -942,6 +939,8 @@ static NSString* COIN_IMG = @"coin";
     CGPoint location = [touch locationInNode:self];
     SKNode *node = [self nodeAtPoint:location];
     //NSLog(@"Node name where touch began: %@", node.name);
+    
+    if(gameIsPaused) [self pause];
     
     if ([node.name isEqualToString:@"restartButton"]) {
         //Play button is touched

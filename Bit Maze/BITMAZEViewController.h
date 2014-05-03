@@ -10,6 +10,7 @@
 #import <SpriteKit/SpriteKit.h>
 #import <AVFoundation/AVAudioPlayer.h>
 #import <iAd/iAd.h>
+#import "GameKitHelper.h"
 
 @interface BITMAZEViewController : UIViewController
 

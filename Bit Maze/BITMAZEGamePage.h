@@ -8,7 +8,6 @@
 
 #import <SpriteKit/SpriteKit.h>
 #import <iAd/iAd.h>
-#import "GCHelper.h"
 #import "Constants.h"
 
 @interface BITMAZEGamePage : SKScene <ADBannerViewDelegate>

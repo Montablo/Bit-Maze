@@ -18,10 +18,10 @@
 		0472D6E018EE39A70046757E /* powerups.txt in Resources */ = {isa = PBXBuildFile; fileRef = 0472D6DF18EE39A70046757E /* powerups.txt */; };
 		0481537918EB87BE00AE793C /* BITMAZEScorePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 0481537818EB87BE00AE793C /* BITMAZEScorePage.m */; };
 		0486DA27191293A100C372C1 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0486DA26191293A100C372C1 /* GameKit.framework */; };
-		0486DA2A1912947A00C372C1 /* GCHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486DA291912947A00C372C1 /* GCHelper.m */; };
 		0486DA2E19129F5700C372C1 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 0486DA2D19129F5700C372C1 /* Constants.m */; };
 		04B8CCE018E721870022ACC9 /* background-music-aac.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDE18E721860022ACC9 /* background-music-aac.caf */; };
 		04B8CCE118E721870022ACC9 /* pew-pew-lei.caf in Resources */ = {isa = PBXBuildFile; fileRef = 04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */; };
+		04D2F39D19146C2B002839D8 /* GameKitHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D2F39C19146C2B002839D8 /* GameKitHelper.m */; };
 		04D79C5918E3AFEB0086CF75 /* BITMAZEGamePage.m in Sources */ = {isa = PBXBuildFile; fileRef = 04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */; };
 		04E4A2F618E25F3700BD87E3 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A2F518E25F3700BD87E3 /* Foundation.framework */; };
 		04E4A2F818E25F3700BD87E3 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 04E4A2F718E25F3700BD87E3 /* CoreGraphics.framework */; };
@@ -70,12 +70,12 @@
 		0481537718EB87BE00AE793C /* BITMAZEScorePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEScorePage.h; sourceTree = "<group>"; };
 		0481537818EB87BE00AE793C /* BITMAZEScorePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEScorePage.m; sourceTree = "<group>"; };
 		0486DA26191293A100C372C1 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
-		0486DA281912947A00C372C1 /* GCHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GCHelper.h; sourceTree = "<group>"; };
-		0486DA291912947A00C372C1 /* GCHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GCHelper.m; sourceTree = "<group>"; };
 		0486DA2C19129F5700C372C1 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		0486DA2D19129F5700C372C1 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		04B8CCDE18E721860022ACC9 /* background-music-aac.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "background-music-aac.caf"; sourceTree = "<group>"; };
 		04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "pew-pew-lei.caf"; sourceTree = "<group>"; };
+		04D2F39B19146C2B002839D8 /* GameKitHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GameKitHelper.h; sourceTree = "<group>"; };
+		04D2F39C19146C2B002839D8 /* GameKitHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GameKitHelper.m; sourceTree = "<group>"; };
 		04D79C5718E3AFEB0086CF75 /* BITMAZEGamePage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BITMAZEGamePage.h; sourceTree = "<group>"; };
 		04D79C5818E3AFEB0086CF75 /* BITMAZEGamePage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BITMAZEGamePage.m; sourceTree = "<group>"; };
 		04E4A2F218E25F3700BD87E3 /* Bit Maze.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Bit Maze.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -133,15 +133,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		0486DA2B1912947F00C372C1 /* GameCenter */ = {
-			isa = PBXGroup;
-			children = (
-				0486DA281912947A00C372C1 /* GCHelper.h */,
-				0486DA291912947A00C372C1 /* GCHelper.m */,
-			);
-			name = GameCenter;
-			sourceTree = "<group>";
-		};
 		04B8CCDD18E721860022ACC9 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
@@ -149,6 +140,15 @@
 				04B8CCDF18E721870022ACC9 /* pew-pew-lei.caf */,
 			);
 			path = Sounds;
+			sourceTree = "<group>";
+		};
+		04D2F39A19146C16002839D8 /* GameKit */ = {
+			isa = PBXGroup;
+			children = (
+				04D2F39B19146C2B002839D8 /* GameKitHelper.h */,
+				04D2F39C19146C2B002839D8 /* GameKitHelper.m */,
+			);
+			name = GameKit;
 			sourceTree = "<group>";
 		};
 		04E4A2E918E25F3700BD87E3 = {
@@ -188,13 +188,14 @@
 		04E4A2FD18E25F3700BD87E3 /* Bit Maze */ = {
 			isa = PBXGroup;
 			children = (
+				04D2F39A19146C16002839D8 /* GameKit */,
 				0486DA2C19129F5700C372C1 /* Constants.h */,
 				0486DA2D19129F5700C372C1 /* Constants.m */,
 				04E4A30618E25F3700BD87E3 /* BITMAZEAppDelegate.h */,
 				04E4A30718E25F3700BD87E3 /* BITMAZEAppDelegate.m */,
 				04E4A30918E25F3700BD87E3 /* Main.storyboard */,
-				04E4A30C18E25F3700BD87E3 /* BITMAZEViewController.h */,
 				046A612618E8EA74009CDF8F /* BackgroundMusic.mp3 */,
+				04E4A30C18E25F3700BD87E3 /* BITMAZEViewController.h */,
 				04E4A30D18E25F3700BD87E3 /* BITMAZEViewController.m */,
 				04B8CCDD18E721860022ACC9 /* Sounds */,
 				04E4A31418E25F3700BD87E3 /* Images.xcassets */,
@@ -216,7 +217,6 @@
 				0472D6DF18EE39A70046757E /* powerups.txt */,
 				0439FD4018EE505300EBEA69 /* patterns.txt */,
 				04FFF20818EF90B600A9C189 /* themes.txt */,
-				0486DA2B1912947F00C372C1 /* GameCenter */,
 				041EE63C1912A3400002E0E4 /* AudioPlayer.h */,
 				041EE63D1912A3400002E0E4 /* AudioPlayer.m */,
 			);
@@ -367,6 +367,7 @@
 				0481537918EB87BE00AE793C /* BITMAZEScorePage.m in Sources */,
 				04E4A30418E25F3700BD87E3 /* main.m in Sources */,
 				04E4A30818E25F3700BD87E3 /* BITMAZEAppDelegate.m in Sources */,
+				04D2F39D19146C2B002839D8 /* GameKitHelper.m in Sources */,
 				04E4A30E18E25F3700BD87E3 /* BITMAZEViewController.m in Sources */,
 				04D79C5918E3AFEB0086CF75 /* BITMAZEGamePage.m in Sources */,
 				04FC8F7918EB6CE40012B0BD /* BITMAZEFileReader.m in Sources */,
@@ -375,7 +376,6 @@
 				040226E018E61F710009245C /* BITMAZESettingsPage.m in Sources */,
 				041EE63E1912A3400002E0E4 /* AudioPlayer.m in Sources */,
 				04F8A98E18E3AB5000A34F4D /* BITMAZEHomePage.m in Sources */,
-				0486DA2A1912947A00C372C1 /* GCHelper.m in Sources */,
 				0486DA2E19129F5700C372C1 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
