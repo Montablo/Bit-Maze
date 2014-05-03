@@ -9,6 +9,7 @@
 #import "BITMAZEHomePage.h"
 #import "BITMAZELinkPages.h"
 #import "AudioPlayer.h"
+#import "BITMAZEFileReader.h"
 
 @implementation BITMAZEHomePage
 
@@ -16,7 +17,7 @@
     if (self = [super initWithSize:size]) {
         /* Setup your scene here */
         
-        
+        [BITMAZEFileReader getArray];
         
         NSUserDefaults* defaults = [NSUserDefaults standardUserDefaults];
         
