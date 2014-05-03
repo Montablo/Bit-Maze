@@ -144,7 +144,42 @@ static NSString* COIN_IMG = @"coin";
     
     [self generateGrid];
     
+    [self addSpikes];
+    
     [self updateScreen];
+}
+
+-(void) addSpikes {
+    
+    /*CGSize coverageSize = CGSizeMake(self.frame.size.width, spike.size.height); //the size of the entire image you want tiled
+    CGRect textureSize = CGRectMake(0, 0, spike.size.width, spike.size.height); //the size of the tile.
+    CGImageRef backgroundCGImage = [UIImage imageNamed:@"Spike"].CGImage; //change the string to your image name
+    UIGraphicsBeginImageContext(CGSizeMake(coverageSize.width, coverageSize.height));
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextDrawTiledImage(context, textureSize, backgroundCGImage);
+    UIImage *tiledBackground = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    SKTexture *backgroundTexture = [SKTexture textureWithCGImage:tiledBackground.CGImage];
+    SKSpriteNode *backgroundTiles = [SKSpriteNode spriteNodeWithTexture:backgroundTexture];
+    backgroundTiles.yScale = -1; //upon closer inspection, I noticed my source tile was flipped vertically, so this just flipped it back.
+    backgroundTiles.position = CGPointMake(0, BOTTOM_INDENT);
+    [self addChild:backgroundTiles];*/
+    
+    float x = 0;
+    
+    while (true) {
+        if(x > self.size.width) break;
+        
+        SKSpriteNode *spike = [SKSpriteNode spriteNodeWithImageNamed:@"Spike"];
+        float scaleFactor = 40 / spike.size.height;
+        spike.size = CGSizeMake(spike.size.width * scaleFactor, 20);
+        spike.position = CGPointMake(x, BOTTOM_INDENT - spike.size.height);
+        
+        [self addChild:spike];
+        
+        x += spike.size.width;
+    }
+    
 }
 
 -(void) startGame {
